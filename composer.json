@@ -1,0 +1,32 @@
+{
+    "name": "treestory/treestory",
+    "description": "A community-focused social network.",
+    "authors": [
+        {
+            "name": "Rudy Boullier",
+            "email": "rudy.boullier@etu.univ-lyon1.fr",
+            "role": "Owner"
+        },
+        {
+            "name": "Jonathan Montmain",
+            "email": "jonathan.montmain@etu.univ-lyon1.fr",
+            "role": "Owner"
+        },
+        {
+            "name": "Steve Pennec",
+            "email": "steve.pennec@etu.univ-lyon1.fr",
+            "role": "Owner"
+        },
+        {
+            "name": "Idrissa Sall",
+            "email": "idrissa.sall@etu.univ-lyon1.fr",
+            "role": "Owner"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
