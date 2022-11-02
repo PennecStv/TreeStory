@@ -2,12 +2,14 @@
 
 namespace Routing;
 
+use Exception;
+
 /**
  * Route represents a single Route witch a fixed method, path and callable.
  * 
  * Example usage:
  * ```php
- * new Route(Method::GET, "/", ["HomeController", "home"]);
+ * new Route(\Routing\Method::GET, "/", ["HomeController", "home"]);
  * ```
  * 
  * @author  Jonathan Montmain <jonathan.montmain@etu.univ-lyon1.fr>
@@ -79,7 +81,7 @@ class Route {
      * @return  string              Regular expression that the request should match.
      */
     private function buildRegexFromMatcher(string $path) {
-        if (!preg_match("/[-:\/_{}()a-zA-Z\d]/", $path)) return false;
+        if (!preg_match("/[-:\/_{}()a-zA-Z\d]/", $path)) return "/^never$./";
 
         $regex = preg_replace("/\//", "\/", $path);
         $regex = preg_replace("/:([a-zA-Z0-9\_\-]+)/", "(?<$1>[a-zA-Z0-9\_\-]+)", $regex);
