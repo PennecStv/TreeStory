@@ -24,12 +24,15 @@ require_once(PATH_CONFIG . "debug.php");
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
 
-$router = new \Routing\Router();
+use \Routing\Router;
+use \Routing\Method;
 
-$router->route(\Routing\Method::GET, "/", ["HomeController", "home"]);
-$router->route(\Routing\Method::GET, "/greet/:name", ["HomeController", "greet"]);
+$router = Router::getInstance();
 
-$router->route(\Routing\Method::ERROR, "404", ["ErrorController", "notFound"]);
+$router->route(Method::GET, "/", ["HomeController", "home"]);
+$router->route(Method::GET, "/greet/:name", ["HomeController", "greet"]);
+
+$router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 
 $router->run();
 

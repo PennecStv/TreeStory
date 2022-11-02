@@ -12,7 +12,7 @@ require_once(PATH_UTILS_ROUTING . "Route.php");
  * 
  * Example usage:
  * ```php
- * $router = new \Routing\Router();
+ * $router = \Routing\Router::getInstance();
  * $router->route(Method::GET, "/greet/:name", ["HomeController", "greet"])
  * $router->run();
  * ```
@@ -24,9 +24,31 @@ class Router {
     /**
      * Represents all the registered Routes.
      * 
-     * @see \Routing\Routing
+     * @see \Routing\Route
      */
     private array $routes = [];
+
+    /**
+     * Current instance of Router being used.
+     */
+    private static ?Router $instance = null;
+
+    /**
+     * Creates a Router.
+     */
+    private function __construct() {
+        self::$instance = $this;
+    }
+
+    /**
+     * Gets current instance of Router.
+     * 
+     * @return  Router              Current instance of Router.
+     */
+    public static function getInstance() {
+        if (self::$instance == null) new self();
+        return self::$instance;
+    }
 
     /**
      * Creates a new Route and registers it.
@@ -67,6 +89,21 @@ class Router {
         foreach ($this->routes as $route) {
             if ($route->matchError("404")) {
                 $route->run([]);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Tries to find an error handler for an error and runs it.
+     * 
+     * @param   string  $error      HTTP Error Code.
+     * @param   array   $context    Specific context that can be used by the error handler.
+     */
+    public function throwError(string $error, array $context = []) {
+        foreach ($this->routes as $route) {
+            if ($route->matchError($error)) {
+                $route->run($context);
                 return;
             }
         }
