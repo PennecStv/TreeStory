@@ -24,8 +24,12 @@ require_once(PATH_CONFIG . "debug.php");
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
 
-use \Routing\Router;
-use \Routing\Method;
+use Symfony\Component\Dotenv\Dotenv;
+use Routing\Router;
+use Routing\Method;
+
+$dotenv = new Dotenv();
+$dotenv->loadEnv(PATH_CONFIG . ".env");
 
 $router = Router::getInstance();
 

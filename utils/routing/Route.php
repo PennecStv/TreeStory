@@ -2,8 +2,6 @@
 
 namespace Routing;
 
-use Exception;
-
 /**
  * Route represents a single Route witch a fixed method, path and callable.
  * 
