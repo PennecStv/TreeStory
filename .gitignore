@@ -1,2 +1,5 @@
 # Ignores composer vendor directory
 vendor/
+
+# Ignores local files
+**/*.local
