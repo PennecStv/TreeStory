@@ -1,22 +1,31 @@
 <?php
 
+namespace Database;
+
+/**
+ * Connexion makes the connection between our web site 
+ * and the database
+ * 
+ * @author Idrissa Sall <idrissa.sall@etu.univ-lyon1.fr>
+ */
+
 class Connexion{
+
     private $_bdd = null;
     private static $_instance = null;
 
+    /**
+     * Create a new Connexion with connection constants
+     */
     private function __construct(){
         $this->_bdd = new PDO('mysql:host='.BD_HOST.'; dbname='.BD_DBNAME.'; charset=utf8', BD_USER, BD_PWD);
         $this->_bdd -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION).
     }
 
-    private function __clone(){
-    }
-
-    private function __wakeup(){
-    }
-
     /**
-     * Donne l'instance actuelle et crée une autre si celle-ci est nulle
+     * Gives the current instance and creates another one if this one is null
+     * 
+     * @return  null|_instance              a connexion instance
      */
     public static function getInstance(){
         if(is_null(self::$_instance)){
@@ -26,7 +35,8 @@ class Connexion{
     }
 
     /**
-     * Permet d'obtenir la connexion à la BD
+     * 
+     * @return  null|Connexion     the connection to the Database
      */
     public function getBdd(){
         return $this->_bdd;

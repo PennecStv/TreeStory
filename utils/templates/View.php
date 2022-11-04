@@ -37,7 +37,7 @@ class View {
     public function __construct(string $name) {
         $loader = new \Twig\Loader\FilesystemLoader(PATH_VIEWS);
         $this->environment = new \Twig\Environment($loader, [
-            "debug" => DEBUG,
+            "debug" => strtolower($_ENV['APP_ENV']) == "debug",
         ]);
         $this->name = $name;
     }
