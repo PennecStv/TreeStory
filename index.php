@@ -19,7 +19,6 @@ require_once("./utils/paths.php");
 require_once(PATH_UTILS_TEMPLATES . "module.php");
 require_once(PATH_UTILS_ROUTING . "module.php");
 
-//require_once(PATH_CONFIG . "debug.php");
 
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
