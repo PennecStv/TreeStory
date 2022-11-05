@@ -20,8 +20,8 @@ abstract class DAO{
     }
 
     /**
-     *
-     * @return _erreur               identify the type of error
+     *identify and give the type of error
+     * @return PDOException               
      */
     public function getErreur(){
         return $this->_erreur;
@@ -30,7 +30,7 @@ abstract class DAO{
     /**
      * execute SQL prepared statements
      * 
-     * @return PDOStatement         the query results
+     * @return PDOStatement
      */
     private function _requete($sql, $args = null){
         if($args == null){
@@ -44,9 +44,9 @@ abstract class DAO{
     }
 
     /**
-     * result in a 1D array, single record
+     * query result in a 1D array, single record
      * 
-     * @return false|res            
+     * @return false|PDOStatement            
      */
     public function queryRow($sql, $args = null){
         try {
@@ -64,9 +64,9 @@ abstract class DAO{
     }
 
     /**
-     * result in a 1D array, multiple record
+     * query result in a 2D array, multiple record
      * 
-     * @return false|res 
+     * @return false|PDOStatement 
      */
     public function queryAll($sql, $args = null){
         try {
