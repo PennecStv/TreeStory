@@ -25,7 +25,7 @@ class Connexion{
     /**
      * Gives the current instance and creates another one if this one is null
      * 
-     * @return  null|_instance              a connexion instance
+     * @return  Connexion              a connexion instance
      */
     public static function getInstance(){
         if(is_null(self::$_instance)){
@@ -35,8 +35,8 @@ class Connexion{
     }
 
     /**
-     * 
-     * @return  null|Connexion     the connection to the Database
+     * Gives the PDO instance created in the construct
+     * @return  null|PDO     the connection to the Database
      */
     public function getBdd(){
         return $this->_bdd;
