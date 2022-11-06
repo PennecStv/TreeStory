@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace Database;
 
 require_once(PATH_UTILS_DATABASE.'Connexion.php');
 
