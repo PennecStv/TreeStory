@@ -2,7 +2,7 @@
 
 namespace Models;
 
-require_once(PATH_MODELS.'DAO.php');
+require_once(PATH_UTILS_DATABASE.'DAO.php');
 
 /**
  * It extends from class DAO. It defines methods for 
