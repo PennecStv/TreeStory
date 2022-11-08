@@ -2,106 +2,85 @@
 
 namespace Database;
 
-require_once(PATH_UTILS_DATABASE . "Connection.php");
-
-use \PDOException;
-use \PDOStatement;
+require_once(PATH_UTILS_DATABASE.'Connexion.php');
 
 /**
- * DAO represents a pattern for data operations.
+ * The class is used to prepare queries from the database. 
+ * We can also identify the associated errors
  * 
  * @author Idrissa Sall <idrissa.sall@etu.univ-lyon1.fr>
  */
 
-abstract class DAO {
+abstract class DAO{
+    private $_erreur;
+    private $_debug;
 
-    private $error = null;
-    private $debug;
-
-    /**
-     * Registers a new DAO instance (implemented in another class).
-     * 
-     * @param   bool    $debug  Whether or not the DAO debugs everything.
-     */
     public function __construct($debug){
-        $this->debug = $debug;
+        $this -> _debug = $debug;
     }
 
     /**
-     * Returns the last error or null if none occured.
-     * 
-     * @return  PDOException    PDOException instance representing the last error or null if none occured.
+     *identify and give the type of error
+     * @return PDOException               
      */
-    public function getLastError(){
+    public function getErreur(){
         return $this->_erreur;
     }
 
     /**
-     * Executes given SQL statement with given arguments.
+     * execute SQL prepared statements
      * 
-     * @param   string  $sql    SQL Query String.
-     * @param   array   $args   SQL Query arguments.
-     * 
-     * @return  PDOStatement|false  PDOStatement instance representing the result or false if an error occured.
+     * @return PDOStatement
      */
-    private function execute($sql, $args = null){
-        $db = Connection::getInstance()->getDb();
-
-        if ($args == null) {
-            return $db->query($sql);
-        } else {
-            return $db->prepare($sql)->execute($args);
+    private function _requete($sql, $args = null){
+        if($args == null){
+            $pdos = Connexion::getInstance()->getBdd()->query($sql);
         }
+        else{
+            $pdos = Connexion::getInstance()->getBdd()->prepare($sql);
+            $pdos -> execute($args);
+        }
+        return $pdos;
     }
 
     /**
-     * Executes a given SQL Query String and return the first (only) row.
+     * query result in a 1D array, single record
      * 
-     * @param   string  $sql    SQL Query String.
-     * @param   array   $args   SQL Query arguments.
-     * 
-     * @return  array|false     Request-specific array representing the output of the request or false if an error occured.
+     * @return false|PDOStatement            
      */
     public function queryRow($sql, $args = null){
         try {
-            $pdos = $this->execute($sql, $args);
+            $pdos = $this->_requete($sql, $args);
             $res = $pdos->fetch();
             $pdos->closeCursor();
         } catch (PDOException $err) {
-            if($this->debug) {
-                die($err->getMessage());
+            if($this->_debug){
+                die($err -> getMessage());
             }
-            $this->error = $err;
+            $this->_erreur = 'errreur query';
             $res = false;
         }
-
         return $res;
     }
 
     /**
-     * Executes a given SQL Query String and return the rows.
+     * query result in a 2D array, multiple record
      * 
-     * @param   string  $sql    SQL Query String.
-     * @param   array   $args   SQL Query arguments.
-     * 
-     * @return  array|false     Array of request-specific arrays representing the output of the request, or false if an error occured.
+     * @return false|PDOStatement 
      */
     public function queryAll($sql, $args = null){
         try {
-            $pdos = $this->execute($sql, $args);
+            $pdos = $this->_requete($sql, $args);
             $res = $pdos->fetchAll();
             $pdos->closeCursor();
         } catch (PDOException $err) {
-            if($this->debug){
-                die($err->getMessage());
+            if($this->_debug){
+                die($err -> getMessage());
             }
-            $this->error = $err;
+            $this->_erreur = 'errreur query';
             $res = false;
         }
-
         return $res;
     }
-
 }
-
 ?>
