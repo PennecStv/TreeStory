@@ -19,7 +19,7 @@ class UserDAO extends DAO{
      */
     public function getUser(String $userName){
         $requete = "SELECT * FROM User where UserName = '$userName'";
-        return $this->queryAll($this->$requete);
+        return $this->queryAll($requete);
     }
 }
 
