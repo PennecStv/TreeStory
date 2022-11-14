@@ -3,3 +3,6 @@ vendor/
 
 # Ignores local files
 **/*.local
+
+# Ignores development .htaccess
+.htaccess

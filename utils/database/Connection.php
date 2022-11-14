@@ -18,7 +18,7 @@ class Connection {
      * Create a new Connection with connection constants.
      */
     private function __construct() {
-        $this->db = new PDO('mysql:host='.$_ENV["BD_HOST"].'; dbname='.$_ENV["BD_DBNAME."].'; charset=utf8', $_ENV["BD_USER"], $_ENV["BD_PWD"]);
+        $this->db = new PDO('mysql:host='.$_ENV["BD_HOST"].'; dbname='.$_ENV["BD_DBNAME"].'; charset=utf8', $_ENV["BD_USER"], $_ENV["BD_PWD"]);
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 

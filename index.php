@@ -32,7 +32,6 @@ $dotenv->loadEnv(PATH_CONFIG . ".env");
 $router = Router::getInstance();
 
 $router->route(Method::GET, "/", ["HomeController", "home"]);
-$router->route(Method::GET, "/greet/:name", ["HomeController", "greet"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 
