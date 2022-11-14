@@ -1,11 +1,13 @@
 <?php 
 
+require(PATH_MODELS.'HomeDAO.php');
+use Models\HomeDAO;
+
 /**
- * HomeController is an example for the Routing module.
- * It's made to be modified with a real use-case.
+ * HomeController is the controller of the home page.
  * 
- * @todo        Should be given a real use-case
  * @author      Jonathan Montmain <jonathan.montmain@etu.univ-lyon1.fr>
+ * @author      Rudy Boullier <rudy.boullier@etu.univ-lyon1.fr>
  */
 class HomeController {
 
@@ -13,20 +15,12 @@ class HomeController {
      * Computes the "home" request into a response.
      */
     public static function home() {
-        self::greet([
-            "name" => "World"
-        ]);
-    }
+        $homeDAO = new HomeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
-    /**
-     * Computes the "greet" request into a response.
-     * 
-     * @param   array   $params Parameters of the request
-     */
-    public static function greet(array $params) {
-        $view = new \Templates\View("home.twig");
+        $view = new \Templates\View("home.twig");   
         $view->render([
-            "name" => htmlspecialchars($params["name"])
+            "nbInscrit" => htmlspecialchars($homeDAO->getNbInscrit()),
+            "nbStoryCreate" => htmlspecialchars($homeDAO->getNbStory())
         ]);
     }
 

@@ -1,12 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TreeStory - Accueil</title>
-</head>
-<body>
-    <h1>Hello {{name}}!</h1>
-</body>
-</html>
+{% extends "./base/base.twig" %}
+
+
+{% block title %}TreeStory - Accueil{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="./assets/css/home.css">
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="./assets/scripts/homeScript.js"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div class="carrouselContainer fade">
+      <div class="slides"></div>
+      <div class="slides"></div>
+      <div class="slides"></div>
+
+      <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+      <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
+
+      <div class="dotSelect">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+
+      <div class="text">
+        <h1 class="carrouselTitle">TREESTORY</h1>
+        <div>
+          <p class="carrouselText">TreeStory est un moyen très simple de créer ou de lire des histoires innovantes. Tout cela est possible gâce à la collaboration avec d’autres auteurs. Ces histoires qui évoluent en fonction de votre imagination permet de développer votre créativité.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sliderContainer">
+        <div class="sliderContent">
+            <div class="itemContainer">
+                <div class="iconeBackground"><i class="icon fa-solid fa-pen"></i></div>
+                <h1 class="itemTitle">Créer des histoires</h1>
+                <p class="itemText">Créer des histoires avec votre plume pour développer ou construire de nouveau univers.</p>
+            </div>
+
+            <div class="itemContainer">
+                <div class="iconeBackground"><i class="icon fa-solid fa-book"></i></div>
+                <h1 class="itemTitle">Lire des histoires</h1>
+                <p class="itemText">Lire des histoires inédites créer par vous et les autres pour découvrir de nouveau horizon.</p>
+            </div>
+
+            <div class="itemContainer">
+                <div class="iconeBackground"><i class="icon fa-regular fa-lightbulb"></i></div>
+                <h1 class="itemTitle">Imaginer</h1>
+                <p class="itemText">Imaginer vos propres histoires ou développer celle des autres pour éviter la page blanche.</p>
+            </div>
+
+            <div class="itemContainer">
+                <div class="iconeBackground"><i class="icon fa-solid fa-rocket"></i></div>
+                <h1 class="itemTitle">Explorer</h1>
+                <p class="itemText">Explorer les possibilités des histoires et découvrir des scénarios qui remettent en question les choix.</p>
+            </div>
+        </div>
+
+        <a class="prevSlider" onclick="sliderLeft()"><i class="fa-solid fa-chevron-left"></i></a>
+        <a class="nextSlider" onclick="sliderRight()"><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+
+    <div class="statContainer">
+        <div class="statItemContainer">
+            <h1 class="itemTitle">Nombre d'inscrits</h1>
+            <p class="stat">{{nbInscrit}}</p>
+        </div>
+        <div class="statItemContainer">
+            <h1 class="itemTitle">Nombre de chapitres crées</h1>
+            <p class="stat">{{nbStoryCreate}}</p>
+        </div>
+    </div>
+{% endblock %}
