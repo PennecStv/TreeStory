@@ -19,7 +19,6 @@ require_once("./utils/paths.php");
 require_once(PATH_UTILS_TEMPLATES . "module.php");
 require_once(PATH_UTILS_ROUTING . "module.php");
 
-
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
 
@@ -33,7 +32,6 @@ $dotenv->loadEnv(PATH_CONFIG . ".env");
 $router = Router::getInstance();
 
 $router->route(Method::GET, "/", ["HomeController", "home"]);
-$router->route(Method::GET, "/greet/:name", ["HomeController", "greet"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 
