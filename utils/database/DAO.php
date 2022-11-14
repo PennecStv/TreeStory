@@ -57,7 +57,7 @@ abstract class DAO{
             if($this->_debug){
                 die($err -> getMessage());
             }
-            $this->_erreur = 'errreur query';
+            $this->_erreur = 'Error Query';
             $res = false;
         }
         return $res;
@@ -77,7 +77,7 @@ abstract class DAO{
             if($this->_debug){
                 die($err -> getMessage());
             }
-            $this->_erreur = 'errreur query';
+            $this->_erreur = 'Error Query';
             $res = false;
         }
         return $res;

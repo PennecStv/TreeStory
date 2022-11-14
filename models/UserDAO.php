@@ -12,6 +12,8 @@ require_once(PATH_UTILS_DATABASE.'DAO.php');
  */
 class UserDAO extends DAO{
     
+    /* == Getter == */
+
     /**
      * We access the data of a user knowing his userName
      * 
@@ -20,6 +22,46 @@ class UserDAO extends DAO{
     public function getUser(String $userName){
         $requete = "SELECT * FROM User where UserName = '$userName'";
         return $this->queryAll($this->$requete);
+    }
+
+
+    /* == Setter == */
+
+    /**
+     * Changing the username if the new one doesn't currently exist in the database
+     */
+    public function setUserName(String $userName){
+
+    }
+
+
+    /**
+     * Changing the email of the user to another
+     */
+    public function setMail(String $userName){
+
+    }
+
+    /**
+     * Changing the password of the user to a different valid one
+     */
+    public function setPassword(String $userName){
+
+    }
+
+    /**
+     * Changing the avatar of the user to another image
+     */
+    public function setAvatar(String $userName){
+        
+    }
+
+
+    /**
+     * Making modification to the biography of the user
+     */
+    public function setBiographie(String $userName){
+        
     }
 }
 
