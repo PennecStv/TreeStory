@@ -56,13 +56,6 @@ if(isset($_POST['bouton_connexion'])){
              * Otherwise, the user is told that the password or the UserName is wrong.
              */
             if(password_verify($login_password,$hashpass)){//the password matches
-                $_SESSION['UserName'] = $results[0]['UserName'];
-                $_SESSION['UserMail'] = $results[0]['UserMail'];
-                $_SESSION['UserAvatar'] = $results[0]['UserAvatar'];
-                $_SESSION['UserBiography'] = $results[0]['UserBiography'];
-                $_SESSION['UserMod'] = $results[0]['UserMod'];
-                $_SESSION['UserPassword'] = $results[0]['UserPassword'];
-                $_SESSION['UserCreatedAt'] = $results[0]['UserCreatedAt'];
 
                 header('Location: index.php');//to change by the right link
             }
