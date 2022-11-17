@@ -3,6 +3,7 @@
 namespace Models;
 
 require_once(PATH_UTILS_DATABASE.'DAO.php');
+use Database\DAO;
 
 /**
  * It extends from class DAO. It defines methods for 
@@ -19,7 +20,7 @@ class UserDAO extends DAO{
      */
     public function getUser(String $userName){
         $requete = "SELECT * FROM User where UserName = '$userName'";
-        return $this->queryAll($requete);
+        return $this->queryRow($requete);
     }
 }
 
