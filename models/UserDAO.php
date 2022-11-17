@@ -21,7 +21,7 @@ class UserDAO extends DAO{
      * @return false|PDOStatement        query results
      */
     public function getUser(String $userName){
-        $requete = "SELECT * FROM User where UserName = '$userName'";
+        $requete = "SELECT * FROM User WHERE UserName = '$userName'";
         return $this->queryAll($this->$requete);
     }
 
@@ -31,7 +31,20 @@ class UserDAO extends DAO{
     /**
      * Changing the username if the new one doesn't currently exist in the database
      */
-    public function setUserName(String $userName){
+    public function setUserName(String $oldUserName, String $newUserName){
+
+        /**
+         * Filtre d'UserName à implémenter
+         */
+
+        $userRequete = "SELECT UserName FROM User WHERE UserName = $newUserName";
+        $result = $this -> queryAll($this->$userRequete);
+
+        if ($result->rowCount() > 0 ){
+
+            $updateRequete = "UPDATE user SET UserName = $newUserName WHERE UserName = $oldUserName";
+        
+        }
 
     }
 
@@ -39,16 +52,29 @@ class UserDAO extends DAO{
     /**
      * Changing the email of the user to another
      */
-    public function setMail(String $userName){
+    public function setMail(String $userName, String $newMail){
 
+        /**
+         * Voir validité de l'email
+         */
+
+        $updateRequete = "UPDATE user SET UserMail = $newMail WHERE UserName = $userName";
+        
     }
 
+    
     /**
      * Changing the password of the user to a different valid one
      */
-    public function setPassword(String $userName){
+    public function setPassword(String $userName, String $newPassword){
 
+        /**
+         * Voir validité du mot de passe
+         */
+
+        $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
     }
+
 
     /**
      * Changing the avatar of the user to another image
