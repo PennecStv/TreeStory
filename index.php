@@ -13,7 +13,7 @@
  * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
  */
 
-//require_once("./vendor/autoload.php");
+require_once("./vendor/autoload.php");
 
 require_once("./utils/paths.php");
 require_once(PATH_UTILS_TEMPLATES . "module.php");

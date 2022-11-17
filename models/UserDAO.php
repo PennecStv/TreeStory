@@ -12,6 +12,7 @@ require_once(PATH_UTILS_DATABASE.'DAO.php');
  */
 class UserDAO extends DAO{
     
+    
     /* == Getter == */
 
     /**
