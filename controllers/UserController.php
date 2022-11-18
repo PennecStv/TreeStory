@@ -62,8 +62,9 @@ class UserController{
                     Otherwise, the user is told that the password or the UserName is wrong.
                     */
                     if(password_verify($login_password,$hashpass)){//the password matches
+                        $_SESSION['UserName'] = $results['UserName'];
 
-                        header('Location: index.php');//to change by the right link
+                        header('Location: /');//to change by the right link
                     }
                     //Wrong password
                     else{
@@ -95,7 +96,7 @@ class UserController{
     public static function logout(){
         $_SESSION = array();
         session_destroy();
-        header('Location: '.PATH_CONTROLLERS.'ConnectionController.php');
+        header('Location: /login');
 
     }
 
