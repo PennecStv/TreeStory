@@ -11,37 +11,30 @@ use Models\HomeDAO;
 class ModifController {
 
     /**
-     * Computes the "home" request into a response.
+     * //Pas encore fini
      */
-    public static function modifUser() {
+    public static function modifEmail() {
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         $view = new \Templates\View("v_modification.php");   
         
+        $homeDAO->setMail();
     }
 
 
 
     public static function modifPassword() {
-        $homeDAO = new HomeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
-        $view = new \Templates\View("home.twig");   
-        $view->render([
-            "nbInscrit" => htmlspecialchars($homeDAO->getNbInscrit()),
-            "nbStoryCreate" => htmlspecialchars($homeDAO->getNbStory())
-        ]);
+        $view = new \Templates\View("v_modification.php");  
+
+        $userDAO->setPassword();
     }
 
 
-    
-    public static function modifEmail() {
-        $homeDAO = new HomeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
-        $view = new \Templates\View("home.twig");   
-        $view->render([
-            "nbInscrit" => htmlspecialchars($homeDAO->getNbInscrit()),
-            "nbStoryCreate" => htmlspecialchars($homeDAO->getNbStory())
-        ]);
+    public static function modifUser() {
+ 
     }
 
 }

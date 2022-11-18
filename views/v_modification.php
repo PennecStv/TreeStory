@@ -19,16 +19,10 @@
 		<ul>
 		<?php
 
-        require_once(PATH_CONTROLLERS . "ModifController.php");
-
-        if (isset($_POST['username'], $_POST['password'], $_POST['email']))
+        if (isset($_POST['email']))
         {
             
-            $newUserName = $_POST['username'];
-            $newPassword = $_POST['password'];
-            $newEmail    = $_POST['email'];
-
-
+            $newEmail = $_POST['email'];
             
         }
         ?>

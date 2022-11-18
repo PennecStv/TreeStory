@@ -62,7 +62,7 @@ class UserDAO extends DAO{
         
     }
 
-    
+
     /**
      * Changing the password of the user to a different valid one
      */
@@ -72,7 +72,19 @@ class UserDAO extends DAO{
          * Voir validité du mot de passe
          */
 
-        $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
+        //Password Regex
+        $upperCase      = preg_match('@[A-Z]@', $newPassword);
+        $lowerCase      = preg_match('@[a-z]@', $newPassword);
+        $number         = preg_match('@[0-9]@', $newPassword);
+        $specialChar    = preg_match('@[^\w]@', $newPassword);
+        $passwordLenght = str_length($newPassword) > 7;
+
+        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght){
+            //Password changed succesfully
+            $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
+        } else {
+
+        }
     }
 
 
