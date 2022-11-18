@@ -21,6 +21,7 @@ require_once(PATH_UTILS_ROUTING . "module.php");
 
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
+require_once(PATH_CONTROLLERS . "UserController.php");
 
 use Symfony\Component\Dotenv\Dotenv;
 use Routing\Router;
@@ -32,6 +33,10 @@ $dotenv->loadEnv(PATH_CONFIG . ".env");
 $router = Router::getInstance();
 
 $router->route(Method::GET, "/", ["HomeController", "home"]);
+$router->route(Method::GET, "/login", ["UserController", "login"]);
+$router->route(Method::POST, "/login", ["UserController", "login"]);
+$router->route(Method::GET, "/logout", ["UserController", "logout"]);
+
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 
