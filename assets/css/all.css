@@ -113,7 +113,7 @@
   color: white;
 }
 
-::placeholder {
+#searchbar::placeholder {
   color: white;
   opacity: 1;
 }
