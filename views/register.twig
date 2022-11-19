@@ -1,0 +1,32 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - Profil{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="./assets/css/register.css">
+{% endblock %}
+
+{% block body %}
+<div class="form-registration">
+    <div class="register-card-form">
+        <form method="POST" action="index.php?path=/register">
+            <input type="text"     name="userName"            id="userName"     placeholder="Choisissez votre identifiant"          autocomplete="off">
+            <input type="password" name="userPassword"        id="userPassword" placeholder="Choisissez votre mot de passe"         autocomplete="off">
+            <input type="password" name="confirmUserPassword" id="userPassword" placeholder="Veuillez confirmer votre mot de passe" autocomplete="off">
+            <input type="text"     name="userMail"            id="userMail"     placeholder="Veuillez entrer votre E-mail"          autocomplete="off">
+
+
+            <input type="submit" name="register_bouton" id ="register_bouton" value="Je m'inscris">
+        </form>
+    </div>
+
+    <div>
+
+    </div>
+
+    {% if messageErreur is defined and messageErreur is not empty %}
+        <p class="erreur"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
+    {% endif %}
+
+</div>
+{% endblock %}

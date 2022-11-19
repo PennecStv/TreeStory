@@ -22,6 +22,7 @@ require_once(PATH_UTILS_ROUTING . "module.php");
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
 require_once(PATH_CONTROLLERS . "UserController.php");
+require_once(PATH_CONTROLLERS . "RegisterController.php");
 
 use Symfony\Component\Dotenv\Dotenv;
 use Routing\Router;
@@ -36,6 +37,8 @@ $router->route(Method::GET, "/", ["HomeController", "home"]);
 $router->route(Method::GET, "/login", ["UserController", "login"]);
 $router->route(Method::POST, "/login", ["UserController", "login"]);
 $router->route(Method::GET, "/logout", ["UserController", "logout"]);
+$router->route(Method::GET, "/register", ["RegisterController", "register"]);
+$router->route(Method::POST, "/register", ["RegisterController", "register"]);
 
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
