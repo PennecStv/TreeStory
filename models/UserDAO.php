@@ -118,9 +118,7 @@ class UserDAO extends DAO{
         $specialChar    = preg_match('@[^\w]@', $password);
         $passwordLenght = strlen($password) > 7;
 
-        echo ($upperCase + $lowerCase + $number + $specialChar + $passwordLenght);
-
-        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght){
+        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght){ //En remplaçant les && par des +, on obtient 5 si tout est vérifié
             return true;
         } else {
             return false;

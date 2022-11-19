@@ -23,7 +23,7 @@ class RegisterController{
         $messageErreur = "";
 
 
-        if(isset($_POST['register_bouton'])){
+        if(isset($_POST['register-bouton'])){
 
             extract($_POST);
 
