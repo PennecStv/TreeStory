@@ -1,14 +1,34 @@
 <?php 
 
-require(PATH_MODELS.'HomeDAO.php');
-use Models\HomeDAO;
+require_once(PATH_MODELS.'UserDAO.php');
+use Models\UserDAO;
 
 /**
  * ModifController is the controller of the Modification page.
  * 
  * @author      Steve Pennec <steve.pennec@etu.univ-lyon1.fr>
  */
-class ModifController {
+class ModifProfilController {
+
+    public static function modification(){
+        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+
+        $messageErreur = "";
+
+        if(isset($_POST['register-button'])){
+
+            extract($_POST);
+
+        }
+
+
+        $view = new \Templates\View("modification.twig");
+        $view->render([
+            "messageErreur" => $messageErreur
+        ]);
+    }
+
+
 
     /**
      * //Pas encore fini
@@ -16,8 +36,6 @@ class ModifController {
     public static function modifEmail() {
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
-        $view = new \Templates\View("v_modification.php");   
-        
         $homeDAO->setMail();
     }
 
@@ -25,8 +43,6 @@ class ModifController {
 
     public static function modifPassword() {
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-
-        $view = new \Templates\View("v_modification.php");  
 
         $userDAO->setPassword();
     }

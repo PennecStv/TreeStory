@@ -21,9 +21,10 @@ class RegisterController{
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         $messageErreur = "";
+        $messageSucces = "";
 
 
-        if(isset($_POST['register-bouton'])){
+        if(isset($_POST['register-button'])){
 
             extract($_POST);
 
@@ -56,6 +57,7 @@ class RegisterController{
 
                         else {
                             $result = $userDAO->insertUser($userName, $password, $email);
+                            $messageSucces = "Compte créé avec succès !";
                         }
                     }
                 }
@@ -70,7 +72,8 @@ class RegisterController{
         
         $view = new \Templates\View("register.twig");   
         $view->render([
-            "messageErreur" => $messageErreur
+            "messageErreur" => $messageErreur,
+            "messageSucces" => $messageSucces
         ]);
     }
 }

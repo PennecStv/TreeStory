@@ -1,21 +1,23 @@
 {% extends "./base/base.twig" %}
 
-{% block title %}TreeStory - Profil{% endblock %}
+{% block title %}TreeStory - Modification Profil{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="./assets/css/login.css">
+<link rel="stylesheet" href="./assets/css/modificationProfil.css">
 {% endblock %}
+
 
 {% block body %}
 <div class="form-modification">
-    <div class="login-card-form">
-        <form method="post" action="index.php">
-            <input type="text" name="modif_userName"     id="modif_userName" placeholder="" autocomplete="off">
-            <input type="password" name="modif_password" id="modif_password" placeholder="" autocomplete="off">
-            <input type="text" name="modif_mail"         id="modif_mail"     placeholder="" autocomplete="off">
+    <div class="modification-card-form">
+        <form method="post" action="index.php?path=/modification">
+            <input type="text" name="modif_userName"     id="modif_userName" placeholder="Choisissez un nouvel identifiant"   autocomplete="off">
+            <input type="password" name="modif_password" id="modif_password" placeholder="Choisissez un nouveau mot de passe" autocomplete="off">
+            <input type="text" name="modif_mail"         id="modif_mail"     placeholder="Choisissez un nouvel E-mail"        autocomplete="off">
 
+            <input type="file" name="modif_Avatar" id = "modif_Avatar">
 
-            <input type="submit" name="modif_bouton" id ="modif_bouton" value="Enregistrer les modifications">
+            <button type="submit" class="modif-button" name="modif-button" id="modif-button">Enregistrer les modifications</button>
         </form>
     </div>
 
@@ -23,12 +25,6 @@
         <p class="erreur"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
     {% endif %}
 
-    <div class="forgot-password">
-        <a href="#" title="Réinitialiser mon mot de passe">Mot de passe oublié ?</a>
-    </div>
-
-    <div class="login-card-footer">
-        <p>Vous n'avez pas de compte ? <a href="#" title="Je m'inscris">Inscrivez-vous</a><p>
-    </div>
 </div>
 {% endblock %}
+

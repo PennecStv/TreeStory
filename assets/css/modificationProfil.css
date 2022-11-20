@@ -2,23 +2,23 @@ form {
     width: 300px;
 }
 
-.form-registration {
+.form-modification {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     margin-top: 15vh;
 }
 
-.register-card-form {
+.modification-card-form {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     padding-top: 20px;
 } 
 
-.register-button{
+.modif-button{
     margin-top: 1vh;
     background-color: #273469;
     color: #FAFAFF;
@@ -30,7 +30,7 @@ form {
     font-size: 18px;
 }
 
-input#userName, input#userPassword, input#confirmUserPassword, input#userMail {
+input#modif_userName, input#modif_password, input#modif_mail {
     border: 1px solid #000000;
     margin-bottom: 10px;
     width: 100%;

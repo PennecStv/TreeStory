@@ -36,7 +36,20 @@ class UserDAO extends DAO{
      * @return false|PDOStatement        query results
      */
     public function getUser(String $userName){
-        $requete = "SELECT * FROM User where UserName = '$userName'";
+        $requete = "SELECT * FROM user where UserName = '$userName'";
+        return $this->queryRow($requete);
+    }
+
+    /**
+     * 
+     */
+    public function getPassword(String $userName){
+        $requete = "SELECT UserPassword FROM user where UserName = '$userName'";
+        return $this->queryRow($requete);
+    }
+
+    public function getBiography(String $userName){
+        $requete = "SELECT UserBiography FROM user where UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -48,14 +61,7 @@ class UserDAO extends DAO{
      */
     public function setUserName(String $oldUserName, String $newUserName){
 
-        $userRequete = "SELECT UserName FROM User WHERE UserName = $newUserName";
-        $result = $this -> queryAll($this->$userRequete);
-
-        if ($result->rowCount() > 0 ){
-
-            $updateRequete = "UPDATE User SET UserName = $newUserName WHERE UserName = $oldUserName";
-        
-        }
+        $updateRequete = "UPDATE user SET UserName = $newUserName WHERE UserName = $oldUserName";
 
     }
 
@@ -69,7 +75,7 @@ class UserDAO extends DAO{
          * Voir validité de l'email
          */
 
-        $updateRequete = "UPDATE User SET UserMail = $newMail WHERE UserName = $userName";
+        $updateRequete = "UPDATE user SET UserMail = $newMail WHERE UserName = $userName";
         
     }
 
@@ -77,34 +83,28 @@ class UserDAO extends DAO{
     /**
      * Changing the password of the user to a different valid one
      */
-    public function setPassword(String $userName, String $oldPassword, String $newPassword){
+    public function setPassword(String $userName, String $newPassword){
 
-        if (verifPassword($newPassword)){
+        $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
 
-            if ($newPassword != $oldPassword){
-            
-            }
-
-            //Password changed succesfully
-            $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
-        } else {
-
-        }
     }
 
 
     /**
      * Changing the avatar of the user to another image
      */
-    public function setAvatar(String $userName){
+    public function setAvatar(String $userName, String $userAvatar){
         
+        $updateRequete = "UPDATE user SET UserAvatar = $userAvatar WHERE UserName = $userName";
     }
 
 
     /**
      * Making modification to the biography of the user
      */
-    public function setBiographie(String $userName){
+    public function setBiography(String $userName, String $newBiography){
+
+        $updateRequete = "UPDATE user SET User = $userBiography WHERE UserName = $userName";
         
     }
 
@@ -123,6 +123,11 @@ class UserDAO extends DAO{
         } else {
             return false;
         }
+    }
+
+    public static function verifEmail($password){
+        //Email Regex
+
     }
 }
 
