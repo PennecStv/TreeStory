@@ -36,7 +36,7 @@ class UserDAO extends DAO{
      * @return false|PDOStatement        query results
      */
     public function getUser(String $userName){
-        $requete = "SELECT * FROM user where UserName = '$userName'";
+        $requete = "SELECT * FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -44,12 +44,23 @@ class UserDAO extends DAO{
      * 
      */
     public function getPassword(String $userName){
-        $requete = "SELECT UserPassword FROM user where UserName = '$userName'";
+        $requete = "SELECT UserPassword FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
+    /**
+     * 
+     */
+    public function getMail(String $userName){
+        $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
+        return $this->queryRow($requete);
+    }
+
+    /**
+     * 
+     */
     public function getBiography(String $userName){
-        $requete = "SELECT UserBiography FROM user where UserName = '$userName'";
+        $requete = "SELECT UserBiography FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -61,7 +72,9 @@ class UserDAO extends DAO{
      */
     public function setUserName(String $oldUserName, String $newUserName){
 
-        $updateRequete = "UPDATE user SET UserName = $newUserName WHERE UserName = $oldUserName";
+        $updateRequete = "UPDATE user SET UserName = '$newUserName' WHERE UserName = '$oldUserName'";
+
+        $this->queryRow($updateRequete);
 
     }
 
@@ -75,8 +88,9 @@ class UserDAO extends DAO{
          * Voir validité de l'email
          */
 
-        $updateRequete = "UPDATE user SET UserMail = $newMail WHERE UserName = $userName";
+        $updateRequete = "UPDATE user SET UserMail = '$newMail' WHERE UserName = '$userName'";
         
+        $this->queryRow($updateRequete);
     }
 
 
@@ -85,8 +99,9 @@ class UserDAO extends DAO{
      */
     public function setPassword(String $userName, String $newPassword){
 
-        $updateRequete = "UPDATE user SET UserPassword = $newPassword WHERE UserName = $userName";
+        $updateRequete = "UPDATE user SET UserPassword = '$newPassword' WHERE UserName = '$userName'";
 
+        $this->queryRow($updateRequete);
     }
 
 
@@ -95,7 +110,9 @@ class UserDAO extends DAO{
      */
     public function setAvatar(String $userName, String $userAvatar){
         
-        $updateRequete = "UPDATE user SET UserAvatar = $userAvatar WHERE UserName = $userName";
+        $updateRequete = "UPDATE user SET UserAvatar = '$userAvatar' WHERE UserName = '$userName'";
+
+        $this->queryRow($updateRequete);
     }
 
 
@@ -104,12 +121,17 @@ class UserDAO extends DAO{
      */
     public function setBiography(String $userName, String $newBiography){
 
-        $updateRequete = "UPDATE user SET User = $userBiography WHERE UserName = $userName";
-        
+        $updateRequete = "UPDATE user SET UserBiography = '$newBiography' WHERE UserName = '$userName'";
+
+        $this->queryRow($updateRequete);
     }
 
 
+    /* == Methods == */
 
+    /**
+     * 
+     */
     public static function verifPassword($password){
         //Password Regex
         $upperCase      = preg_match('@[A-Z]@', $password);

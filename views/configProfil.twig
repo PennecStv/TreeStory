@@ -1,0 +1,44 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - Configuration Profil{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="./assets/css/configProfil.css">
+{% endblock %}
+
+
+{% block body %}
+<div class="form-config">
+    <div class="config-card-form">
+        <form method="post" action="index.php?path=/configProfil">
+
+            <label>Identifiant :</label>
+            <input type="text" name="modif_userName"     id="modif_userName" placeholder="Choisissez un nouvel identifiant" autocomplete="off" value = {{userName}}>
+
+            <label>Mot de passe :</label>
+            <input type="password" name="modif_password" id="modif_password" placeholder="Choisissez un nouveau mot de passe" autocomplete="off">
+
+            <label>E-mail :</label>
+            <input type="text" name="modif_mail"         id="modif_mail"     placeholder="Choisissez un nouvel E-mail"        autocomplete="off"  value = {{userMail}}>
+
+            <label>Image de profil :</label>
+            <input type="file" name="modif_Avatar"       id = "modif_Avatar">
+
+            <label>Biographie :</label>
+            <input type="text" name="modif_Bio"          id = "modif_Bio"    placeholder="Biographie"                         autocomplete="off"  value = {{userBio }}>
+
+            <button type="submit" class="modif-button" name="modif-button" id="modif-button">Enregistrer les modifications</button>
+        </form>
+    </div>
+
+    {% if messageErreur is defined and messageErreur is not empty %}
+        <p class="erreur"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
+    {% endif %}
+
+    {% if messageSucces is defined and messageSucces is not empty %}
+        <p class="succes"><i class="fas fa-info-circle"></i> <span>{{ messageSucces }}</span></p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
