@@ -1,17 +1,57 @@
-const inputUserName        = document.getElementById("userName");
+const inputUserName  = document.getElementById("userName");
 inputUserName.addEventListener("change", fUserName);
 
-const inputUserPassword    = document.getElementById("userPassword");
-inputUserPassword.addEventListener("change", fUserPassword);
+
+const inputUserPassword = document.getElementById("userPassword");
+inputUserPassword.addEventListener("change", FormValidation);
+
 
 const inputconfirmPassword = document.getElementById("confirmUserPassword");
-inputconfirmPassword.addEventListener("change", fConfirmPassword);
-
-const inputUserMail        = document.getElementById("userMail");
-inputUserMail.addEventListener("change", fUserMail);
+inputconfirmPassword.addEventListener("change", FormValidation);
 
 
+const inputUserMail = document.getElementById("userMail");
+inputUserMail.addEventListener("change", FormValidation);
 
+
+const registerButton = document.getElementById("register-button");
+
+
+const arrayError = [];
+
+
+var result;
+
+
+
+/**
+ * 
+ */
+function FormValidation(){
+    let validPassword = false;
+    let validConfirm  = false;
+    let validMail     = false;
+
+    if (inputUserPassword.value){
+        validPassword = fUserPassword();
+    }    
+
+    if (inputconfirmPassword.value){
+        validConfirm = fConfirmPassword();
+    }
+
+    if (inputUserMail.value){
+        validMail = fUserMail();
+    }
+
+    registerButton.disabled = !(validPassword && validConfirm && validMail);
+
+}
+
+
+/**
+ * 
+ */
 function fUserName(){
     let userName = inputUserName.value;
     
@@ -22,49 +62,71 @@ function fUserName(){
 }
 
 
+/**
+ * 
+ * @returns 
+ */
 function fUserPassword(){
     let userPassword = inputUserPassword.value;
     
     let regexPswd = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-    console.log(regexPswd.test(userPassword));
-
     if (!regexPswd.test(userPassword)){
-        console.log(userPassword);
-        
-        document.getElementById("errorPassword").innerHTML = "<i class='fas fa-info-circle'></i> <span>Votre mot de passe ne respecte pas les conditions requises.</span>";
+        arrayError[2] = "<i class='fas fa-info-circle'></i> <span>Votre mot de passe ne respecte pas les conditions requises.</span>";
+        result = false;
+
     } else {
-        document.getElementById("errorPassword").innerHTML = "";
+        arrayError.splice(2, 1);
+        result = true;
     }
+    
+    console.log(arrayError);
+    document.getElementById("errorMessage").innerHTML = arrayError.slice(-1);
+    return result;
 }
 
 
+/**
+ * 
+ * @returns 
+ */
 function fConfirmPassword(){
     let userPassword    = inputUserPassword.value;
     let confirmPassword = inputconfirmPassword.value;
-    let errorMessage = document.getElementById("errorPassword");
-    
+
     if (userPassword !== confirmPassword){
-        if (errorMessage.innerHTML.length == 0){
-            console.log(errorMessage.innerHTML.length);
-            errorMessage.innerHTML = "<i class='fas fa-info-circle'></i> <span>Les mots de passe doivent être identiques.</span>";
-        }
+        arrayError[1] = "<i class='fas fa-info-circle'></i> <span>Les mots de passe doivent être identiques.</span>";
+        result = false;
+
     } else {
-        errorMessage.innerHTML = "";
+        arrayError.splice(1, 1);
+        result = true;
     }
+
+    document.getElementById("errorMessage").innerHTML = arrayError.slice(-1);
+    return result;
 }
 
 
+/**
+ * 
+ * @returns 
+ */
 function fUserMail(){
     let userMail = inputUserMail.value;
     
     let regexMail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-
+    
+    
     if (!regexMail.test(userMail)){
-        
-        document.getElementById("errorPassword").innerHTML = "<i class='fas fa-info-circle'></i> <span>Votre E-mail n'est pas valide.</span>";
+        arrayError[0] = "<i class='fas fa-info-circle'></i> <span>Votre E-mail n'est pas valide.</span>";
+        result = false;
+
     } else {
-        document.getElementById("errorPassword").innerHTML = "";
+        arrayError.splice(0, 1);
+        result = true;
     }
 
+    document.getElementById("errorMessage").innerHTML = arrayError.slice(-1);
+    return result;
 }

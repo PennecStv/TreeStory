@@ -1,3 +1,52 @@
+.register-intro {
+    height: 25vh;
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-title {
+    margin: 0.25rem 0;
+    font-size: 2.5rem;
+}
+
+.register-text {
+    margin: 0.5rem 0;
+    font-size: 22px;
+}
+
+/* Drop animation Class*/
+.overflow-hidden {
+overflow: hidden;
+}
+
+.drop-in {
+    animation: drop-in 1s ease 200ms backwards;
+}
+
+.drop-in-2 {
+    animation: drop-in 1200ms ease 500ms backwards;
+}
+
+.drop-in-3 {
+    animation: drop-in 1200ms ease 1000ms backwards;
+}
+
+/*Keyframes*/
+@keyframes drop-in {
+from {
+    opacity: 0;
+    transform: translateY(-100px);
+}
+to {
+    opacity: 1;
+    transform: translate(0px);
+}
+}
+
+
 form {
     width: 300px;
 }
@@ -8,17 +57,17 @@ form {
     align-content: center;
     justify-content: center;
     align-items: center;
-    margin-top: 15vh;
+    margin-top: 1vh;
 }
 
 .register-card-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 10px;
 } 
 
-.register-button{
+.register-button {
     margin-top: 1vh;
     background-color: #273469;
     color: #FAFAFF;
@@ -28,6 +77,17 @@ form {
     height: 60px;
     border-radius: 30px;
     font-size: 18px;
+    transition: 0.5s;
+}
+
+.register-button:disabled{
+    background-color: #FAFAFF;
+    color: #30343F;
+}
+
+.register-button:hover:enabled{
+    background-color: #1E2749;
+    color: #E4D9FF;
 }
 
 input#userName, input#userPassword, input#confirmUserPassword, input#userMail {
@@ -40,11 +100,21 @@ input#userName, input#userPassword, input#confirmUserPassword, input#userMail {
     padding-left: 10px;
 }
 
+
+.register-card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+    
+}
+
 .erreur {
     margin-top: 4vh;
     font-weight: 600;
     color: red;
     align-self: center;
+    padding-bottom: 10px;
 }
 
 .succes {

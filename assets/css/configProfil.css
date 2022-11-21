@@ -30,7 +30,7 @@ form {
     font-size: 18px;
 }
 
-input#modif_userName, input#modif_password, input#modif_mail {
+input#modif_userName, input#modif_passsword, input#modif_mail {
     border: 1px solid #000000;
     margin-bottom: 10px;
     width: 100%;

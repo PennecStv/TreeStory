@@ -56,7 +56,8 @@ class RegisterController{
                         */
 
                         else {
-                            $result = $userDAO->insertUser($userName, $password, $email);
+                            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                            $result = $userDAO->insertUser($userName, $hashedPassword, $email);
                             $messageSucces = "Compte créé avec succès !";
                         }
                     }

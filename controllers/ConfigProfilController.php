@@ -20,8 +20,6 @@ class ConfigProfilController {
         $actualEmail     = $userDAO->getMail("John")[0];
         $actualBiography = $userDAO->getBiography("John")[0];
 
-        $messageSucces = $actualBiography;
-
         $userName  = $actualUserName;
         $email     = $actualEmail;
         $biography = $actualBiography;
@@ -44,14 +42,12 @@ class ConfigProfilController {
                 }
             }
 
-            /*
+            
             if (!empty($password)){
-                if ($userName !== $actualUserName){
-                    $userDAO->setPassword($actualUserName, $userName);
-                    $messageSucces = "Modification effectuée avec succès!";
-                }
+                    $hashedPassword = password_hash($password, 10);
+                    $userDAO->setPassword($userName, $hashedPassword);
             }
-            */
+            
 
             if (!empty($email)){
                 if ($email !== $actualEmail){
@@ -72,8 +68,8 @@ class ConfigProfilController {
 
 
             if (empty($messageErreur)){
-                //  $messageSucces = "Modification effectuée avec succès!";
-                //$messageSucces = $biography;
+                $messageSucces = "Modification effectuée avec succès!";
+
             }
         }
 
@@ -88,32 +84,6 @@ class ConfigProfilController {
             "userBio"       => htmlspecialchars_decode($actualBiography) 
         ]);
     }
-
-
-
-    /**
-     * //Pas encore fini
-     */
-    public static function modifEmail() {
-        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-
-        $homeDAO->setMail();
-    }
-
-
-
-    public static function modifPassword() {
-        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-
-        $userDAO->setPassword();
-    }
-
-
-
-    public static function modifUser() {
- 
-    }
-
 }
 
 ?>
