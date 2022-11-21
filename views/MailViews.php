@@ -51,7 +51,7 @@
         $date = date("Y-m-d H:i:s");
         $tomorrow  = mktime(date("H")+24, date("i"), date("s"), date("m") , date("d"), date("Y"));
 
-        $userDao->setUser("UserTokenExpirationDate",date("Y-m-d H:i:s",$tomorrow),$login_forgot_password);
+        $userDao->setUser("UserTokenExpirationAt",date("Y-m-d H:i:s",$tomorrow),$login_forgot_password);
         $userDao->setUser("UserToken",$token,$login_forgot_password);
 
         $messageErreur = "Veuiller vérifier vos e-mails pour réinitialiser votre mot de passe.";

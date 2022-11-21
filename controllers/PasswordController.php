@@ -106,7 +106,7 @@ class PasswordController{
         if(!empty($results) && !empty($tokenFromURL)){
 
             $tokenFromBDD = $results['UserToken'];
-            $expirationDate = $results['UserTokenExpirationDate'];
+            $expirationDate = $results['UserTokenExpirationAt'];
 
             /*
             We check if the token in the URL has match in our data base
@@ -137,11 +137,11 @@ class PasswordController{
                     $userDao->setUser("UserPassword",$hash,$results['UserName']);
 
                     /*
-                    We change the UserToken and UserTokenExpirationDate colmun 
+                    We change the UserToken and UserTokenExpirationAt colmun 
                     to their default value.
                     */
                     $userDao->setUser("UserToken",null,$results['UserName']);
-                    $userDao->setUser("UserTokenExpirationDate",date("Y-m-d H:i:s",0),$results['UserName']);
+                    $userDao->setUser("UserTokenExpirationAt",date("Y-m-d H:i:s",0),$results['UserName']);
 
                     $messageErreur ="Votre nouveau mot de passe a bien été enregistré.";
                 }
