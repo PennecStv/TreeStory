@@ -18,34 +18,41 @@ class ConfigProfilController {
 
 
         $results = $userDAO->getUser("John",null);
-        $actualUserName  = $results['Username'];
+        $actualUserName  = $results['UserName'];
         $actualEmail     = $results['UserMail'];
         $actualAvatar    = $results['UserAvatar'];
         $actualBiography = $results['UserBiography'] ;
 
         $userName  = $actualUserName;
         $email     = $actualEmail;
+        $avatar    = $actualAvatar;
+        $biography = $actualBiography;
 
-        /*
+        if (empty($avatar)){
+            $avatar = "./assets/images/user.png";
+        }
+
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
 
-            if(isset($_POST['modif_button'])){
-                //extract($_POST);
+            if (isset($_POST['modif_button'])){
+                extract($_POST);
 
                 $userName        = htmlspecialchars($modif_userName);
                 //$password        = htmlspecialchars($modif_password);
                 $email           = htmlspecialchars($modif_mail);
                 $avatar          = htmlspecialchars($modif_avatar);
                 $biography       = htmlspecialchars($modif_bio);
-        */
 
-        if (!empty($userName)){
-            if ($userName !== $actualUserName){
-                if (empty($userDAO->getUser($userName,null))){
-                    $userDAO->setUserName($actualUserName, $userName);
+                if (!empty($userName)){
+                    if ($userName !== $actualUserName){
+                        if (empty($userDAO->getUser($userName,null))){
+                            $userDAO->setUserName($actualUserName, $userName);
+                        }
+                    }
                 }
-                
+                        
                 if (!empty($password)){
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                         $userDAO->setPassword($userName, $hashedPassword);
@@ -75,9 +82,8 @@ class ConfigProfilController {
 
                 }
             }
-
-
-            else {
+            
+            if (isset($_POST['supp_button'])){
                 $userName        = "";
                 $email           = "";
                 $avatar          = "";
@@ -86,7 +92,6 @@ class ConfigProfilController {
                 $userDAO->deleteUser($actualUserName);
                 $messageSucces = "Utilisateur supprimé !";
             }
-
         }
 
         $view = new \Templates\View("configProfil.twig");
