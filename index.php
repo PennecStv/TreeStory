@@ -13,6 +13,8 @@
  * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
  */
 
+session_start();
+
 require_once("./vendor/autoload.php");
 
 require_once("./utils/paths.php");
@@ -22,6 +24,7 @@ require_once(PATH_UTILS_ROUTING . "module.php");
 require_once(PATH_CONTROLLERS . "HomeController.php");
 require_once(PATH_CONTROLLERS . "ErrorController.php");
 require_once(PATH_CONTROLLERS . "UserController.php");
+require_once(PATH_CONTROLLERS . "PasswordController.php");
 require_once(PATH_CONTROLLERS . "RegisterController.php");
 require_once(PATH_CONTROLLERS . "ConfigProfilController.php");
 
@@ -36,9 +39,16 @@ $router = Router::getInstance();
 
 $router->route(Method::GET, "/", ["HomeController", "home"]);
 
+
 $router->route(Method::GET, "/login", ["UserController", "login"]);
 $router->route(Method::POST, "/login", ["UserController", "login"]);
 $router->route(Method::GET, "/logout", ["UserController", "logout"]);
+
+$router->route(Method::GET, "/forgotPassword", ["PasswordController", "forgotPassword"]);
+$router->route(Method::POST, "/forgotPassword", ["PasswordController", "forgotPassword"]);
+
+$router->route(Method::GET, "/resetPassword", ["PasswordController", "resetPassword"]);
+$router->route(Method::POST, "/resetPassword", ["PasswordController", "resetPassword"]);
 
 $router->route(Method::GET, "/register", ["RegisterController", "register"]);
 $router->route(Method::POST, "/register", ["RegisterController", "register"]);
