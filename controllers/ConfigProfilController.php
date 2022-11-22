@@ -31,62 +31,70 @@ class ConfigProfilController {
             $avatar = "./assets/images/user.png";
         }
 
-        if(isset($_POST['modif_button'])){
-            extract($_POST);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
 
-            $userName        = htmlspecialchars($modif_userName);
-            //$password        = htmlspecialchars($modif_password);
-            $email           = htmlspecialchars($modif_mail);
-            $avatar          = htmlspecialchars($modif_avatar);
-            $biography       = htmlspecialchars($modif_bio);
+            if(isset($_POST['modif_button'])){
+                //extract($_POST);
+
+                $userName        = htmlspecialchars($modif_userName);
+                //$password        = htmlspecialchars($modif_password);
+                $email           = htmlspecialchars($modif_mail);
+                $avatar          = htmlspecialchars($modif_avatar);
+                $biography       = htmlspecialchars($modif_bio);
 
 
-            if (!empty($userName)){
-                if ($userName !== $actualUserName){
-                    if (empty($userDAO->getUser($userName))){
-                        $userDAO->setUserName($actualUserName, $userName);
+                if (!empty($userName)){
+                    if ($userName !== $actualUserName){
+                        if (empty($userDAO->getUser($userName))){
+                            $userDAO->setUserName($actualUserName, $userName);
+                        }
                     }
                 }
-            }
 
-            
-            if (!empty($password)){
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $userDAO->setPassword($userName, $hashedPassword);
-            }
-            
+                
+                if (!empty($password)){
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                        $userDAO->setPassword($userName, $hashedPassword);
+                }
+                
 
-            if (!empty($email)){
-                if ($email !== $actualEmail){
-                    $userDAO->setMail($userName, $email);
+                if (!empty($email)){
+                    if ($email !== $actualEmail){
+                        $userDAO->setMail($userName, $email);
+                    }
+                }
+
+
+                if (!empty($avatar)){
+                    $userDAO->setAvatar($userName, $avatar);
+                }
+
+                if (!empty($biography)){
+                    if ($biography !== $actualBiography){
+                        $userDAO->setBiography($userName, $biography);
+                    }
+                }
+
+
+                if (empty($messageErreur)){
+                    $messageSucces = "Modification effectuée avec succès!";
+
                 }
             }
 
 
-            if (!empty($avatar)){
-                $userDAO->setAvatar($userName, $avatar);
+            else {
+                $userName        = "";
+                $email           = "";
+                $avatar          = "";
+                $biography       = "";
+
+                $userDAO->deleteUser($actualUserName);
+                $messageSucces = "Utilisateur supprimé !";
             }
 
-            if (!empty($biography)){
-                if ($biography !== $actualBiography){
-                    $userDAO->setBiography($userName, $biography);
-                }
-            }
-
-
-            if (empty($messageErreur)){
-                $messageSucces = "Modification effectuée avec succès!";
-
-            }
         }
-
-
-        if(isset($_POST['confirm_button'])){
-            extract($_POST);
-            $userDAO->deleteUser($actualUserName);
-        }
-
-        
 
         $view = new \Templates\View("configProfil.twig");
         $view->render([

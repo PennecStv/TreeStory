@@ -95,6 +95,7 @@ textarea#modif_bio{
     border-radius: 10px;
     font-size: 16px;
     padding-left: 10px;
+    resize: none;
 }
 
 .erreur {
