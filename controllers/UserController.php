@@ -1,6 +1,5 @@
 <?php
 
-
 require_once(PATH_MODELS.'UserDAO.php');
 use Models\UserDAO;
 
@@ -31,7 +30,7 @@ class UserController{
             extract($_POST);
 
             /*
-            We retrieve the data of the two input fields.
+            We retrieve the data of the two inputs fields.
             */
             $login_identifiant = htmlspecialchars($login_identifiant);
             $login_password = htmlspecialchars($login_password);
@@ -44,7 +43,7 @@ class UserController{
             if(!empty($login_identifiant) && !empty($login_password)){
 
                 //We retrieve the data of the user having this UserName (ID).
-                $results = $userDao->getUser($login_identifiant);
+                $results = $userDao->getUser($login_identifiant,null);
 
                 /*
                 We check if the variable $results is not empty.
@@ -64,13 +63,12 @@ class UserController{
                     if(password_verify($login_password,$hashpass)){//the password matches
                         $_SESSION['UserName'] = $results['UserName'];
 
-                        header('Location: /');//to change by the right link
+                        header('Location: /');
                     }
                     //Wrong password
                     else{
                         $messageErreur = "Identifiant ou mot de passe incorrect";
                     }
-
                 }
                 //account does not exist
                 else{ 
@@ -86,8 +84,9 @@ class UserController{
         
         $view = new \Templates\View("login.twig");   
         $view->render([
-            "messageErreur" => $messageErreur
+            "messageErreur" => $messageErreur,
         ]);
+
     }
 
     /**
