@@ -26,6 +26,14 @@ class UserDAO extends DAO{
     }
 
 
+    /**
+     * 
+     */
+    public function deleteUser(String $userName){
+        $requete = "DELETE FROM user WHERE UserName = '$userName'";
+        
+        $this->queryRow($requete);
+    }
 
     
     /* == Getter == */
@@ -55,6 +63,15 @@ class UserDAO extends DAO{
         $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
+
+    /**
+     * 
+     */
+    public function getAvatar(String $userName){
+        $requete = "SELECT UserAvatar FROM user WHERE UserName = '$userName'";
+        return $this->queryRow($requete);
+    }
+
 
     /**
      * 

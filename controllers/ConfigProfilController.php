@@ -16,22 +16,29 @@ class ConfigProfilController {
         $messageErreur = "";
         $messageSucces = "";
 
+        //Replace "John" with the loged User
         $actualUserName  = $userDAO->getUser("John")[0];
         $actualEmail     = $userDAO->getMail("John")[0];
+        $actualAvatar    = $userDAO->getAvatar("John")[0];
         $actualBiography = $userDAO->getBiography("John")[0];
 
         $userName  = $actualUserName;
         $email     = $actualEmail;
+        $avatar    = $actualAvatar;
         $biography = $actualBiography;
 
-        if(isset($_POST['modif-button'])){
+        if (empty($avatar)){
+            $avatar = "./assets/images/user.png";
+        }
+
+        if(isset($_POST['modif_button'])){
             extract($_POST);
 
             $userName        = htmlspecialchars($modif_userName);
-            $password        = htmlspecialchars($modif_password);
+            //$password        = htmlspecialchars($modif_password);
             $email           = htmlspecialchars($modif_mail);
-            $avatar          = htmlspecialchars($modif_Avatar);
-            $biography       = htmlspecialchars($modif_Bio);
+            $avatar          = htmlspecialchars($modif_avatar);
+            $biography       = htmlspecialchars($modif_bio);
 
 
             if (!empty($userName)){
@@ -44,7 +51,7 @@ class ConfigProfilController {
 
             
             if (!empty($password)){
-                    $hashedPassword = password_hash($password, 10);
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $userDAO->setPassword($userName, $hashedPassword);
             }
             
@@ -73,6 +80,12 @@ class ConfigProfilController {
             }
         }
 
+
+        if(isset($_POST['confirm_button'])){
+            extract($_POST);
+            $userDAO->deleteUser($actualUserName);
+        }
+
         
 
         $view = new \Templates\View("configProfil.twig");
@@ -81,7 +94,8 @@ class ConfigProfilController {
             "messageSucces" => $messageSucces,
             "userName"      => $userName,
             "userMail"      => $email,
-            "userBio"       => htmlspecialchars_decode($actualBiography) 
+            "userAvatar"    => $avatar,
+            "userBio"       => $actualBiography
         ]);
     }
 }
