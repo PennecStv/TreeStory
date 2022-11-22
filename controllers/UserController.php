@@ -44,7 +44,7 @@ class UserController{
             if(!empty($login_identifiant) && !empty($login_password)){
 
                 //We retrieve the data of the user having this UserName (ID).
-                $results = $userDao->getUser($login_identifiant);
+                $results = $userDao->getUser($login_identifiant,null);
 
                 /*
                 We check if the variable $results is not empty.

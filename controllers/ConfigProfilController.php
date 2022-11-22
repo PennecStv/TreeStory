@@ -17,10 +17,11 @@ class ConfigProfilController {
         $messageSucces = "";
 
         //Replace "John" with the loged User
-        $actualUserName  = $userDAO->getUser("John")[0];
-        $actualEmail     = $userDAO->getMail("John")[0];
-        $actualAvatar    = $userDAO->getAvatar("John")[0];
-        $actualBiography = $userDAO->getBiography("John")[0];
+        $results = $userDAO->getUser("John",null);
+        $actualUserName  = $results['Username'];
+        $actualEmail     = $results['UserMail'];
+        $actualAvatar    = $results['UserAvatar'];
+        $actualBiography = $results['UserBiography'] ;
 
         $userName  = $actualUserName;
         $email     = $actualEmail;
@@ -46,7 +47,7 @@ class ConfigProfilController {
 
                 if (!empty($userName)){
                     if ($userName !== $actualUserName){
-                        if (empty($userDAO->getUser($userName))){
+                        if (empty($userDAO->getUser($userName,null))){
                             $userDAO->setUserName($actualUserName, $userName);
                         }
                     }

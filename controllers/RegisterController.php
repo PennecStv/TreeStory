@@ -37,7 +37,7 @@ class RegisterController{
 
             if(!empty($userName) && !empty($password) && !empty($confirmPassword) && !empty($email)){
 
-                $verifUser = $userDAO->getUser($userName);
+                $verifUser = $userDAO->getUser($userName,null);
 
                 if (!empty($verifUser)){
                     $messageErreur = "Identifiant déjà existant.";
