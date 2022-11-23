@@ -22,6 +22,8 @@ const arrayError = [];
 
 var result;
 
+const regexMail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+const regexPswd = new RegExp(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!§*$@%_£ù#])([-+§!*$@%_£ù#\w]{8,})$/);
 
 
 /**
@@ -69,7 +71,7 @@ function fUserName(){
 function fUserPassword(){
     let userPassword = inputUserPassword.value;
     
-    let regexPswd = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    //let regexPswd = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
     if (!regexPswd.test(userPassword)){
         arrayError[2] = "<i class='fas fa-info-circle'></i> <span>Votre mot de passe ne respecte pas les conditions requises.</span>";
@@ -115,7 +117,7 @@ function fConfirmPassword(){
 function fUserMail(){
     let userMail = inputUserMail.value;
     
-    let regexMail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+    //let regexMail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
     
     
     if (!regexMail.test(userMail)){
@@ -130,3 +132,26 @@ function fUserMail(){
     document.getElementById("errorMessage").innerHTML = arrayError.slice(-1);
     return result;
 }
+
+
+(function(){
+    inputUserName.addEventListener("change",function(){
+        let id = inputUserName.value;
+        inputUserName.style.border= (id === "" ? "2px solid red" : "2px solid green")
+    });
+
+    inputUserPassword.addEventListener("change",function(){
+        let mdp = inputUserPassword.value;
+        inputUserPassword.style.border= (!regexPswd.test(mdp) ? "2px solid red" : "2px solid green")
+    });
+
+    inputconfirmPassword.addEventListener("change",function(){
+        inputconfirmPassword.style.border= (!fConfirmPassword() ? "2px solid red" : "2px solid green")
+    });
+
+    inputUserMail.addEventListener("change",function(){
+        let mel = inputUserMail.value;
+        inputUserMail.style.border= (!regexMail.test(mel) ? "2px solid red" : "2px solid green")
+    });
+  
+})();
