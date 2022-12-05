@@ -16,18 +16,20 @@ class ConfigProfilController {
         $messageErreur = "";
         $messageSucces = "";
 
-
-        $results = $userDAO->getUser("John",null);
+        //Retrieve the actual data of the user in order to save them for configuration and show the actual data on the page
+        $results = $userDAO->getUser("John", null);
         $actualUserName  = $results['UserName'];
         $actualEmail     = $results['UserMail'];
         $actualAvatar    = $results['UserAvatar'];
         $actualBiography = $results['UserBiography'] ;
 
+        //Giving the actual data to variables that we will use for the configuration
         $userName  = $actualUserName;
         $email     = $actualEmail;
         $avatar    = $actualAvatar;
         $biography = $actualBiography;
 
+        //Set a default User Picture
         if (empty($avatar)){
             $avatar = "./assets/images/user.png";
         }
@@ -35,64 +37,73 @@ class ConfigProfilController {
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
-
+            //If the user click on the modification button
             if (isset($_POST['modif_button'])){
                 extract($_POST);
 
                 $userName        = htmlspecialchars($modif_userName);
-                //$password        = htmlspecialchars($modif_password);
                 $email           = htmlspecialchars($modif_mail);
                 $avatar          = htmlspecialchars($modif_avatar);
                 $biography       = htmlspecialchars($modif_bio);
 
+                //Setting all the modification on the database
                 if (!empty($userName)){
                     if ($userName !== $actualUserName){
                         if (empty($userDAO->getUser($userName,null))){
-                            $userDAO->setUserName($actualUserName, $userName);
+                            $userDAO->setUser('UserName', $userName, $actualUserName);
                         }
                     }
                 }
-                        
+                 
+                /*
                 if (!empty($password)){
                         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                        $userDAO->setPassword($userName, $hashedPassword);
+                        $userDAO->setUser($userName, $hashedPassword);
                 }
-                
+                */
 
                 if (!empty($email)){
                     if ($email !== $actualEmail){
-                        $userDAO->setMail($userName, $email);
+                        $userDAO->setUser('UserMail', $email, $userName);
                     }
                 }
 
-
                 if (!empty($avatar)){
-                    $userDAO->setAvatar($userName, $avatar);
+                    $userDAO->setUser('UserAvatar', $avatar, $userName);
                 }
 
                 if (!empty($biography)){
                     if ($biography !== $actualBiography){
-                        $userDAO->setBiography($userName, $biography);
+                        $userDAO->setUser('UserBiography', $biography, $userName);
                     }
                 }
 
-
-                if (empty($messageErreur)){
-                    $messageSucces = "Modification effectuée avec succès!";
-
-                }
+                $messageSucces = "Modification effectuée avec succès!";
             }
             
-            if (isset($_POST['supp_button'])){
-                $userName        = "";
-                $email           = "";
-                $avatar          = "";
-                $biography       = "";
 
-                $userDAO->deleteUser($actualUserName);
-                $messageSucces = "Utilisateur supprimé !";
+            //If the user click on the confirm button of the DELETE USER Modal
+            if (isset($_POST['confirm_button'])){
+                extract($_POST);
+                $hashpass = $results['UserPassword'];
+
+                //Verify the password for safety
+                if(password_verify($confirm_password,$hashpass)){
+                    $userName        = "";
+                    $email           = "";
+                    $avatar          = "";
+                    $biography       = "";
+
+                    $userDAO->deleteUser($actualUserName);
+                    $messageSucces = "Utilisateur supprimé !";
+                }
+                //Wrong password
+                else{
+                    $messageErreur = "Mot de passe incorrect";
+                }
             }
         }
+
 
         $view = new \Templates\View("configProfil.twig");
         $view->render([

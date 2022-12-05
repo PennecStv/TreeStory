@@ -15,7 +15,9 @@ use Database\DAO;
 class UserDAO extends DAO{
     
     /**
+     * Insert a User into the Database
      * 
+     * @return false|PDOStatement        query results
      */
     public function insertUser(String $userName, String $userPassword, String $userMail){
 
@@ -27,7 +29,9 @@ class UserDAO extends DAO{
 
 
     /**
+     * Delete a User from the Database
      * 
+     * @return false|PDOStatement        query results
      */
     public function deleteUser(String $userName){
         $requete = "DELETE FROM user WHERE UserName = '$userName'";
@@ -36,6 +40,7 @@ class UserDAO extends DAO{
     }
 
     
+
     /* == Getter == */
 
     /**
@@ -59,13 +64,12 @@ class UserDAO extends DAO{
     }
 
 
-    public function getUserr(String $userName){
-        $requete = "SELECT * FROM user WHERE UserName = '$userName'";
-        return $this->queryRow($requete);
-    }
-
     /**
+     * Get the hashed password of a specific user
      * 
+     * @param String    the Username of the user
+     * 
+     * @return false|PDOStatement        query results
      */
     public function getPassword(String $userName){
         $requete = "SELECT UserPassword FROM user WHERE UserName = '$userName'";
@@ -73,7 +77,11 @@ class UserDAO extends DAO{
     }
 
     /**
+     * Get the mail of a specific user
      * 
+     * @param String    the Username of the user
+     * 
+     * @return false|PDOStatement        query results
      */
     public function getMail(String $userName){
         $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
@@ -81,7 +89,11 @@ class UserDAO extends DAO{
     }
 
     /**
+     * Get the profil picture of a specific user
      * 
+     * @param String    the Username of the user
+     * 
+     * @return false|PDOStatement        query results
      */
     public function getAvatar(String $userName){
         $requete = "SELECT UserAvatar FROM user WHERE UserName = '$userName'";
@@ -90,7 +102,11 @@ class UserDAO extends DAO{
 
 
     /**
+     * Get the biography of a specific user
      * 
+     * @param String    the Username of the user
+     * 
+     * @return false|PDOStatement        query results
      */
     public function getBiography(String $userName){
         $requete = "SELECT UserBiography FROM user WHERE UserName = '$userName'";
@@ -101,48 +117,13 @@ class UserDAO extends DAO{
     /* == Setter == */
 
     /**
-     * Changing the username if the new one doesn't currently exist in the database
-     */
-    public function setUserName(String $oldUserName, String $newUserName){
-
-        $updateRequete = "UPDATE user SET UserName = '$newUserName' WHERE UserName = '$oldUserName'";
-
-        $this->queryRow($updateRequete);
-
-    }
-
-
-    /**
-     * Changing the email of the user to another
-     */
-    public function setMail(String $userName, String $newMail){
-
-        /**
-         * Voir validité de l'email
-         */
-
-        $updateRequete = "UPDATE user SET UserMail = '$newMail' WHERE UserName = '$userName'";
-        
-        $this->queryRow($updateRequete);
-    }
-
-
-    /**
-     * Changing the password of the user to a different valid one
-     */
-    public function setPassword(String $userName, String $newPassword){
-
-        $updateRequete = "UPDATE user SET UserPassword = '$newPassword' WHERE UserName = '$userName'";
-
-        $this->queryRow($updateRequete);
-    }
-
-    /**
      * We modify a single column of table User.
      * 
      * @param String    the column we need to set.
      * @param String    the value.
      * @param String    the condition that we want to satisfy in the WHERE.
+     * 
+     * @return false|PDOStatement        query results
      */
     public function setUser($column, $value, $condition){
         $requete = "UPDATE User SET $column = '$value' WHERE UserName = '$condition'";
@@ -150,6 +131,8 @@ class UserDAO extends DAO{
     }
 
 
+
+    /* == Useful Methods == */
     /**
      * gives a string for the password reset token.
      * 
@@ -170,31 +153,9 @@ class UserDAO extends DAO{
 
 
     /**
-     * Changing the avatar of the user to another image
-     */
-    public function setAvatar(String $userName, String $userAvatar){
-              
-        $updateRequete = "UPDATE user SET UserAvatar = '$userAvatar' WHERE UserName = '$userName'";
-
-        $this->queryRow($updateRequete);
-    }
-
-
-    /**
-     * Making modification to the biography of the user
-     */
-    public function setBiography(String $userName, String $newBiography){
-
-        $updateRequete = "UPDATE user SET UserBiography = '$newBiography' WHERE UserName = '$userName'";
-
-        $this->queryRow($updateRequete);
-    }
-
-
-    /* == Methods == */
-
-    /**
+     * Verify if the password contains all required characters and length.
      * 
+     * @return Boolean True if the password pass the regex, False if not
      */
     public static function verifPassword($password){
         //Password Regex

@@ -1,3 +1,4 @@
+/* Register text */
 .register-intro {
     height: 25vh;
     max-width: 1000px;
@@ -17,36 +18,40 @@
     font-size: 22px;
 }
 
-/* Drop animation Class*/
+/* Drop animation Class */
 .overflow-hidden {
-overflow: hidden;
+    overflow: hidden;
+    animation-iteration-count: 1;
 }
 
+/* Element to drop first */
 .drop-in {
     animation: drop-in 1s ease 200ms backwards;
 }
 
+/* Element to drop in second */
 .drop-in-2 {
     animation: drop-in 1200ms ease 500ms backwards;
 }
 
+/* Element to drop in third */
 .drop-in-3 {
     animation: drop-in 1200ms ease 1000ms backwards;
 }
 
-/*Keyframes*/
+/*Keyframes for drop animation */
 @keyframes drop-in {
-from {
-    opacity: 0;
-    transform: translateY(-100px);
-}
-to {
-    opacity: 1;
-    transform: translate(0px);
-}
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0px);
+    }
 }
 
-
+/* Register form */
 form {
     width: 300px;
 }
@@ -80,6 +85,7 @@ form {
     transition: 0.5s;
 }
 
+/* Buttons */
 .register-button:disabled{
     background-color: #FAFAFF;
     color: #30343F;
@@ -87,9 +93,11 @@ form {
 
 .register-button:hover:enabled{
     background-color: #1E2749;
+    cursor: pointer;
     color: #E4D9FF;
 }
 
+/* Input fields */
 input#userName, input#userPassword, input#confirmUserPassword, input#userMail {
     border: 1px solid #000000;
     margin-bottom: 10px;
@@ -100,7 +108,7 @@ input#userName, input#userPassword, input#confirmUserPassword, input#userMail {
     padding-left: 10px;
 }
 
-
+/* Messages */
 .register-card-footer {
     display: flex;
     justify-content: center;

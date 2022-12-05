@@ -6,7 +6,7 @@ use Models\UserDAO;
 
 /**
  * This class is the registration controller.
- *
+ * 
  *
  * 
  * @author  Steve Pennec   <steve.pennec@etu.univ-lyon1.fr>
@@ -26,55 +26,44 @@ class RegisterController{
 
         if(isset($_POST['register-button'])){
 
+            //Extracting the data the user put in the register form.
             extract($_POST);
-
 
             $userName        = htmlspecialchars($userName);
             $password        = htmlspecialchars($userPassword);
             $confirmPassword = htmlspecialchars($confirmUserPassword);
             $email           = htmlspecialchars($userMail);
 
-
+            /* Checking if all the fields aren't empty */
             if(!empty($userName) && !empty($password) && !empty($confirmPassword) && !empty($email)){
 
+                //Verify if the userName does already exist
                 $verifUser = $userDAO->getUser($userName,null);
-
                 if (!empty($verifUser)){
                     $messageErreur = "Identifiant déjà existant.";
 
                 } else {
-                    if (!($userDAO->verifPassword($password))){
-                        $messageErreur = "Votre mot de passe ne respecte pas les conditions requises.";
+                    //Hashing the password before sending it to the database for security reason
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $result = $userDAO->insertUser($userName, $hashedPassword, $email);
 
-                    } else {
-                        if ($password !== $confirmPassword){
-                            $messageErreur = "Le mot de passe est différent du celui ci-dessus";
-                        }
-
-                        /**
-                        * Vérification E-mail
-                        */
-
-                        else {
-                            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                            $result = $userDAO->insertUser($userName, $hashedPassword, $email);
-                            $messageSucces = "Compte créé avec succès !";
-                        }
-                    }
+                    //Account created
+                    //$messageSucces = "Compte créé avec succès !";
+                    header('Location: ?path=/'); //Redirect to home page
                 }
             }
                 
-            //empty fields
+            //Empty fields
             else{
                 $messageErreur = "Veuillez remplir tous les champs";
             }
- 
         }
         
+
         $view = new \Templates\View("register.twig");   
         $view->render([
             "messageErreur" => $messageErreur,
-            "messageSucces" => $messageSucces
+            //"messageSucces" => $messageSucces
         ]);
     }
 }
