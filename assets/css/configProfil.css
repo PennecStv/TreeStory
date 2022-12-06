@@ -1,0 +1,229 @@
+form#form-config, .delete-button {
+    width: 300px;
+    margin-left: 20px;
+}
+
+.form-config {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: left;
+    margin-top: 10vh;
+}
+
+.config-card-form {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+} 
+
+.modif_button, .pswd_button{
+    margin-top: 1vh;
+    background-color: #273469;
+    color: #FAFAFF;
+    border: 1px solid #000000;
+    padding: 0px 0px 0px 2px;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.supp_button{
+    margin-top: 1vh;
+    background-color: #B2222B;
+    color: #FAFAFF;
+    border: 1px solid #000000;
+    padding: 0px 0px 0px 2px;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.modif_button:hover:enabled, .pswd_button:hover:enabled{
+    background-color: #1E2749;
+    color: #E4D9FF;
+    cursor: pointer;
+}
+
+.supp_button:hover:enabled{
+    background-color: #8b0000;
+    color: #E4D9FF;
+    cursor: pointer;
+}
+
+label{
+    margin: 0.5rem 0;
+    font-size: 18px;
+}
+
+input#modif_userName, input#modif_password, input#modif_confirmPassword, input#modif_mail {
+    border: 1px solid #000000;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+label#modif_avatar{
+    cursor: pointer;
+    color: #273469;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+label#modif_avatar:hover{
+    color: #1E2749;
+}
+
+input#modif_avatar{
+    display: None;
+}
+
+
+textarea#modif_bio{
+    border: 1px solid #000000;
+    margin-bottom: 10px;
+    width: 150vh;
+    height: 80vh;
+    border-radius: 10px;
+    font-size: 16px;
+    padding-left: 10px;
+    resize: none;
+}
+
+.erreur {
+    margin-top: 4vh;
+    font-weight: 600;
+    color: red;
+    align-self: center;
+}
+
+.succes {
+    margin-top: 4vh;
+    font-weight: 600;
+    color: green;
+    align-self: center;
+}
+
+
+/* Confirmation Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    border-radius: 5%;
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+  
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+  
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    padding: 2px 16px;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.modal-header {
+    padding: 40px 16px;
+    background-color: #273469;
+    color: #FAFAFF;
+    text-align: center;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center; 
+}
+
+
+input#confirm_password{
+    border: 1px solid #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;
+    border-radius: 30px;
+    font-size: 16px;
+    
+}
+
+
+.confirm_button{
+    margin-top: 1vh;
+    background-color: #273469;
+    color: #FAFAFF;
+    border: 1px solid #000000;
+    padding: 0px 0px 0px 2px;
+    width: 100px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.cancel_button{
+    margin-top: 1vh;
+    background-color: #30343F;
+    color: #FAFAFF;
+    border: 1px solid #000000;
+    padding: 0px 0px 0px 2px;
+    width: 100px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: 0.5s;
+}
