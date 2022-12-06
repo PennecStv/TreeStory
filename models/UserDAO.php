@@ -52,7 +52,7 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getUser($condition,$column){
+    public function getUser($condition, $column){
         if($column == "token"){
             $requete = "SELECT * FROM User WHERE UserToken = '$condition'";
         }

@@ -196,7 +196,7 @@ registerButton.addEventListener('click', function(){
 });
 
 //Prevent CSS animation when the page is reload
-if (performance.body.type === performance.body.TYPE_RELOAD) {
+if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     registerIntroTitle.classList.remove("drop-in");
     registerIntroText.classList.remove("drop-in-2");
     registerIntroForm.classList.remove("drop-in-3");
