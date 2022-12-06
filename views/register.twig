@@ -1,0 +1,60 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - Profil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="./assets/css/register.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="./assets/scripts/registerScript.js"></script>
+{% endblock %}
+
+
+{% block body %}
+<!-- Texte d'introduction -->
+<div class="register-intro">
+    <div class="overflow-hidden">
+        <h1 class="register-title drop-in">Une nouvelle graine dans cette fôret d'histoires...</h1>
+    </div>
+    
+    <div class="overflow-hidden">
+        <p class="register-text drop-in-2">Plusieurs histoires n'attendent plus que vous ! Plantez, lisez et imaginez avec notre communauté.</p>
+    </div>
+</div>
+
+<!-- Formulaire d'inscription -->
+<div class="form-registration drop-in-3">
+    <div class="register-card-form">
+        <form method="POST" action="/register">
+            <input type="text"     name="userName"            id="userName"            placeholder="Choisissez votre identifiant"          autocomplete="off">
+            <input type="password" name="userPassword"        id="userPassword"        placeholder="Choisissez votre mot de passe"         autocomplete="off">
+            <input type="password" name="confirmUserPassword" id="confirmUserPassword" placeholder="Veuillez confirmer votre mot de passe" autocomplete="off">
+            <input type="text"     name="userMail"            id="userMail"            placeholder="Veuillez entrer votre E-mail"          autocomplete="off">
+
+            <button type="submit" class="register-button" name="register-button" id="register-button" disabled>Je m'inscris</button>
+        </form>
+    </div>
+
+    <!-- Message d'erreur lors du remplissage du formulaire -->
+    <div>
+        <p class="erreur" id="errorMessage"></p>
+    </div>
+    
+    <!-- Message d'erreur lors de la création -->
+    {% if messageErreur is defined and messageErreur is not empty %}
+        <p class="erreur"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
+    {% endif %}
+
+    {% if messageSucces is defined and messageSucces is not empty %}
+        <p class="succes"><span>{{ messageSucces }}</span></p>
+    {% endif %}
+    
+    <!-- Lien de redirection vers login -->
+    <div class="register-card-footer">
+        <p>Vous êtes déjà inscrit? <a href="/login" title="Je me connecte">Je me connecte</a><p>
+    </div>
+
+
+</div>
+{% endblock %}
