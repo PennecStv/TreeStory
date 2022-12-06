@@ -172,31 +172,6 @@ function fUserMail(){
 }
 
 
-/*
-(function(){
-    inputUserName.addEventListener("change",function(){
-        let id = inputUserName.value;
-        inputUserName.style.border= (id === "" ? "2px solid red" : "2px solid green")
-    });
-
-    inputUserPassword.addEventListener("change",function(){
-        let mdp = inputUserPassword.value;
-        inputUserPassword.style.border= (!regexPswd.test(mdp) ? "2px solid red" : "2px solid green")
-    });
-
-    inputconfirmPassword.addEventListener("change",function(){
-        inputconfirmPassword.style.border= (!fConfirmPassword() ? "2px solid red" : "2px solid green")
-    });
-
-    inputUserMail.addEventListener("change",function(){
-        let mel = inputUserMail.value;
-        inputUserMail.style.border= (!regexMail.test(mel) ? "2px solid red" : "2px solid green")
-    });
-  
-})();
-*/
-
-
 /* === LocalStorage === */
 //Retrieve the data when the page refresh
 inputUserName.addEventListener("input", function(){
@@ -221,22 +196,9 @@ registerButton.addEventListener('click', function(){
 });
 
 //Prevent CSS animation when the page is reload
-if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+if (performance.body.type === performance.body.TYPE_RELOAD) {
     registerIntroTitle.classList.remove("drop-in");
     registerIntroText.classList.remove("drop-in-2");
     registerIntroForm.classList.remove("drop-in-3");
     console.log("This page is reloaded");
 };
-
-//check for Navigation Timing API support
-/*
-if (window.performance) {
-    console.info("window.performance works fine on this browser");
-  }
-  console.info(performance.navigation.type);
-  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-    console.info( "This page is reloaded" );
-  } else {
-    console.info( "This page is not reloaded");
-  }
-  */

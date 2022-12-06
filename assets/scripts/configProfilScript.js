@@ -1,15 +1,15 @@
 // Get the modal
-var modal = document.getElementById("delete-Modal");
+const modal = document.getElementById("delete-Modal");
 
 // Get the button that opens the modal
-var suppButton = document.getElementById("supp_button");
+const suppButton = document.getElementById("supp_button");
 
-var confirmButton =  document.getElementById("confirm_button");
+const confirmButton =  document.getElementById("confirm_button");
 
-var cancelButton =  document.getElementById("cancel_button");
+const cancelButton =  document.getElementById("cancel_button");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 suppButton.onclick = function() {
