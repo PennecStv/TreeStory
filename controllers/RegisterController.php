@@ -49,7 +49,7 @@ class RegisterController{
 
                     //Account created
                     //$messageSucces = "Compte créé avec succès !";
-                    header('Location: ?path=/'); //Redirect to home page
+                    header('Location: /'); //Redirect to home page
                 }
             }
                 
