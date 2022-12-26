@@ -31,7 +31,7 @@ const arrayError = [];
 
 var result;
 
-//Regular Expression for Mail
+//Regular Expression for Mail following RFC 5322 Format
 const regexMail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
 //REgular Expression for Password
 const regexPswd = new RegExp(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!§*$@%_£ù#])([-+§!*$@%_£ù#\w]{8,})$/);
@@ -172,24 +172,7 @@ function fUserMail(){
 }
 
 
-/* === LocalStorage === */
-//Retrieve the data when the page refresh
-inputUserName.addEventListener("input", function(){
-    storage.setItem("user", inputUserName.value);
-});
-
-inputUserName.addEventListener("input", function(){
-    storage.setItem("mail", inputUserMail.value);
-});
-
-inputUserName.value = storage.getItem("user");
-inputUserMail.value = storage.getItem("mail");
-
-if (storage.key(1) !== null){
-    FormValidation();
-}
-
-
+/* === Refresh Page Action === */
 //Clear the storage when the user has registered
 registerButton.addEventListener('click', function(){
     storage.clear();
@@ -200,5 +183,24 @@ if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     registerIntroTitle.classList.remove("drop-in");
     registerIntroText.classList.remove("drop-in-2");
     registerIntroForm.classList.remove("drop-in-3");
-    console.log("This page is reloaded");
+} else {
+    storage.clear();
 };
+
+
+/* === LocalStorage === */
+//Retrieve the data when the page refresh
+inputUserName.addEventListener("input", function(){
+    storage.setItem("user", inputUserName.value);
+});
+
+inputUserMail.addEventListener("input", function(){
+    storage.setItem("mail", inputUserMail.value);
+});
+
+inputUserName.value = storage.getItem("user");
+inputUserMail.value = storage.getItem("mail");
+
+if (storage.key(1) !== null){
+    FormValidation();
+}
