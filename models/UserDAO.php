@@ -150,6 +150,28 @@ class UserDAO extends DAO{
 
         return $randomToken;
     }
+
+
+    /**
+     * Verify if the password contains all required characters and length.
+     * 
+     * @return Boolean True if the password pass the regex, False if not
+     */
+    public static function verifPassword($password){
+        //Password Regex
+        $upperCase      = preg_match('@[A-Z]@', $password);
+        $lowerCase      = preg_match('@[a-z]@', $password);
+        $number         = preg_match('@[0-9]@', $password);
+        $specialChar    = preg_match('@[^\w]@', $password);
+        $passwordLenght = strlen($password) > 7;
+
+        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght){ //En remplaçant les && par des +, on obtient 5 si tout est vérifié
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

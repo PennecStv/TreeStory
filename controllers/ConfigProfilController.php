@@ -112,7 +112,7 @@ class ConfigProfilController {
             "userName"      => $userName,
             "userMail"      => $email,
             "userAvatar"    => $avatar,
-            "userBio"       => $biography
+            "userBio"       => $actualBiography
         ]);
     }
 }
