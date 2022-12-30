@@ -1,12 +1,10 @@
 <header>
-    <nav class="navbar">
+    <nav>
         <div class="left">
             <a href="/" class="logo">
-                <img src="./assets/images/logoTreeStory.png" alt="logo de TreeStory">
+                <img src="/assets/images/logoTreeStory.png" alt="logo de TreeStory">
             </a>
-            <a href="#" class="iconLoupe">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
+            <a href="#" class="iconLoupe"><i class="fa-solid fa-magnifying-glass"></i></a>
             <form>
                 <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Rechercher...">
             </form>
@@ -15,7 +13,21 @@
             <ul>
                 <li><a href="#">Lire une histoire</a></li>
                 <li><a href="#">Créer une histoire</a></li>
-                <li><a href="/login">Connexion</a></li>
+                {% if userName %}
+                    <li class="scrollingMenuConnected">
+                        <img src="{{ userAvatar }}" alt="Photo de profil" class="accountAvatar">
+                        <ul class="submenu close">
+                            <li><a href="/account"><i class="fa-solid fa-user"></i>Compte</a></li>
+                            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Déconnexion</a></li>
+                        </ul>
+                    </li>
+                    <div class="burgerMenuConnected">
+                        <li><a href="/account">Compte</a></li>
+                        <li><a href="/logout">Déconnexion</a></li>
+                    </div>
+                {% else %}
+                    <li><a href="/login">Connexion</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="burgerMenu">

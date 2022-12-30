@@ -1,0 +1,135 @@
+#avatar img {
+	max-width: 150px;
+	max-height: auto;
+}
+
+.user {
+	margin-top: 150px;
+	margin-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#userName {
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.stats {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 100px;
+}
+
+#statFavori {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#valueFavori {
+	font-size: 35px;
+	color: #273469;
+}
+
+#biographie {
+	margin-bottom: 100px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+#biographie h1 {
+	margin-bottom: 20px;
+}
+
+#textBiographie {
+	font-size: 20px;
+}
+
+.option {
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 150px;
+}
+
+.modifStoryTitle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	border-bottom: 1px solid;
+}
+
+.modifStoryTitle h1 {
+	margin-left: 2%;
+}
+
+.modifStoryTitle i {
+	font-size: 20px;
+	margin-right: 2%;
+}
+
+.modifStoryContent {
+	display:flex;
+  	flex-wrap:wrap;
+  	width:95%;
+ 	margin-left:auto;
+  	margin-right:auto;
+  	justify-content:space-between;
+  	align-items:center;
+  	align-content:center;
+}
+
+.modifStory .close {
+	display: none;
+}
+
+.modifAccount {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 150px;
+}
+
+.modifAccount a {
+	font-size: 20px;
+	text-decoration: none;
+    background-color: #273469;
+    color: #FAFAFF;
+    border: 1px solid #000000;
+    border-radius: 30px;
+    padding: 15px 15px 15px 15px;
+}
+
+.modifAccount a:hover {
+    background-color: #1E2749;
+}
+
+.storyContent {
+	display: flex;
+	width: 250px;
+	height: 200px;
+	margin-top: 30px;
+	margin-right: 30px;
+}
+
+.storyContent img {
+	margin-right: 10px;
+}
+
+.infoStory {
+	display: flex;
+	flex-direction: column;
+}
+
+.infoStory h1 {
+	text-decoration: bold;
+	margin-bottom: 10px;
+	font-size: 1.3em;
+}
+
+.infoStory p {
+	color: #6F6F6F;
+}
