@@ -9,33 +9,29 @@ use Database\DAO;
  * It extends from class DAO. It defines methods for 
  * retrieving specific data from the database
  * 
- * @author Idrissa Sall <idrissa.sall@etu.univ-lyon1.fr>
- * @author Steve Pennec <steve.pennec@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Steve Pennec    <steve.pennec@etu.univ-lyon1.fr>
+ * @author  Rudy Boullier   <rudy.boullier@etu.univ-lyon1.fr>
  */
-class UserDAO extends DAO{
+class UserDAO extends DAO {
     
     /**
      * Insert a User into the Database
      * 
      * @return false|PDOStatement        query results
      */
-    public function insertUser(String $userName, String $userPassword, String $userMail){
-
+    public function insertUser(String $userName, String $userPassword, String $userMail) {
         $requete = "INSERT INTO User (UserName, UserMail, UserPassword, UserCreatedAt) VALUES ('$userName', '$userMail', '$userPassword', CURDATE() )";
-
         $this->queryRow($requete);
-
     }
-
 
     /**
      * Delete a User from the Database
      * 
      * @return false|PDOStatement        query results
      */
-    public function deleteUser(String $userName){
+    public function deleteUser(String $userName) {
         $requete = "DELETE FROM user WHERE UserName = '$userName'";
-        
         $this->queryRow($requete);
     }
 
@@ -52,17 +48,14 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getUser($condition, $column){
-        if($column == "token"){
+    public function getUser(String $condition, $column) {
+        if($column == "token") {
             $requete = "SELECT * FROM User WHERE UserToken = '$condition'";
-        }
-        else{
+        } else {
             $requete = "SELECT * FROM User WHERE UserName = '$condition'";
         }
-
         return $this->queryRow($requete);
     }
-
 
     /**
      * Get the hashed password of a specific user
@@ -71,7 +64,7 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getPassword(String $userName){
+    public function getPassword(String $userName) {
         $requete = "SELECT UserPassword FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
@@ -83,7 +76,7 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getMail(String $userName){
+    public function getMail(String $userName) {
         $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
@@ -95,11 +88,10 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getAvatar(String $userName){
+    public function getAvatar(String $userName) {
         $requete = "SELECT UserAvatar FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
-
 
     /**
      * Get the biography of a specific user
@@ -108,10 +100,22 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function getBiography(String $userName){
+    public function getBiography(String $userName) {
         $requete = "SELECT UserBiography FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
+
+    /**
+     * Get the total number of registered users.
+     * 
+     * @return false|PDOStatement        query results
+     */
+    public function getNbRegistered() {
+        $req = "SELECT count(UserName) as nbRegistered FROM User";
+        $res = $this->queryRow($req);
+        return $res['nbRegistered'];
+    }
+
 
 
     /* == Setter == */
@@ -125,7 +129,7 @@ class UserDAO extends DAO{
      * 
      * @return false|PDOStatement        query results
      */
-    public function setUser($column, $value, $condition){
+    public function setUser($column, $value, $condition) {
         $requete = "UPDATE User SET $column = '$value' WHERE UserName = '$condition'";
         $this->queryRow($requete);
     }
@@ -139,7 +143,6 @@ class UserDAO extends DAO{
      * @return String   the random token.
      */
     public function getRandomToken() { 
-
         $randomToken = '';
         $str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
       
@@ -151,13 +154,12 @@ class UserDAO extends DAO{
         return $randomToken;
     }
 
-
     /**
      * Verify if the password contains all required characters and length.
      * 
      * @return Boolean True if the password pass the regex, False if not
      */
-    public static function verifPassword($password){
+    public static function verifPassword($password) {
         //Password Regex
         $upperCase      = preg_match('@[A-Z]@', $password);
         $lowerCase      = preg_match('@[a-z]@', $password);
@@ -165,7 +167,7 @@ class UserDAO extends DAO{
         $specialChar    = preg_match('@[^\w]@', $password);
         $passwordLenght = strlen($password) > 7;
 
-        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght){ //En remplaçant les && par des +, on obtient 5 si tout est vérifié
+        if ($upperCase && $lowerCase && $number && $specialChar && $passwordLenght) { //En remplaçant les && par des +, on obtient 5 si tout est vérifié
             return true;
         } else {
             return false;

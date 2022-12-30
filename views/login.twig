@@ -1,9 +1,9 @@
-{% extends "./base/base.twig" %}
+{% extends "/base/base.twig" %}
 
 {% block title %}TreeStory - Connexion{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="./assets/css/login.css">
+<link rel="stylesheet" href="/assets/css/login.css">
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,7 @@
     {% endif %}
 
     <div class="forgot-password">
-        <a href="?path/forgotPassword" title="Réinitialiser mon mot de passe">Mot de passe oublié ?</a>
+        <a href="/forgotPassword" title="Réinitialiser mon mot de passe">Mot de passe oublié ?</a>
     </div>
 
     <div class="login-card-footer">

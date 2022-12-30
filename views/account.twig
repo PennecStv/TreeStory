@@ -1,0 +1,57 @@
+{% extends "/base/base.twig" %}
+
+
+{% block title %}TreeStory - Compte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/assets/css/account.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/assets/scripts/dropdownScript.js"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div class="user">
+        <div id="avatar">
+            <img src="{{ userAvatar }}" alt="Photo de profil">
+        </div>
+        <div id="userName">
+            {{ userName }}
+        </div>
+    </div>
+
+    <div id="biographie">
+        <h1>Biographie</h1>
+        <div id="textBiographie">
+            {{ biographie }}
+        </div>
+    </div>
+
+    <div class="stats">
+        <div id="statFavori">
+            <h2>Favori</h2>
+            <div id="valueFavori">
+                {{ like }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="option">
+        <div class="modifStory">
+            <div class="modifStoryTitle">
+                <h1>Modifier vos histoires</h1>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="modifStoryContent close">
+                {% for story in stories %}
+                    {% include '/base/infoStory.twig' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="modifAccount">
+            <a href="/configProfil">Modification du profil</a>
+        </div>
+    </div>
+{% endblock %}
