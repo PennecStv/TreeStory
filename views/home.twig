@@ -1,14 +1,14 @@
-{% extends "./base/base.twig" %}
+{% extends "/base/base.twig" %}
 
 
 {% block title %}TreeStory - Accueil{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="./assets/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
 {% endblock %}
 
 {% block javascripts %}
-<script type="text/javascript" src="./assets/scripts/homeScript.js"></script>
+    <script type="text/javascript" src="/assets/scripts/homeScript.js"></script>
 {% endblock %}
 
 
@@ -69,11 +69,11 @@
     <div class="statContainer">
         <div class="statItemContainer">
             <h1 class="itemTitle">Nombre d'inscrits</h1>
-            <p class="stat">{{nbInscrit}}</p>
+            <p class="stat">{{ nbRegistered }}</p>
         </div>
         <div class="statItemContainer">
             <h1 class="itemTitle">Nombre de chapitres crées</h1>
-            <p class="stat">{{nbStoryCreate}}</p>
+            <p class="stat">{{ nbStoryCreate }}</p>
         </div>
     </div>
 {% endblock %}
