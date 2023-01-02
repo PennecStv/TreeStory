@@ -11,7 +11,7 @@
 
 /* STYLE NAV BAR */
 
-.navbar {
+nav {
   background-color: #273469;
   display: flex;
   flex-direction: row;
@@ -21,24 +21,67 @@
   padding: 10px;
 }
 
-.navbar a {
+nav a {
   color: white;
   text-decoration: none;
   display: inherit;
 }
 
-.navbar .left {
+nav .left {
   display: flex;
   align-items: center;
 }
 
-.navbar .navLinks ul {
+.navLinks ul {
   display: flex;
+  align-items: center;
 }
 
-.navbar .navLinks ul li {
+.navLinks ul li {
   margin: 0 20px;
   list-style-type: none;
+}
+
+.accountAvatar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.scrollingMenuConnected .submenu {
+  z-index: 1;
+  display: block;
+  position: absolute;
+  background-color: #1E2749;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px white;
+  text-align: center;
+  right: 30px;
+}
+
+.scrollingMenuConnected .close {
+  display: none;
+}
+
+.scrollingMenuConnected .submenu li {
+  padding: 0;
+  margin: 0;
+}
+
+.scrollingMenuConnected .submenu i {
+  margin-right: 10px;
+}
+
+.scrollingMenuConnected .submenu li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.burgerMenuConnected {
+  display: none;
 }
 
 .burgerMenu {
@@ -49,60 +92,16 @@
   color: white;
 }
 
-@media screen and (max-width: 770px) {
-
-  .navLinks {
-    top: 0px;
-    left: 0px;
-    background-color: #273469;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    margin-left: 100%;
-    transition: all 0.5s ease;
-    z-index: 999;
-  }
-
-  .navbar .fa-xmark {
-    position: fixed;
-    top: 25px;
-    right: 20px;
-    z-index: 9999;
-  }
-
-  .burgerMenu {
-    display: block;
-  }
-
-  .mobileMenu {
-    margin-left: 0px;
-  }
-
-  .navLinks ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .navbar .navLinks ul li {
-    margin: 25px 0;
-    font-size: 1.2em;
-  }
-}
-
-.navbar .navLinks ul li:hover {
+.navLinks ul li:hover {
   text-decoration: underline;
 }
 
-.navbar .left .logo img {
+.left .logo img {
   width: 50px;
   height: 50px;
 }
 
-.navbar .left .logo {
+.left .logo {
   margin-right: 30px;
 }
 
@@ -123,6 +122,60 @@
   margin-right: 10px;
 }
 
+@media screen and (max-width: 770px) {
+
+  .scrollingMenuConnected {
+    display: none;
+  }
+
+  .burgerMenuConnected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navLinks {
+    top: 0px;
+    left: 0px;
+    background-color: #273469;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    margin-left: 100%;
+    transition: all 0.5s ease;
+    z-index: 999;
+  }
+
+  nav .fa-xmark {
+    position: fixed;
+    top: 25px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .burgerMenu {
+    display: block;
+  }
+
+  .mobileMenu {
+    margin-left: 0px;
+  }
+
+  .navLinks ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navLinks ul li {
+    margin: 25px 0;
+    font-size: 1.2em;
+  }
+}
+
 
 
 /* FOOTER */
@@ -131,6 +184,11 @@ footer {
   background-color: #30343F;
   color: white;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 footer h1 {
@@ -142,43 +200,34 @@ footer a {
   color: white;
 }
 
-.footerContent {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-
-.footerContent .info img {
+.info img {
   margin-top: 5px;
   height: 3rem;
   border-radius: 0.8rem;
 }
 
-.footerContent .tools .toolsIcon {
+.tools .toolsIcon {
   display: flex;
   justify-content: space-around;
   font-size: 50px;
   margin-top: 20px;
 }
 
-.footerContent .authors .nameAuthors {
+.authors .nameAuthors {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-
 @media (max-width: 600px) {
-  .footerContent {
+  footer {
     flex-direction: column;
   }
 
-  .footerContent .tools {
+  .tools {
     margin-bottom: 30px;
   }
 
-  .footerContent .authors {
+  .authors {
     margin-bottom: 30px;
   }
 }
