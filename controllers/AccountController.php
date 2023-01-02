@@ -98,7 +98,7 @@ class AccountController {
                     $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
                 }
 
-                $followRelation = $userDAO->getFollows(htmlspecialchars($_SESSION['UserName']), htmlspecialchars($user['UserName']));
+                $followRelation = $userDAO->getFollows($_SESSION['UserName'], $user['UserName']);
                 if(!empty($followRelation)){
                     $buttonName = "Ne plus suivre";
                 }
@@ -134,7 +134,7 @@ class AccountController {
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
         $user = $userDAO->getUser(htmlspecialchars($params['id']), null);
         if(!empty($user)){
-            $userDAO->insertFollowRelation(htmlspecialchars($_SESSION['UserName']), htmlspecialchars($user['UserName']));
+            $userDAO->insertFollowRelation($_SESSION['UserName'], $user['UserName']);
         }
     }
 
@@ -144,9 +144,9 @@ class AccountController {
      */
     public static function unfollow($params){
         $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-        $user = $userDAO->getUser(htmlspecialchars($params['id']), null);
+        $user = $userDAO->getUser($params['id'], null);
         if(!empty($user)){
-            $userDAO->deleteFollowRelation(htmlspecialchars($_SESSION['UserName']), htmlspecialchars($user['UserName']));
+            $userDAO->deleteFollowRelation($_SESSION['UserName'], $user['UserName']);
         }
     }
 }
