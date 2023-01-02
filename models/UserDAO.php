@@ -174,6 +174,37 @@ class UserDAO extends DAO {
         }
     }
 
+    /**
+     * Gives the number of follow by knowing his user name.
+     */
+    public function getFollowers($column, $UserId){
+        $requete = "SELECT * FROM userFollowerRelation WHERE $column = '$UserId'";
+        return $this->queryAll($requete);
+    }
+
+    /**
+     * Gives the number of follow between two users.
+     */
+    public function getFollows($UserId,$FollowingUserId){
+        $requete = "SELECT * FROM userFollowerRelation WHERE UserId = '$UserId' AND FollowingUserId = '$FollowingUserId'";
+        return $this->queryRow($requete);
+    }
+
+    /**
+     * Insert a follow relation between two users.
+     */
+    public function insertFollowRelation($UserId,$FollowingUserId){
+        $requete = "INSERT INTO userFollowerRelation (UserId, FollowingUserId) VALUES ('$UserId', '$FollowingUserId')";
+        $this->queryRow($requete);
+    }
+
+    /**
+     * Delete a follow relation between two users.
+     */
+    public function deleteFollowRelation($UserId,$FollowingUserId){
+        $requete = "DELETE FROM userFollowerRelation WHERE UserId = '$UserId' AND FollowingUserId = '$FollowingUserId'";
+        $this->queryRow($requete);
+    }
 }
 
 ?>
