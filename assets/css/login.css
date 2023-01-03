@@ -30,6 +30,12 @@ input#btn-connection {
     font-size: 18px;
 }
 
+input#btn-connection:hover {
+    background-color: #FAFAFF;
+    color: #273469;
+    cursor: pointer;
+}
+
 input#login_identifiant, input#login_password {
     border: 1px solid #000000;
     margin-bottom: 10px;

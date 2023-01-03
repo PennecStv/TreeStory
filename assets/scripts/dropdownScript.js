@@ -8,8 +8,8 @@ const icon = document.querySelector(".fas");
 const modif = document.querySelector(".modifStoryTitle");
 const modifStoryContent = document.querySelector(".modifStoryContent");
  
-modif.addEventListener('click', () => {
+if (modif) modif.addEventListener('click', () => {
   icon.classList.toggle('fa-chevron-down');
   icon.classList.toggle('fa-chevron-up');
   modifStoryContent.classList.toggle('close');
-})
+});
