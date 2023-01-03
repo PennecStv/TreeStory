@@ -53,6 +53,7 @@ class AccountController {
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
+                
                 "userNameConnected" => ($_SESSION['UserName']),
                 "follower" => $follower,
                 "following" =>$following,
@@ -75,15 +76,13 @@ class AccountController {
         if (isset($_SESSION['UserName'])) {
 
             $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-            $user = $userDAO->getUser(htmlspecialchars($params['account']), null);
+            $user = $userDAO->getUser(htmlspecialchars($params['userId']), null);
 
             $snrsDAO = new StoryNodeReadingStatisticsDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-            $snrs = $snrsDAO->getStatisticsFavorite(htmlspecialchars($params['account']));
+            $snrs = $snrsDAO->getStatisticsFavorite(htmlspecialchars($params['userId']));
 
             $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-            $stories = $storyNodeDAO->getUserStory(htmlspecialchars($params['account']));
-
-            
+            $stories = $storyNodeDAO->getUserStory(htmlspecialchars($params['userId']));
 
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
@@ -112,6 +111,7 @@ class AccountController {
                     "biographie" => htmlspecialchars($user['UserBiography']),
                     "like" => htmlspecialchars($snrs),
                     "stories" => $stories,
+
                     "userNameConnected" => ($_SESSION['UserName']),
                     "buttonName" => $buttonName,
                     "follower" => $follower,
@@ -123,7 +123,6 @@ class AccountController {
         } else {
             header('Location: /login');
         }
-
     }
 
 

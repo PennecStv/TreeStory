@@ -117,7 +117,6 @@ class UserDAO extends DAO {
     }
 
 
-
     /* == Setter == */
 
     /**
@@ -133,7 +132,6 @@ class UserDAO extends DAO {
         $requete = "UPDATE User SET $column = '$value' WHERE UserName = '$condition'";
         $this->queryRow($requete);
     }
-
 
 
     /* == Useful Methods == */
@@ -153,6 +151,7 @@ class UserDAO extends DAO {
 
         return $randomToken;
     }
+
 
     /**
      * Verify if the password contains all required characters and length.
@@ -174,9 +173,11 @@ class UserDAO extends DAO {
         }
     }
 
+
     /**
      * Gives the number of follow by knowing his user name.
      */
+  
     public function getFollowers($column, $UserId){
         $requete = "SELECT * FROM userFollowerRelation WHERE $column = '$UserId'";
         return $this->queryAll($requete);
@@ -190,6 +191,7 @@ class UserDAO extends DAO {
         return $this->queryRow($requete);
     }
 
+
     /**
      * Insert a follow relation between two users.
      */
@@ -198,6 +200,7 @@ class UserDAO extends DAO {
         $this->queryRow($requete);
     }
 
+    
     /**
      * Delete a follow relation between two users.
      */

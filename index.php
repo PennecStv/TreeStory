@@ -57,8 +57,8 @@ $router->route(Method::POST, "/register", ["RegisterController", "register"]);
 $router->route(Method::GET, "/configProfil", ["ConfigProfilController", "configProfil"]);
 $router->route(Method::POST, "/configProfil", ["ConfigProfilController", "configProfil"]);
 
-$router->route(Method::GET, "/account", ["AccountController", "account"]);
-$router->route(Method::GET, "/user/:account", ["AccountController", "displayAccount"]);
+$router->route(Method::GET, "/user/account", ["AccountController", "account"]);
+$router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
 $router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
 $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
 
