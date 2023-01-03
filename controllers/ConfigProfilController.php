@@ -17,7 +17,7 @@ class ConfigProfilController {
         $messageSucces = "";
 
         //Retrieve the actual data of the user in order to save them for configuration and show the actual data on the page
-        $results = $userDAO->getUser("John", null);
+        $results = $userDAO->getUser($_SESSION['UserName'], null);
         $actualUserName  = $results['UserName'];
         $actualEmail     = $results['UserMail'];
         $actualAvatar    = $results['UserAvatar'];
