@@ -1,7 +1,10 @@
 /**
  * Listen to the click event on the follow button
  */
-document.getElementsByClassName('follow-button')[0].addEventListener('click', function(e) {
+
+const followBtn = document.querySelector('.follow-button');
+
+if (followBtn) followBtn.addEventListener('click', function(e) {
     
     let url = null;
 
@@ -16,8 +19,10 @@ document.getElementsByClassName('follow-button')[0].addEventListener('click', fu
         let val = document.getElementsByClassName("follow-button")[0].innerHTML;
 
         if(val == "Suivre"){
+            document.getElementById('valueFollowers').innerText = parseInt(document.getElementById('valueFollowers').innerText) +1;
             document.getElementsByClassName("follow-button")[0].innerHTML = "Ne plus suivre";
         }else if(val == "Ne plus suivre"){
+            document.getElementById('valueFollowers').innerText = parseInt(document.getElementById('valueFollowers').innerText) -1;
             document.getElementsByClassName("follow-button")[0].innerHTML = "Suivre";
         }
     }); 
