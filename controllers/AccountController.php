@@ -53,7 +53,7 @@ class AccountController {
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
-                
+
                 "userNameConnected" => ($_SESSION['UserName']),
                 "follower" => $follower,
                 "following" =>$following,
@@ -95,6 +95,8 @@ class AccountController {
 
                 if (htmlspecialchars($user['UserAvatar']) == NULL) {
                     $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $user['UserAvatar'] = '/assets/images/'.$user['UserAvatar'];
                 }
 
                 $followRelation = $userDAO->getFollows($_SESSION['UserName'], $user['UserName']);
@@ -106,13 +108,13 @@ class AccountController {
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
                 $view->render([
-                    "userAvatar" => htmlspecialchars($user['UserAvatar']),
+                    "userAvatar" => $user['UserAvatar'],
                     "userName" => htmlspecialchars($user['UserName']),
                     "biographie" => htmlspecialchars($user['UserBiography']),
                     "like" => htmlspecialchars($snrs),
                     "stories" => $stories,
 
-                    "userNameConnected" => ($_SESSION['UserName']),
+                    "userNameConnected" => $_SESSION['UserName'],
                     "buttonName" => $buttonName,
                     "follower" => $follower,
                     "following" =>$following,
