@@ -57,6 +57,28 @@ class UserDAO extends DAO {
         return $this->queryRow($requete);
     }
 
+
+     /**
+     * Get users from the database where the title matches the input
+     * 
+     * @param String                     the input typed in the research bar
+     * 
+     * @return false|PDOStatement        query results
+     */
+    public function getUsersByResearch(String $input) {
+        
+        if ($input == null){
+            $req = "SELECT * FROM User";
+        } else {
+            $req = "SELECT * FROM User WHERE UserName LIKE '%$input%'";
+        }
+        
+        $res = $this->queryAll($req);
+
+        return $res;
+    }
+
+
     /**
      * Get the hashed password of a specific user
      * 

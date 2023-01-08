@@ -28,6 +28,7 @@ require_once(PATH_CONTROLLERS . "PasswordController.php");
 require_once(PATH_CONTROLLERS . "RegisterController.php");
 require_once(PATH_CONTROLLERS . "ConfigProfilController.php");
 require_once(PATH_CONTROLLERS . "accountController.php");
+require_once(PATH_CONTROLLERS . "SearchController.php");
 
 use Symfony\Component\Dotenv\Dotenv;
 use Routing\Router;
@@ -58,6 +59,9 @@ $router->route(Method::GET, "/configProfil", ["ConfigProfilController", "configP
 $router->route(Method::POST, "/configProfil", ["ConfigProfilController", "configProfil"]);
 
 $router->route(Method::GET, "/account", ["AccountController", "account"]);
+
+$router->route(Method::GET, "/search", ["SearchController", "search"]);
+$router->route(Method::POST, "/search", ["SearchController", "search"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 

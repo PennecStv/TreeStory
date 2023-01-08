@@ -4,8 +4,8 @@
  * @author  Rudy Boullier    <rudy.boullier@etu.univ-lyon1.fr>
  */
 
-const accountButton = document.querySelector(".accountAvatar");
-const accountSousMenuButton = document.querySelector(".submenu");
+const accountButton = document.querySelector("accountAvatar");
+const accountSousMenuButton = document.querySelector("submenu");
 
 accountButton.addEventListener('click', () => {
   accountSousMenuButton.classList.toggle('close');
