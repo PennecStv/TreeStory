@@ -13,15 +13,17 @@
 
 {% block body %}
     <!-- Modal de confirmation de suppression de compte -->
-    <div class="form-config">
+    <div class="content">
         <div class="config-card-form">
             <form method="post" action="/configProfil" id="form-config">
 
-                <label>Identifiant :</label>
-                <input type="text" name="modif_userName" id="modif_userName" placeholder="Choisissez un nouvel identifiant" autocomplete="off" value = {{userName}}>
+                <div>
+                    <label>Identifiant :</label>
+                    <input type="text" name="modif_userName" id="modif_userName" placeholder="Choisissez un nouvel identifiant" autocomplete="off" value = {{userName}}>
 
-                <label>E-mail :</label>
-                <input type="text" name="modif_mail" id="modif_mail" placeholder="Choisissez un nouvel E-mail"  autocomplete="off"  value = {{userMail}}>
+                    <label>E-mail :</label>
+                    <input type="text" name="modif_mail" id="modif_mail" placeholder="Choisissez un nouvel E-mail"  autocomplete="off"  value = {{userMail}}>
+                </div>
 
                 <!-- Modification de mot de passe -->
                 <div>

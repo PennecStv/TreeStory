@@ -45,8 +45,8 @@
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div class="modifStoryContent close">
-                {% for story in stories %}
-                    {% include '/base/infoStory.twig' %}
+                {% for chapter in stories %}
+                    {% include '/base/infoStoryNode.twig' %}
                 {% endfor %}
             </div>
         </div>

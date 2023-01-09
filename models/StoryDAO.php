@@ -44,27 +44,5 @@ class StoryDAO extends DAO {
 
         return $res;
     }
-
-
-    /**
-     * Get chapters (Story node) from the database where the title matches the input
-     * 
-     * @param String                     the input typed in the research bar
-     * 
-     * @return false|PDOStatement        query results
-     */
-    public function getStoryNodeByResearch(String $input) {
-        
-        if ($input == null){
-            $req = "SELECT * FROM storynode";
-        } else {
-            $req = "SELECT * FROM storynode WHERE StoryNodeTitle LIKE '%$input%'";
-        }
-        
-        $res = $this->queryAll($req);
-
-        return $res;
-    }
 }
-
 ?>

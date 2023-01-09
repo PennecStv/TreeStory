@@ -7,10 +7,6 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/search.css">
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript" src="/assets/scripts/dropdownScript.js"></script>
-{% endblock %}
-
 {% block body %}
 
     <div class = "type">
@@ -28,37 +24,40 @@
         {% else %}
 
             {% if stories is not empty %}
-                <div class="box-story">
-                    <h1> Histoires </h1>
-                    {% for story in stories %}
+                <div class="box">
+                    <h1 class="category-title"> Histoires </h1>
+                    <hr>
                     <div class="story">
-                        {% include '/base/infoStory.twig' %}
+                        {% for story in stories %}
+                            {% include '/base/infoStory.twig' %}
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             {% endif %}
 
 
             {% if chapters is not empty %}
-                <div class="box-storyNode">
-                    <h1> Chapitres </h1>
-                    {% for chapter in chapters %}
+                <div class="box">
+                    <h1 class="category-title"> Chapitres </h1>
+                    <hr>
                     <div class="storyNode">
-                        {% include '/base/infoStoryNode.twig' %}
+                        {% for chapter in chapters %}
+                            {% include '/base/infoStoryNode.twig' %}
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             {% endif %}
 
 
             {% if users is not empty %}
-                <div class="box-user">
-                    <h1> Utilisateurs </h1>
-                    {% for user in users %}
+                <div class="box">
+                    <h1 class="category-title"> Utilisateurs </h1>
+                    <hr>
                     <div class="user">
-                        {% include '/base/infoUser.twig' %}
+                        {% for user in users %}
+                            {% include '/base/infoUser.twig' %}
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             {% endif %}
 

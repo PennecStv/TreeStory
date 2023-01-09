@@ -119,12 +119,12 @@
 	margin-right: 10px;
 }
 
-.infoStory {
+.infoStoryNode {
 	display: flex;
 	flex-direction: column;
 }
 
-.infoStory h1 {
+.infoStoryNode h1 {
 	text-decoration: bold;
 	margin-bottom: 10px;
 	font-size: 1.3em;

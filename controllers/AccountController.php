@@ -39,7 +39,6 @@ class AccountController {
                     if ($story['StoryCover'] == NULL) {
                         $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
                     }
-
             }
 
             $view->render([
