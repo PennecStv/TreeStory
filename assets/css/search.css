@@ -1,0 +1,170 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
+.type {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.type button {
+    margin-top: 2vh;
+    background-color: #FAFAFF;
+    color: #273469;
+    border: 1px solid #000000;
+    padding: 0px 10px 0px 10px;
+    width: fit-content;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+.type button:hover{
+    background-color: #1E2749;
+    color: #E4D9FF;
+    cursor: pointer;
+}
+
+
+.storyNode{
+    height: 100%;
+    width: fit-content;
+}
+
+.empty{
+    height: 19.5vh;
+
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    text-align: center;
+
+    font-size: 25px;
+    font-weight: bold;
+    color: #273469; 
+}
+
+.box {
+    margin-bottom: 20vh;
+}
+
+hr {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(39,52,105,1) 75%, rgba(255,255,255,0) 100%);;
+    border-width: 0;
+    height: 5px;
+    width: 75%;
+}
+
+.category-title {
+    text-decoration: bolder;
+    color:#1E2749;
+	font-size: 2em;
+    margin-left: 2vw;
+    margin-bottom: 2vh;
+}
+
+/* Résultat Histoires et Chapitres */
+
+.storyNode, .story {
+	display:flex;
+  	flex-wrap: wrap;
+  	width:95%;
+ 	margin-left: auto;
+  	margin-right: auto;
+  	align-items:center;
+  	align-content:center;
+}
+
+.storyContent {
+	display: flex;
+	width: 350px;
+	max-height: 200px;
+	margin-top: 30px;
+    overflow: hidden;
+}
+
+.storyContent:nth-child(3n + 1) {
+    margin-left: 10vw;
+}
+
+.storyContent:not(:nth-child(3n + 1)) {
+    margin-left: 4vw;
+}
+
+
+.storyContent img {
+	margin-right: 10px;
+}
+
+.infoStoryNode {
+	display: flex;
+	flex-direction: column;
+    height: 100%;
+}
+
+.infoStory h1 {
+	text-decoration: bold;
+	margin-bottom: 10px;
+	font-size: 1.3em;
+}
+
+.infoStory .author {
+    font-weight: bold;
+}
+
+.infoStory .text {
+    margin-top: 5px;
+	color: #6F6F6F;
+}
+
+
+/* Résultat Utilisateurs */
+
+.user {
+	display:flex;
+  	flex-wrap:wrap;
+  	width:95%;
+ 	margin-left:auto;
+  	margin-right:auto;
+  	align-items:center;
+  	align-content:center;
+}
+
+.userContent {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+	width: 250px;
+	height: 200px;
+	margin-top: 30px;
+	margin-right: 30px;
+}
+
+.userContent img {
+    display: flex;
+	flex-direction: column;
+    max-width: 150px;
+    height: auto;
+}
+
+.userContent:nth-child(4n + 1) {
+    margin-left: 6vw;
+}
+
+.userContent:not(:nth-child(4n + 1)) {
+    margin-left: 1vw;
+}
+
+.infoUser {
+	display: flex;
+	flex-direction: column;
+}
+
+.infoUser h1 {
+	text-decoration: bold;
+	margin-bottom: 10px;
+	font-size: 1.3em;
+}
