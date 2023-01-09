@@ -9,6 +9,7 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="/assets/scripts/dropdownScript.js"></script>
+    <script type="text/javascript" src="/assets/scripts/follow.js"></script>
 {% endblock %}
 
 
@@ -19,6 +20,26 @@
         </div>
         <div id="userName">
             {{ userName }}
+        </div>
+    </div>
+    {% if userNameConnected != userName %}
+        <div class="follow">
+            <button user-id ="{{userName}}" class="follow-button">{{buttonName}}</button>
+        </div>
+    {% endif %}
+
+    <div class="statsFollows">
+        <div id="statFollowers">
+            <div id="valueFollowers">
+                {{ follower }}
+            </div>
+            <h2>Abonnés</h2>
+        </div>
+        <div id="statFollowings">
+            <div id="valueFollowings">
+                {{ following }}
+            </div>
+            <h2>Abonnements</h2>
         </div>
     </div>
 
@@ -39,6 +60,7 @@
     </div>
     
     <div class="option">
+    {% if userNameConnected == userName %}
         <div class="modifStory">
             <div class="modifStoryTitle">
                 <h1>Modifier vos histoires</h1>
@@ -53,5 +75,6 @@
         <div class="modifAccount">
             <a href="/configProfil">Modification du profil</a>
         </div>
+    {% endif %}
     </div>
 {% endblock %}

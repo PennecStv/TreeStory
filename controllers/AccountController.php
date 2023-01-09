@@ -11,6 +11,7 @@ use Models\StoryNodeReadingStatisticsDAO;
  * AccountController is the controller of the account page.
  * 
  * @author  Rudy Boullier   <rudy.boullier@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
  */
 class AccountController {
 
@@ -36,10 +37,15 @@ class AccountController {
             }
 
             foreach ($stories as $key => $story) {
-                    if ($story['StoryCover'] == NULL) {
-                        $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
-                    }
+                if ($story['StoryCover'] == NULL) {
+                    $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }
+
             }
+
+            
+            $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
+            $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
             $view->render([
                 "userAvatar" => htmlspecialchars($user['UserAvatar']),
@@ -47,12 +53,102 @@ class AccountController {
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
+
+                "userNameConnected" => ($_SESSION['UserName']),
+                "follower" => $follower,
+                "following" =>$following,
             ]);
             
         } else {
             header('Location: /login');
         }
 
+    }
+
+
+    /**
+     * Displays a user's profile.
+     */
+    public static function displayAccount($params) {        
+        $view = new \Templates\View("account.twig");
+        $buttonName = "Suivre";
+
+        if (isset($_SESSION['UserName'])) {
+
+            $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+            $user = $userDAO->getUser(htmlspecialchars($params['userId']), null);
+
+            $snrsDAO = new StoryNodeReadingStatisticsDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+            $snrs = $snrsDAO->getStatisticsFavorite(htmlspecialchars($params['userId']));
+
+            $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+            $stories = $storyNodeDAO->getUserStory(htmlspecialchars($params['userId']));
+
+            foreach ($stories as $key => $story) {
+                if ($story['StoryCover'] == NULL) {
+                    $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }
+
+            }
+            
+            if(!empty($user['UserName'])){
+
+                if (htmlspecialchars($user['UserAvatar']) == NULL) {
+                    $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $user['UserAvatar'] = '/assets/images/'.$user['UserAvatar'];
+                }
+
+                $followRelation = $userDAO->getFollows($_SESSION['UserName'], $user['UserName']);
+                if(!empty($followRelation)){
+                    $buttonName = "Ne plus suivre";
+                }
+
+                $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
+                $following = count($userDAO->getFollowers('UserId',$user['UserName']));
+
+                $view->render([
+                    "userAvatar" => $user['UserAvatar'],
+                    "userName" => htmlspecialchars($user['UserName']),
+                    "biographie" => htmlspecialchars($user['UserBiography']),
+                    "like" => htmlspecialchars($snrs),
+                    "stories" => $stories,
+
+                    "userNameConnected" => $_SESSION['UserName'],
+                    "buttonName" => $buttonName,
+                    "follower" => $follower,
+                    "following" =>$following,
+
+                ]);
+            }
+            
+        } else {
+            header('Location: /login');
+        }
+    }
+
+
+    /**
+     * Follows a user. 
+     */
+    public static function follow($params){
+        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $user = $userDAO->getUser(htmlspecialchars($params['id']), null);
+        if(!empty($user)){
+            $userDAO->insertFollowRelation($_SESSION['UserName'], $user['UserName']);
+        }
+    }
+
+
+    /**
+     * Unfollows a user. 
+     */
+    public static function unfollow($params){
+        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $user = $userDAO->getUser($params['id'], null);
+        if(!empty($user)){
+            $userDAO->deleteFollowRelation($_SESSION['UserName'], $user['UserName']);
+        }
     }
 }
 

@@ -7,7 +7,7 @@
  * 
  * @author  Idrissa Sall   <idrissa.sall@etu.univ-lyon1.fr>
  */
-    $page_for_reset = "/resetPassword&token=$token";
+    $page_for_reset = "treestory.local/resetPassword&token=$token";
     $to = $email;
     $subject = 'Réinitialisation de votre mot de passe';
     $message ='
