@@ -150,6 +150,10 @@ class AccountController {
             $userDAO->deleteFollowRelation($_SESSION['UserName'], $user['UserName']);
         }
     }
+
+    public static function download(){
+        
+    }
 }
 
 ?>
