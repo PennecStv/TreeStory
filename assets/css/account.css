@@ -90,14 +90,14 @@
 	display: none;
 }
 
-.modifAccount {
+.modifAccount, .DownloadInfo {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-top: 150px;
 }
 
-.modifAccount a {
+.modifAccount a, .DownloadInfo a {
 	font-size: 20px;
 	text-decoration: none;
     background-color: #273469;
