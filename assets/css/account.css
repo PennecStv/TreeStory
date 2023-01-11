@@ -97,7 +97,7 @@
 	margin-top: 150px;
 }
 
-.modifAccount a, .DownloadInfo a {
+.modifAccount a, button {
 	font-size: 20px;
 	text-decoration: none;
     background-color: #273469;
@@ -105,6 +105,11 @@
     border: 1px solid #000000;
     border-radius: 30px;
     padding: 15px 15px 15px 15px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #1E2749;
 }
 
 .modifAccount a:hover {

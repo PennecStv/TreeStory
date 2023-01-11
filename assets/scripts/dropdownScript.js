@@ -16,5 +16,10 @@ if (modif) modif.addEventListener('click', () => {
 
 
 document.getElementById("download").addEventListener('click', () => {
-  
+
+  fetch("/user/download", {
+    method: 'POST'
+    }).then(function(response) {
+        
+    });
 });
