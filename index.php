@@ -61,6 +61,7 @@ $router->route(Method::GET, "/user/account", ["AccountController", "account"]);
 $router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
 $router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
 $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
+$router->route(Method::GET, "/user/download", ["AccountController", "download"]);
 
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
