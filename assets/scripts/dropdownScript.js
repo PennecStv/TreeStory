@@ -13,3 +13,8 @@ if (modif) modif.addEventListener('click', () => {
   icon.classList.toggle('fa-chevron-up');
   modifStoryContent.classList.toggle('close');
 });
+
+
+document.getElementById("download").addEventListener('click', () => {
+  
+});
