@@ -151,8 +151,18 @@ class AccountController {
         }
     }
 
-    public static function download(){
-        
+    public static function download($res){
+        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $user = $userDAO->getUser(htmlspecialchars($_SESSION['UserName']), null);
+        $res = $user;
+        // Ouvre le fichier pour obtenir un pointeur de fichier
+        $handle = fopen('data.txt', 'w');
+
+        // Ecrit les données dans le fichier
+        fwrite($handle, "test test");
+
+        // Ferme le pointeur de fichier
+        fclose($handle);
     }
 }
 

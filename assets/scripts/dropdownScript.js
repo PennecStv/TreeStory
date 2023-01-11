@@ -20,6 +20,6 @@ document.getElementById("download").addEventListener('click', () => {
   fetch("/user/download", {
     method: 'POST'
     }).then(function(response) {
-        
+        document.getElementById("dl").href = "/controllers/data.txt";
     });
 });
