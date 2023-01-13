@@ -60,7 +60,11 @@
             <div class="followersList">
                 <div class="list" id="subscribed-list">
                     {% if subscribers|length == 0 %}
-                        <p class="message">Vous n'avez pas encore d'abonnés !</p>
+                        {% if userNameConnected == userName %}
+                            <p class="message">Vous n'avez pas encore d'abonnés !</p>
+                        {% else %}
+                            <p class="message">Aucun utilisateur n'est abonné à ce compte !</p>
+                        {% endif %}
                     {% endif %}
                     {% for subscriber in subscribers %}
                         <div id-subscribed = "{{subscriber.UserName|e}}" class="user-subscribed">
@@ -75,7 +79,11 @@
 
                 <div class="list" id="subscription-list">
                     {% if subscriptions|length == 0 %}
-                        <p class="message">Vous n'êtes abonné à aucun compte !</p>
+                        {% if userNameConnected == userName %}
+                            <p class="message">Vous n'avez pas encore d'abonnements !</p>
+                        {% else %}
+                            <p class="message">Cet utilisateur n'est abonné à aucun compte !</p>
+                        {% endif %}
                     {% endif %}
                     {% for subscription in subscriptions %}
                         <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
