@@ -40,10 +40,23 @@ class AccountController {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
                 }
-
             }
 
-            
+            $subscribers = $userDAO->getUsersSubscribers('UserId',$user['UserName']);
+            $subscriptions = $userDAO->getUsersSubscriptions('FollowingUserId',$user['UserName']);
+
+            foreach ($subscribers as $key => $subscriber) {
+                if ($subscriber['UserAvatar'] == NULL) {
+                    $subscribers[$key]['UserAvatar'] = '/assets/images/user.png';
+                }
+            }
+
+            foreach ($subscriptions as $key => $subscription) {
+                if ($subscription['UserAvatar'] == NULL) {
+                    $subscriptions[$key]['UserAvatar'] = '/assets/images/user.png';
+                }
+            }
+
             $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
@@ -53,6 +66,8 @@ class AccountController {
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
+                "subscribers" => $subscribers,
+                "subscriptions" => $subscriptions,
 
                 "userNameConnected" => ($_SESSION['UserName']),
                 "follower" => $follower,
@@ -104,6 +119,21 @@ class AccountController {
                     $buttonName = "Ne plus suivre";
                 }
 
+                $subscribers = $userDAO->getUsersSubscribers('UserId',$user['UserName']);
+                $subscriptions = $userDAO->getUsersSubscriptions('FollowingUserId',$user['UserName']);
+
+                foreach ($subscribers as $key => $subscriber) {
+                    if ($subscriber['UserAvatar'] == NULL) {
+                        $subscribers[$key]['UserAvatar'] = '/assets/images/user.png';
+                    }
+                }
+
+                foreach ($subscriptions as $key => $subscription) {
+                    if ($subscription['UserAvatar'] == NULL) {
+                        $subscriptions[$key]['UserAvatar'] = '/assets/images/user.png';
+                    }
+                }
+
                 $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
@@ -113,6 +143,8 @@ class AccountController {
                     "biographie" => htmlspecialchars($user['UserBiography']),
                     "like" => htmlspecialchars($snrs),
                     "stories" => $stories,
+                    "subscribers" => $subscribers,
+                    "subscriptions" => $subscriptions,
 
                     "userNameConnected" => $_SESSION['UserName'],
                     "buttonName" => $buttonName,
@@ -151,19 +183,6 @@ class AccountController {
         }
     }
 
-    public static function download($res){
-        $userDAO = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-        $user = $userDAO->getUser(htmlspecialchars($_SESSION['UserName']), null);
-        $res = $user;
-        // Ouvre le fichier pour obtenir un pointeur de fichier
-        $handle = fopen('data.txt', 'w');
-
-        // Ecrit les données dans le fichier
-        fwrite($handle, "test test");
-
-        // Ferme le pointeur de fichier
-        fclose($handle);
-    }
 }
 
 ?>

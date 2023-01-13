@@ -33,7 +33,7 @@
             <div id="valueFollowers">
                 {{ follower }}
             </div>
-            <h2>Abonnés</h2>
+            <h2 id="ok">Abonnés</h2>
         </div>
         <div id="statFollowings">
             <div id="valueFollowings">
@@ -41,6 +41,56 @@
             </div>
             <h2>Abonnements</h2>
         </div>
+    </div>
+    
+    <div class="follow-option">
+        <div class="followersBox">
+            <div class="menu">
+                <div id="subscribed-menu" class="subscribers">
+                    <h4>Abonnés</h4>
+                    <div class="indicatorAbonnes"></div>
+                </div>
+
+                <div id="subscription-menu" class="subscriptions">
+                    <h4>Abonnements</h4>
+                    <div class="indicatorAbonnements"></div>
+                </div>
+            </div>
+
+            <div class="followersList">
+                <div class="list" id="subscribed-list">
+                    {% if subscribers|length == 0 %}
+                        <p class="message">Vous n'avez pas encore d'abonnés !</p>
+                    {% endif %}
+                    {% for subscriber in subscribers %}
+                        <div id-subscribed = "{{subscriber.UserName|e}}" class="user-subscribed">
+                            <img id-subscribed = "{{subscriber.UserName|e}}" class="profil-pic" src="{{subscriber.UserAvatar|e}}" alt="Photo de profil">
+                            <div>
+                                <h4 id-subscribed = "{{subscriber.UserName|e}}">{{subscriber.UserName|e}}</h4>
+                                <p id-subscribed = "{{subscriber.UserName|e}}" >{{subscriber.UserBiography|e}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="list" id="subscription-list">
+                    {% if subscriptions|length == 0 %}
+                        <p class="message">Vous n'êtes abonné à aucun compte !</p>
+                    {% endif %}
+                    {% for subscription in subscriptions %}
+                        <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
+                            <img id-subscription = "{{subscription.UserName|e}}" class="profil-pic" src="{{subscription.UserAvatar|e}}" alt="Photo de profil">
+                            <div>
+                                <h4 id-subscription = "{{subscription.UserName|e}}">{{subscription.UserName|e}}</h4>
+                                <p id-subscription = "{{subscription.UserName|e}}">{{subscription.UserBiography|e}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>    
+        </div> 
+
     </div>
 
     <div id="biographie">
