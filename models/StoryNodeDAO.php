@@ -52,6 +52,15 @@ class StoryNodeDAO extends DAO {
         return $this->queryRow("UPDATE StoryNode SET StoryNodeTitle = ?, StoryNodeText = ?, StoryNodeAnonymous = ? WHERE StoryNodeId = ?", [$title, $text, $anonymous ? 1 : 0, $storyId]);
     }
 
+
+    /**
+     * Delete a storyNode
+     * @param  int     $storyId    Id of the storyNode
+     */
+    public function deleteStory(int $storyId) {
+        $this->queryRow("DELETE FROM StoryNode WHERE StoryNodeId = ?", [$storyId]);
+    }
+
 }
 
 ?>

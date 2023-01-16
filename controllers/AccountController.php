@@ -3,6 +3,7 @@
 require_once(PATH_MODELS.'UserDAO.php');
 require_once(PATH_MODELS.'StoryNodeDAO.php');
 require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
+
 use Models\UserDAO;
 use Models\StoryNodeDAO;
 use Models\StoryNodeReadingStatisticsDAO;
@@ -34,6 +35,8 @@ class AccountController {
 
             if (htmlspecialchars($user['UserAvatar']) == NULL) {
                 $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+            }else{
+                $user['UserAvatar'] = '/assets/uploads/'.$user['UserAvatar'];
             }
 
             foreach ($stories as $key => $story) {
@@ -47,13 +50,17 @@ class AccountController {
 
             foreach ($subscribers as $key => $subscriber) {
                 if ($subscriber['UserAvatar'] == NULL) {
-                    $subscribers[$key]['UserAvatar'] = '/assets/images/user.png';
+                    $subscribers[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $subscribers[$key]['UserAvatar'] = '/assets/uploads/'.$subscribers[$key]['UserAvatar'];
                 }
             }
 
             foreach ($subscriptions as $key => $subscription) {
                 if ($subscription['UserAvatar'] == NULL) {
-                    $subscriptions[$key]['UserAvatar'] = '/assets/images/user.png';
+                    $subscriptions[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $subscriptions[$key]['UserAvatar'] = '/assets/uploads/'.$subscriptions[$key]['UserAvatar'];
                 }
             }
 
@@ -61,8 +68,8 @@ class AccountController {
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
             $view->render([
-                "userAvatar" => htmlspecialchars($user['UserAvatar']),
-                "userName" => htmlspecialchars($user['UserName']),
+                "userAccountAvatar" => $user['UserAvatar'],
+                "userAccountName" => htmlspecialchars($user['UserName']),
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
@@ -111,7 +118,7 @@ class AccountController {
                 if (htmlspecialchars($user['UserAvatar']) == NULL) {
                     $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
                 }else{
-                    $user['UserAvatar'] = '/assets/images/'.$user['UserAvatar'];
+                    $user['UserAvatar'] = '/assets/uploads/'.$user['UserAvatar'];
                 }
 
                 $followRelation = $userDAO->getFollows($_SESSION['UserName'], $user['UserName']);
@@ -124,13 +131,17 @@ class AccountController {
 
                 foreach ($subscribers as $key => $subscriber) {
                     if ($subscriber['UserAvatar'] == NULL) {
-                        $subscribers[$key]['UserAvatar'] = '/assets/images/user.png';
+                        $subscribers[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                    }else{
+                        $subscribers[$key]['UserAvatar'] = '/assets/uploads/'.$subscribers[$key]['UserAvatar'];
                     }
                 }
-
+                
                 foreach ($subscriptions as $key => $subscription) {
                     if ($subscription['UserAvatar'] == NULL) {
-                        $subscriptions[$key]['UserAvatar'] = '/assets/images/user.png';
+                        $subscriptions[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                    }else{
+                        $subscriptions[$key]['UserAvatar'] = '/assets/uploads/'.$subscriptions[$key]['UserAvatar'];
                     }
                 }
 
@@ -138,8 +149,8 @@ class AccountController {
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
                 $view->render([
-                    "userAvatar" => $user['UserAvatar'],
-                    "userName" => htmlspecialchars($user['UserName']),
+                    "userAccountAvatar" => $user['UserAvatar'],
+                    "userAccountName" => htmlspecialchars($user['UserName']),
                     "biographie" => htmlspecialchars($user['UserBiography']),
                     "like" => htmlspecialchars($snrs),
                     "stories" => $stories,
