@@ -4,20 +4,22 @@
             <a href="/" class="logo">
                 <img src="/assets/images/logoTreeStory.png" alt="logo de TreeStory">
             </a>
-            <a href="#" class="iconLoupe"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="#" class="iconLoupe">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
             <form>
                 <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Rechercher...">
             </form>
         </div>
-        <div class="navLinks">
+        <div id="navLinks">
             <ul>
-                <li><a href="#">Lire une histoire</a></li>
-                <li><a href="#">Créer une histoire</a></li>
+                <li><a href="/search">Lire une histoire</a></li>
+                <li><a href="/story/create">Créer une histoire</a></li>
                 {% if userName %}
                     <li class="scrollingMenuConnected">
-                        <img src="{{ userAvatar }}" alt="Photo de profil" class="accountAvatar">
-                        <ul class="submenu close">
-                            <li><a href="/user/account"><i class="fa-solid fa-user"></i>Compte</a></li>
+                        <img src="{{ userAvatar }}" alt="Photo de profil" class="accountAvatar" id="accountAvatarButton">
+                        <ul class="submenu close" id="burgerCloseSubmenu">
+                            <li><a href="/account"><i class="fa-solid fa-user"></i>Compte</a></li>
                             <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Déconnexion</a></li>
                         </ul>
                     </li>
@@ -30,8 +32,8 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="burgerMenu">
-            <i class="fa-icon fa-solid fa-bars"></i>
+        <div class="burgerMenu" id="eventBurgerMenu">
+            <i class="fa-icon fa-solid fa-bars" id="iconBurgerMenu"></i>
         </div>
     </nav>
 </header>

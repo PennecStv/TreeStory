@@ -16,6 +16,15 @@ class ErrorController {
         $view->render([]);
     }
 
+    /**
+     * Handles an internal error.
+     */
+    public static function internal() {
+        http_response_code(500);
+        $view = new \Templates\View("errors/500.twig");
+        $view->render([]);
+    }
+
 }
 
 ?>

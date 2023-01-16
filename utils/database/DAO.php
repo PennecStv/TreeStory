@@ -33,7 +33,7 @@ abstract class DAO {
      * @return  PDOException    PDOException instance representing the last error or null if none occured.
      */
     public function getLastError(){
-        return $this->erreur;
+        return $this->error;
     }
 
     /**
@@ -50,7 +50,9 @@ abstract class DAO {
         if ($args == null) {
             return $db->query($sql);
         } else {
-            return $db->prepare($sql)->execute($args);
+            $req = $db->prepare($sql);
+            $req->execute($args);
+            return $req;
         }
     }
 
@@ -100,6 +102,18 @@ abstract class DAO {
         }
 
         return $res;
+    }
+
+    public function insert($sql, $args = null) {
+        try {
+            return $this->execute($sql, $args);
+        } catch (PDOException $err) {
+            if($this->debug){
+                die($err->getMessage());
+            }
+            $this->error = $err;
+            return false;
+        }
     }
 
 }

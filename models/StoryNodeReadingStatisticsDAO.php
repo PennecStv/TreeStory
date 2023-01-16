@@ -21,7 +21,7 @@ class StoryNodeReadingStatisticsDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getStatisticsFavorite(String $userName) {
-        $req = "SELECT count(StoryNodeReadingStatisticsFavorite) as nbFavorite FROM storynodereadingstatistics snrs, user u WHERE snrs.StoryNodeReadingStatisticsUser = u.UserName AND u.UserName = '$userName'";
+        $req = "SELECT count(StoryNodeReadingStatisticsFavorite) as nbFavorite FROM StoryNodeReadingStatistics snrs, User u WHERE snrs.StoryNodeReadingStatisticsUser = u.UserName AND u.UserName = '$userName'";
         $res = $this->queryRow($req);
         return $res['nbFavorite'];
     }
