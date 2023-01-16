@@ -1,0 +1,51 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - {{ title }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/assets/css/story_read.css">
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+<div id="story_read">
+    <div class="section">
+        <div class="section-header">
+            <div>
+                {% if previous|default %}
+                    <a href="/story/chapter/{{ previous }}/read"><i class="fas fa-arrow-left"></i></a>
+                {% else %}
+                    <a href="/story/{{ story_id }}/show"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+                <h1>{{ title }}</h1>
+            </div>
+            <div>
+                {% if is_author %}
+                    <a href="/story/chapter/{{ story_node_id }}/edit"><i class="fas fa-pen"></i></a>
+                {% endif %}
+                <a href="/story/{{ story_id }}/show"><i class="fas fa-book"></i></a>
+            </div>
+        </div>
+        {% if author %}
+            <div class="author">
+                <p>Par <a href="/user/{{ author }}">{{ author }}</a></p>
+            </div>
+        {% endif %}
+        <div class="section-body">
+            {{ text }}
+            <div>
+                <h2>Prochains chapitres:</h2>
+                <div>
+                    {% if next_story_nodes is not empty %}
+                        {% for story_node in next_story_nodes %}
+                            <a href="/story/chapter/{{ story_node.id }}/read">{{ story_node.title }}</a>
+                        {% endfor %}
+                    {% endif %}
+                    <a href="/story/chapter/{{ story_node_id }}/contribute"><i class="fas fa-pen"></i> Contribuer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

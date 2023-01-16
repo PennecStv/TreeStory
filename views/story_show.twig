@@ -1,0 +1,30 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - {{ title }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/assets/css/story_show.css">
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+<div id="story_show">
+    <div class="section">
+        <div class="section-header">
+            <div>
+                <h1>{{ title }}</h1>
+            </div>
+            <div>
+                <a href="/"><i class="fas fa-times"></i></a>
+            </div>
+        </div>
+        <div class="section-body">
+            {% if first.StoryNodeAnonymous == 0 %}
+                <h2>Par <a href="/user/{{ first.StoryNodeAuthor }}">{{ first.StoryNodeAuthor }}</a></h2>
+            {% endif %}
+            <a href="/story/chapter/{{ first.StoryNodeId }}/read">Lire le premier chapitre</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
