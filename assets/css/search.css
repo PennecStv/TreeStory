@@ -3,6 +3,10 @@ html, body {
     margin: 0;
 }
 
+i {
+    padding: 16px;
+}
+
 #form-search {
     margin-top: 5vh;
     margin-inline: 5%;
@@ -40,6 +44,7 @@ select {
     text-decoration: bolder;
     color:#273469;
 	font-size: 1em;
+    font-weight: bold;
 }
 
 .type {

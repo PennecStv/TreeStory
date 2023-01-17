@@ -17,7 +17,7 @@
     <div class="menu">
         <form id="form-search" method="POST">
             <div class = "menu-item filter">
-                <label> Filtrer par : </label>
+                <i class="fa-solid fa-filter fa-xl"></i>
                 <select name="filter" id="filter-select">
                     {% for element in filters %}
                         <option value={{ element[0] }}> {{ element[1] }} </option>
@@ -33,7 +33,7 @@
             </div>
 
             <div class = "menu-item sort">
-                <label> Trier par : </label>
+                <i class="icon fa-solid fa-sort fa-xl"></i>
                 <select name="sort" id="sort-select">
                     {% for element in sorts %}
                         <option value={{ element[0] }}> {{ element[1] }} </option>
