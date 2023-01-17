@@ -1,5 +1,7 @@
 <div class="storyContent">
-	<img src="{{ story.StoryCover|e }}">
+	<a href="/story/chapter/{{story.StoryNodeId|e}}/edit">
+		<img src="{{ story.StoryCover|e }}">
+	</a>
 	<div class="infoStory">
 		<h1>{{ story.StoryNodeTitle|e }}</h1>
 		<p>Par {{ story.StoryNodeAuthor|e }}</p>

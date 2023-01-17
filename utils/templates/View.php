@@ -56,7 +56,7 @@ class View {
             
             if ($user) {
                 $context['userName'] = $_SESSION['UserName'];
-                $context['userAvatar'] = $user['UserAvatar'] ?? "/assets/images/userDefaultIcon.png";
+                $context['userAvatar'] = !empty($user['UserAvatar']) ? ("/assets/uploads/".$user['UserAvatar']) : "/assets/images/userDefaultIcon.png";
             }
         }
         echo $this->environment->render($this->name, $context);

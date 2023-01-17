@@ -7,6 +7,13 @@ use Models\StoryDAO;
 use Models\StoryNodeDAO;
 use Routing\Router;
 
+
+/**
+ * StoryController class is the controller for the story pages.
+ * 
+ * @author  Jonathan Montmain   <jonathan.montmain@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
+ */
 class StoryController {
 
     public static function get_creation_form() {
@@ -276,6 +283,22 @@ class StoryController {
 
         $view = new \Templates\View("story_node_creation.twig");
         $view->render([]);
+    }
+
+
+    /**
+     * this function is used to delete a chapter.
+     * @param $params
+     */
+    public static function delete_chapter($params){
+        $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDAO->get(intval($params['id']));
+        if($storyNode['StoryNodeAuthor'] == $_SESSION['UserName']){
+            $storyNodeDAO->deleteStory(intval($params['id']));
+            //header('Location: /story/chapter/' . $storyNode['StoryNodeRoot'] . '/read');
+            return;
+        }
+
     }
 
 }
