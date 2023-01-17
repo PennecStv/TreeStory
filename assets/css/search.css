@@ -3,6 +3,44 @@ html, body {
     margin: 0;
 }
 
+#form-search {
+    margin-top: 5vh;
+    margin-inline: 5%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.sort, .filter {
+    display: flex;
+    margin-inline: auto;
+    min-width: 200px;
+    flex-wrap: nowrap;
+}
+
+
+form label {
+    white-space: nowrap;
+    margin: 5px 10px 5px 0;
+    text-decoration: bolder;
+    color:#1E2749;
+	font-size: 1em;
+    font-weight: bold;
+}
+
+
+select {
+    min-width: fit-content;
+    width: 15vw;
+    height: 5vh;
+    border-radius: 5px;
+    border-width: 2px;
+    text-decoration: bolder;
+    color:#273469;
+	font-size: 1em;
+}
 
 .type {
     text-align: center;
@@ -11,8 +49,7 @@ html, body {
 
 .type button {
     margin-top: 2vh;
-    background-color: #FAFAFF;
-    color: #273469;
+    
     border: 1px solid #000000;
     padding: 0px 10px 0px 10px;
     width: fit-content;
@@ -25,6 +62,15 @@ html, body {
     background-color: #1E2749;
     color: #E4D9FF;
     cursor: pointer;
+}
+.button {
+    background-color: #FAFAFF;
+    color: #273469;
+}
+
+.button-change {
+    background-color: #273469;
+    color: #FAFAFF;
 }
 
 
@@ -71,26 +117,18 @@ hr {
 	display:flex;
   	flex-wrap: wrap;
   	width:95%;
- 	margin-left: auto;
-  	margin-right: auto;
+ 	margin-inline: 7vw;
   	align-items:center;
   	align-content:center;
+    justify-content: flex-start;
 }
 
 .storyContent {
-	display: flex;
+    display: flex;
 	width: 350px;
 	max-height: 200px;
 	margin-top: 30px;
     overflow: hidden;
-}
-
-.storyContent:nth-child(3n + 1) {
-    margin-left: 10vw;
-}
-
-.storyContent:not(:nth-child(3n + 1)) {
-    margin-left: 4vw;
 }
 
 
@@ -126,10 +164,9 @@ hr {
 	display:flex;
   	flex-wrap:wrap;
   	width:95%;
- 	margin-left:auto;
-  	margin-right:auto;
+ 	margin-inline: 5vw;
   	align-items:center;
-  	align-content:center;
+  	justify-content: flex-start;
 }
 
 .userContent {
@@ -148,14 +185,6 @@ hr {
 	flex-direction: column;
     max-width: 150px;
     height: auto;
-}
-
-.userContent:nth-child(4n + 1) {
-    margin-left: 6vw;
-}
-
-.userContent:not(:nth-child(4n + 1)) {
-    margin-left: 1vw;
 }
 
 .infoUser {

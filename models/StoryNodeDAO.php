@@ -34,12 +34,37 @@ class StoryNodeDAO extends DAO {
      * 
      * @return false|PDOStatement        query results
      */
-    public function getStoryNodeByResearch(String $input) {
+    public function getStoryNodeByResearch(String $input, $sort) {
         
         if ($input == null){
             $req = "SELECT * FROM storynode sn, story s WHERE sn.StoryNodeSource = s.StoryId";
         } else {
             $req = "SELECT * FROM storynode sn, story s WHERE sn.StoryNodeSource = s.StoryId AND sn.StoryNodeTitle LIKE '%$input%'";
+        }
+
+        switch($sort){
+            case "inorder":
+                $req .= " ORDER BY StoryTitle ASC";
+                break;
+
+            case "inverse":
+                $req .= " ORDER BY StoryTitle DESC";
+                break;
+
+            case "like":
+                $req .= "";
+                break;
+
+            case "view":
+                $req .= "";
+                break;
+
+            case "recent":
+                $req .= "";
+                break;
+
+            default:
+                break;
         }
         
         $res = $this->queryAll($req);

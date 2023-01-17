@@ -7,13 +7,40 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/search.css">
 {% endblock %}
 
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/searchScript.js"></script>
+{% endblock %}
+
 {% block body %}
 
-    <div class = "type">
-        <button>+ Action</button>
-        <button>+ Horreur</button>
-        <button>+ Aventure</button>
-        <button>...</button>
+    <div class="menu">
+        <form id="form-search" method="POST">
+            <div class = "menu-item filter">
+                <label> Filtrer par : </label>
+                <select name="filter" id="filter-select">
+                    {% for element in filters %}
+                        <option value={{ element[0] }}> {{ element[1] }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class = "menu-item type">
+                <button class="button aventure">+ Action</button>
+                <button class="button horreur">+ Horreur</button>
+                <button class="button aventure">+ Aventure</button>
+                <button class="button more">...</button>
+            </div>
+
+            <div class = "menu-item sort">
+                <label> Trier par : </label>
+                <select name="sort" id="sort-select">
+                    {% for element in sorts %}
+                        <option value={{ element[0] }}> {{ element[1] }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
     </div>
 
     <div class="box">
@@ -63,5 +90,9 @@
 
         {% endif %}
     </div>
+
+    <input type="hidden" name="hidden1" id="hidden1" />
+    <input type="hidden" name="hidden2" id="hidden2" />
+    <input type="hidden" name="hidden3" id="hidden3" />
 
 {% endblock %}

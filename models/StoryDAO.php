@@ -32,9 +32,48 @@ class StoryDAO extends DAO {
      * 
      * @return false|PDOStatement        query results
      */
-    public function getStoryByResearch(String $input) {
+    public function getStoryByResearch(String $input, $sort) {
         
         if ($input == null){
+            $req = "SELECT * FROM story";
+        } else {
+            $req = "SELECT * FROM story WHERE StoryTitle LIKE '%$input%'";
+        }
+
+        switch($sort){
+            case "inorder":
+                $req .= " ORDER BY StoryTitle ASC";
+                break;
+
+            case "inverse":
+                $req .= " ORDER BY StoryTitle DESC";
+                break;
+
+            case "like":
+                $req .= "";
+                break;
+
+            case "view":
+                $req .= "";
+                break;
+
+            case "recent":
+                $req .= "";
+                break;
+
+            default:
+                break;
+        }
+        
+        $res = $this->queryAll($req);
+
+        return $res;
+    }
+
+
+    public function getStoryByFilter(String $option) {
+
+        if ($input == "Tout"){
             $req = "SELECT * FROM story";
         } else {
             $req = "SELECT * FROM story WHERE StoryTitle LIKE '%$input%'";

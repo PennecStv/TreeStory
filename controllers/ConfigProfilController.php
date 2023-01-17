@@ -117,6 +117,8 @@ class ConfigProfilController {
                 "userAvatar"    => $avatar,
                 "userBio"       => $actualBiography
             ]);
+        } else {
+            header("/login");
         }
     }
 }
