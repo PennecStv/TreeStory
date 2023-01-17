@@ -86,3 +86,12 @@
   width: 100%;
   resize: vertical;
 }
+
+.delete-chapter {
+  border: 1px solid #aaa;
+  padding: 5px 10px;
+  border-radius: 99999px;
+  color: #fff;
+  background-color: red;
+  cursor: pointer;
+}

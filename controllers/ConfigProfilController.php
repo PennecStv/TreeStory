@@ -33,7 +33,7 @@ class ConfigProfilController {
         if (empty($avatar)){
             $avatar = "./assets/images/user.png";
         }
-
+        
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
@@ -43,7 +43,7 @@ class ConfigProfilController {
 
                 $userName        = htmlspecialchars($modif_userName);
                 $email           = htmlspecialchars($modif_mail);
-                $avatar          = htmlspecialchars($modif_avatar);
+                //$avatar          = htmlspecialchars($modif_avatar);
                 $biography       = htmlspecialchars($modif_bio);
 
                 //Setting all the modification on the database
@@ -53,6 +53,19 @@ class ConfigProfilController {
                             $userDAO->setUser('UserName', $userName, $actualUserName);
                         }
                     }
+                }
+
+                if (isset($_FILES['modif_avatar']) && !empty($_FILES['modif_avatar']['name'])) {
+                    $fileName = uniqid()."-".basename($_FILES['modif_avatar']['name']);
+                    $path = PATH_UPLOADS . $fileName;
+
+                    if(move_uploaded_file($_FILES['modif_avatar']['tmp_name'], $path)){
+                        $userDAO->setUser('UserAvatar', $fileName, $actualUserName);
+                    }
+                    else{
+                        $messageErreur = "Erreur lors de l'upload de l'image";
+                    }
+
                 }
                  
                 /*
@@ -69,7 +82,7 @@ class ConfigProfilController {
                 }
 
                 if (!empty($avatar)){
-                    $userDAO->setUser('UserAvatar', $avatar, $userName);
+                    //$userDAO->setUser('UserAvatar', $avatar, $userName);
                 }
 
                 if (!empty($biography)){
@@ -81,7 +94,7 @@ class ConfigProfilController {
                 $messageSucces = "Modification effectuée avec succès!";
             }
             
-
+                
             //If the user click on the confirm button of the DELETE USER Modal
             if (isset($_POST['confirm_button'])){
                 extract($_POST);

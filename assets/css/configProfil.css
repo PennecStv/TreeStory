@@ -14,9 +14,8 @@ form#form-config, .delete-button {
 
 .config-card-form {
     display: flex;
-    justify-content: left;
+    flex-direction: column;
     align-items: center;
-    padding-top: 20px;
     padding-bottom: 20px;
 } 
 
@@ -34,7 +33,7 @@ form#form-config, .delete-button {
 }
 
 .supp_button{
-    margin-top: 1vh;
+    margin: 1vh 0 2vh 0;
     background-color: #B2222B;
     color: #FAFAFF;
     border: 1px solid #000000;
@@ -73,6 +72,13 @@ input#modif_userName, input#modif_password, input#modif_confirmPassword, input#m
     padding-left: 10px;
 }
 
+
+.Modif-photo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 label#modif_avatar{
     cursor: pointer;
     color: #273469;
@@ -88,12 +94,11 @@ input#modif_avatar{
     display: None;
 }
 
-
 textarea#modif_bio{
     border: 1px solid #000000;
     margin-bottom: 10px;
-    width: 150vh;
-    height: 80vh;
+    width: 100%;
+    height: 30vh;
     border-radius: 10px;
     font-size: 16px;
     padding-left: 10px;

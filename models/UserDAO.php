@@ -208,6 +208,32 @@ class UserDAO extends DAO {
         $requete = "DELETE FROM UserFollowerRelation WHERE UserId = '$UserId' AND FollowingUserId = '$FollowingUserId'";
         $this->queryRow($requete);
     }
+
+
+    /**
+     * this function retrieves the subscriptions of a specified user using an SQL query. 
+     * It takes two arguments as input:
+     * @param String : the column of the table userFollowerRelation that we want to use in the query
+     * @param String : the value of the column that we want to use in the query
+     * @return false|PDOStatement        query results
+     */
+    public function getUsersSubscribers($column,$userId){
+        $requete =" SELECT UserName,UserAvatar,UserBiography FROM userFollowerRelation INNER JOIN User ON User.UserName = userFollowerRelation.$column WHERE FollowingUserId='$userId'"; 
+        return $this->queryAll($requete);
+    }
+
+    
+    /**
+     * this function retrieves the subscribers of a specified user using an SQL query. 
+     * It takes two arguments as input:
+     * @param String : the column of the table userFollowerRelation that we want to use in the query
+     * @param String : the value of the column that we want to use in the query
+     * @return false|PDOStatement        query results
+     */
+    public function getUsersSubscriptions($column,$userId){
+        $requete =" SELECT UserName,UserAvatar,UserBiography FROM userFollowerRelation INNER JOIN User ON User.UserName = userFollowerRelation.$column WHERE UserId='$userId'"; 
+        return $this->queryAll($requete);
+    }
 }
 
 ?>

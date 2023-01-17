@@ -13,7 +13,7 @@
  * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
  */
 
-session_save_path("/tmp");
+//session_save_path("/tmp");
 session_start();
 
 require_once("./vendor/autoload.php");
@@ -74,29 +74,14 @@ $router->route(Method::POST, "/story/chapter/:id/edit", ["StoryController", "edi
 
 $router->route(Method::GET, "/story/chapter/:id/contribute", ["StoryController", "get_node_creation_form"]);
 $router->route(Method::POST, "/story/chapter/:id/contribute", ["StoryController", "create_node"]);
+
 $router->route(Method::GET, "/user/account", ["AccountController", "account"]);
 $router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
+
 $router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
 $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
 
-$router->route(Method::GET, "/account", ["AccountController", "account"]);
-$router->route(Method::GET, "/story/create", ["StoryController", "get_creation_form"]);
-$router->route(Method::POST, "/story/create", ["StoryController", "create"]);
-
-$router->route(Method::GET, "/register", ["RegisterController", "register"]);
-$router->route(Method::POST, "/register", ["RegisterController", "register"]);
-
-$router->route(Method::GET, "/story/chapter/:id/read", ["StoryController", "read"]);
-
-$router->route(Method::GET, "/story/chapter/:id/edit", ["StoryController", "get_node_edition_form"]);
-$router->route(Method::POST, "/story/chapter/:id/edit", ["StoryController", "edit"]);
-
-$router->route(Method::GET, "/story/chapter/:id/contribute", ["StoryController", "get_node_creation_form"]);
-$router->route(Method::POST, "/story/chapter/:id/contribute", ["StoryController", "create_node"]);
-$router->route(Method::GET, "/user/account", ["AccountController", "account"]);
-$router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
-$router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
-$router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
+$router->route(Method::POST, "/story/chapter/:id/delete", ["StoryController", "delete_chapter"]);
 
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);

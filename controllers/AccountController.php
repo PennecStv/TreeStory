@@ -3,6 +3,7 @@
 require_once(PATH_MODELS.'UserDAO.php');
 require_once(PATH_MODELS.'StoryNodeDAO.php');
 require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
+
 use Models\UserDAO;
 use Models\StoryNodeDAO;
 use Models\StoryNodeReadingStatisticsDAO;
@@ -34,25 +35,46 @@ class AccountController {
 
             if (htmlspecialchars($user['UserAvatar']) == NULL) {
                 $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+            }else{
+                $user['UserAvatar'] = '/assets/uploads/'.$user['UserAvatar'];
             }
 
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
                 }
-
             }
 
-            
+            $subscribers = $userDAO->getUsersSubscribers('UserId',$user['UserName']);
+            $subscriptions = $userDAO->getUsersSubscriptions('FollowingUserId',$user['UserName']);
+
+            foreach ($subscribers as $key => $subscriber) {
+                if ($subscriber['UserAvatar'] == NULL) {
+                    $subscribers[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $subscribers[$key]['UserAvatar'] = '/assets/uploads/'.$subscribers[$key]['UserAvatar'];
+                }
+            }
+
+            foreach ($subscriptions as $key => $subscription) {
+                if ($subscription['UserAvatar'] == NULL) {
+                    $subscriptions[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                }else{
+                    $subscriptions[$key]['UserAvatar'] = '/assets/uploads/'.$subscriptions[$key]['UserAvatar'];
+                }
+            }
+
             $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
             $view->render([
-                "userAvatar" => htmlspecialchars($user['UserAvatar']),
-                "userName" => htmlspecialchars($user['UserName']),
+                "userAccountAvatar" => $user['UserAvatar'],
+                "userAccountName" => htmlspecialchars($user['UserName']),
                 "biographie" => htmlspecialchars($user['UserBiography']),
                 "like" => htmlspecialchars($snrs),
                 "stories" => $stories,
+                "subscribers" => $subscribers,
+                "subscriptions" => $subscriptions,
 
                 "userNameConnected" => ($_SESSION['UserName']),
                 "follower" => $follower,
@@ -96,7 +118,7 @@ class AccountController {
                 if (htmlspecialchars($user['UserAvatar']) == NULL) {
                     $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
                 }else{
-                    $user['UserAvatar'] = '/assets/images/'.$user['UserAvatar'];
+                    $user['UserAvatar'] = '/assets/uploads/'.$user['UserAvatar'];
                 }
 
                 $followRelation = $userDAO->getFollows($_SESSION['UserName'], $user['UserName']);
@@ -104,15 +126,36 @@ class AccountController {
                     $buttonName = "Ne plus suivre";
                 }
 
+                $subscribers = $userDAO->getUsersSubscribers('UserId',$user['UserName']);
+                $subscriptions = $userDAO->getUsersSubscriptions('FollowingUserId',$user['UserName']);
+
+                foreach ($subscribers as $key => $subscriber) {
+                    if ($subscriber['UserAvatar'] == NULL) {
+                        $subscribers[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                    }else{
+                        $subscribers[$key]['UserAvatar'] = '/assets/uploads/'.$subscribers[$key]['UserAvatar'];
+                    }
+                }
+                
+                foreach ($subscriptions as $key => $subscription) {
+                    if ($subscription['UserAvatar'] == NULL) {
+                        $subscriptions[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+                    }else{
+                        $subscriptions[$key]['UserAvatar'] = '/assets/uploads/'.$subscriptions[$key]['UserAvatar'];
+                    }
+                }
+
                 $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
                 $view->render([
-                    "userAvatar" => $user['UserAvatar'],
-                    "userName" => htmlspecialchars($user['UserName']),
+                    "userAccountAvatar" => $user['UserAvatar'],
+                    "userAccountName" => htmlspecialchars($user['UserName']),
                     "biographie" => htmlspecialchars($user['UserBiography']),
                     "like" => htmlspecialchars($snrs),
                     "stories" => $stories,
+                    "subscribers" => $subscribers,
+                    "subscriptions" => $subscriptions,
 
                     "userNameConnected" => $_SESSION['UserName'],
                     "buttonName" => $buttonName,
@@ -150,6 +193,7 @@ class AccountController {
             $userDAO->deleteFollowRelation($_SESSION['UserName'], $user['UserName']);
         }
     }
+
 }
 
 ?>

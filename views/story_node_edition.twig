@@ -6,7 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/story_node_edition.css">
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="/assets/scripts/storyNodeEdition.js"></script>    
+{% endblock %}
 
 {% block body %}
 <div id="story_edition">
@@ -43,6 +45,7 @@
                     </div>
                 </div>
             </form>
+            <button type="submit" class="delete-chapter">Supprimer le chapitre</button>
         </div>
     </div>
 </div>
