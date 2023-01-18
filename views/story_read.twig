@@ -41,6 +41,38 @@
                     <button class="like-chapter" story-id="{{story_id}}"><i class="fas fa-thumbs-up"></i>&nbsp{{boutonLike}}</button>
                     <button class="comment-chapter" ><i class="fa-solid fa-comment"></i>&nbspCommenter</button>
                 </div>
+
+                <div id="section-commentaire" style="display : none;">
+
+                    <div class="commenter">
+                        <div class="top-commenter" id="comments">
+                            {% if comments|length == 0%}
+                                <h3>Il n'y a pas encore de commentaire</h3>
+                            {% endif %}
+
+                            {% for comment in comments %}
+                                <div author="{{comment.CommentAuthor|e}}" class="commentaires">
+                                    <img author="{{comment.CommentAuthor|e}}" class="profil" src="{{comment.UserAvatar|e}}" alt="profil">
+                                    <div class="commentaire-detail">
+                                        <h4 author="{{comment.CommentAuthor|e}}">{{ comment.CommentAuthor|e }}</h4>
+                                        <p>{{ comment.CommentMessage|e}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        </div>
+
+                        <div class="commenter-body">
+                            <form id="form-commenter">
+                                <textarea name="text_comments" cols="45" rows="3" placeholder="Votre commentaire"></textarea>
+                                <div class="commenter-footer">
+                                    <button type="submit" name="commenter"><i class="fas fa-paper-plane"></i>Commenter</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
                 <h2>Prochains chapitres:</h2>
                 <div>
                     {% if next_story_nodes is not empty %}

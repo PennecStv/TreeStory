@@ -89,8 +89,7 @@ $router->route(Method::POST, "/story/chapter/:id/report", ["StoryController", "r
 $router->route(Method::POST, "/story/chapter/:id/like", ["StoryController", "like_chapter"]);
 $router->route(Method::POST, "/story/chapter/:id/dislike", ["StoryController", "dislike_chapter"]);
 
-$router->route(Method::POST, "/story/:id/comment", ["StoryController", "comment_chapter"]);
-$router->route(Method::POST, "/story/:id/uncomment", ["StoryController", "uncomment_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/comment", ["StoryController", "comment_chapter"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 $router->route(Method::ERROR, "500", ["ErrorController", "internal"]);

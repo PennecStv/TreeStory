@@ -163,6 +163,8 @@ class AccountController {
                     "following" =>$following,
 
                 ]);
+            }else{
+                header('Location: /404');
             }
             
         } else {
