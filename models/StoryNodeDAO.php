@@ -61,6 +61,33 @@ class StoryNodeDAO extends DAO {
         $this->queryRow("DELETE FROM StoryNode WHERE StoryNodeId = ?", [$storyId]);
     }
 
+
+    /**
+     * Insert a report in the database
+     * @param  int     $reportId              Id of the report
+     * @param  string  $reportType            Type of the report
+     * @param  string  $reportUserSource      Username of the user who reported
+     * @param  string  $reportDescription     Description of the report
+     */
+    public function reportStoryNode(string $reportType, int $storyIdTarget ,string $reportUserSource, string $reportDescription) {
+        return $this->insert("INSERT INTO Report (ReportType, ReportStoryTarget, ReportUserSource, ReportDescription, ReportCreatedAt) VALUES (?, ?, ?, ?, ?);", [$reportType,$storyIdTarget, $reportUserSource, $reportDescription ,date("Y-m-d H:i:s", time())]);
+    }
+
+    /**
+     * Check if the text contains banned words
+     * @param  string $text Text to check
+     * @return bool   True if the text is valid, false otherwise
+     */
+    public function getCheckBannedWords(string $text) {
+        $banned_words = array("insulte", "femmelette", "sexiste", "invective", "ordurier");
+        foreach ($banned_words as $word) {
+            if (stripos($text, $word) !== false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 
 ?>

@@ -83,6 +83,9 @@ $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfoll
 
 $router->route(Method::POST, "/story/chapter/:id/delete", ["StoryController", "delete_chapter"]);
 
+$router->route(Method::GET, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 $router->route(Method::ERROR, "500", ["ErrorController", "internal"]);
