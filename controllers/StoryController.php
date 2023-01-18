@@ -301,6 +301,41 @@ class StoryController {
 
     }
 
+
+    /**
+     * this function is used to report a chapter.
+     * @param $params
+     */
+    public static function report_chapter($params){
+        
+        $messageErreur = "";
+        $classeMessage = "";
+
+        if(isset($_POST['signaler'])){
+            
+            extract($_POST);
+
+            $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+            $isConform = $storyNodeDao->getCheckBannedWords($text_signalement);
+            if($isConform){
+                $storyNodeDao->reportStoryNode($report_type, intval($params['id']), $_SESSION['UserName'], $text_signalement);
+                $messageErreur = "Merci, votre signalement a bien été pris en compte.";
+                $classeMessage = "succes";
+            }
+            else{
+                $messageErreur = "Le texte contient des mots interdits. Votre signalement n'a pas été pris en compte.";
+                $classeMessage = "erreur";
+            }
+        }
+
+        $view = new \Templates\View("report.twig");
+        $view->render([
+            'id' => intval($params['id']),
+            'messageErreur' => $messageErreur,
+            'classeMessage' => $classeMessage
+        ]);
+    }
+
 }
 
 ?>

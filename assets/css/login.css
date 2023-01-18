@@ -77,3 +77,10 @@ i{
     color: red;
     align-self: center;
 }
+
+.succes {
+    margin-top: 4vh;
+    font-weight: 600;
+    color: green;
+    align-self: center;
+}
