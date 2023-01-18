@@ -9,15 +9,15 @@
                 <input id="searchbar" type="text" name="search" placeholder="Rechercher..." value = {{ searchText }}>
             </form>
         </div>
-        <div class="navLinks">
+        <div id="navLinks">
             <ul>
                 <li><a href="/search">Lire une histoire</a></li>
-                <li><a href="#">Créer une histoire</a></li>
+                <li><a href="/story/create">Créer une histoire</a></li>
                 {% if userName %}
                     <li class="scrollingMenuConnected">
-                        <img src="{{ userAvatar }}" alt="Photo de profil" class="accountAvatar">
-                        <ul class="submenu close">
-                            <li><a href="/user/account"><i class="fa-solid fa-user"></i>Compte</a></li>
+                        <img src="{{ userAvatar }}" alt="Photo de profil" class="accountAvatar" id="accountAvatarButton">
+                        <ul class="submenu close" id="burgerCloseSubmenu">
+                            <li><a href="/account"><i class="fa-solid fa-user"></i>Compte</a></li>
                             <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Déconnexion</a></li>
                         </ul>
                     </li>
@@ -30,8 +30,8 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="burgerMenu">
-            <i class="fa-icon fa-solid fa-bars"></i>
+        <div class="burgerMenu" id="eventBurgerMenu">
+            <i class="fa-icon fa-solid fa-bars" id="iconBurgerMenu"></i>
         </div>
     </nav>
 </header>

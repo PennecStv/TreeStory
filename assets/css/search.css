@@ -47,6 +47,12 @@ select {
     font-weight: bold;
 }
 
+
+.icon {
+    color: #273469;
+}
+
+
 .type {
     text-align: center;
     margin-bottom: 2rem;
@@ -76,12 +82,6 @@ select {
 .button-change {
     background-color: #273469;
     color: #FAFAFF;
-}
-
-
-.storyNode{
-    height: 100%;
-    width: fit-content;
 }
 
 .empty{
@@ -118,11 +118,22 @@ hr {
 
 /* Résultat Histoires et Chapitres */
 
+.storyContent, .storyNodeContent {
+    margin: 5px;
+    border-width: 10px;
+    border: #000000;
+}
+
+.storyNode{
+    height: 100%;
+    width: fit-content;
+}
+
 .storyNode, .story {
 	display:flex;
   	flex-wrap: wrap;
   	width:95%;
- 	margin-inline: 7vw;
+ 	margin-left: 2vw;
   	align-items:center;
   	align-content:center;
     justify-content: flex-start;
@@ -190,6 +201,7 @@ hr {
 	flex-direction: column;
     max-width: 150px;
     height: auto;
+    border-radius: 50%;
 }
 
 .infoUser {

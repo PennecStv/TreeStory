@@ -129,20 +129,26 @@ class SearchController {
         $results = null;
 
         foreach ($storyResult as $key => $story) {
-            if ($story['StoryCover'] == NULL) {
+            if ($story['StoryCover'] === NULL) {
                 $storyResult[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+            } else {
+                $storyResult[$key]['UserAvatar'] = '/assets/uploads/covers/'.$storyResult[$key]['UserAvatar'];
             }
         }
     
         foreach ($chapterResult as $key => $chapter) {
-            if ($chapter['StoryCover'] == NULL) {
+            if ($chapter['StoryCover'] === NULL) {
                 $chapterResult[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+            } else {
+                $chapterResult[$key]['UserAvatar'] = '/assets/uploads/covers/'.$chapterResult[$key]['UserAvatar'];
             }
         }
     
-        foreach ($userResult as $key => $story) {
-            if ($story['UserAvatar'] == NULL) {
+        foreach ($userResult as $key => $user) {
+            if ($user['UserAvatar'] === NULL) {
                 $userResult[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+            } else {
+                $userResult[$key]['UserAvatar'] = '/assets/uploads/'.$userResult[$key]['UserAvatar'];
             }
         }
         

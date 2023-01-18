@@ -1,0 +1,61 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - Créer une histoire{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/assets/css/story_creation.css">
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+<div id="story_creation">
+    <div class="section">
+        <div class="section-header">
+            <div>
+                <h1>Créer une histoire</h1>
+            </div>
+            <div>
+                <a href="/"><i class="fas fa-times"></i></a>
+            </div>
+        </div>
+        <div class="section-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-table">
+                    <div>
+                        <label for="title">Titre de l'histoire:</label>
+                        <input type="text" name="title" id="title" />
+                    </div>
+                    <div>
+                        <label for="cover">Couverture:</label>
+                        <input type="file" name="cover" id="cover" />
+                    </div>
+                    <div>
+                        <label for="tags">Catégorie(s):</label>
+                        <select name="tags[]" id="tags" multiple>
+                            {% for tag in tags %}
+                                <option value="{{ tag.id }}">{{ tag.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="node-title">Titre du chapitre:</label>
+                        <input type="text" name="node-title" id="node-title" />
+                    </div>
+                    <div>
+                        <label for="anonymous">Anonyme:</label>
+                        <input type="checkbox" name="anonymous" id="anonymous" />
+                    </div>
+                    <div class="full">
+                        <label for="text">Contenu du chapitre:</label>
+                        <textarea name="text" id="text" cols="30" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit">Créer l'histoire</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

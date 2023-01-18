@@ -38,6 +38,10 @@
 	color: #273469;
 }
 
+#statFollowers, #statFollowings {
+	cursor: pointer;
+}
+
 #biographie {
 	margin-bottom: 100px;
 	margin-left: 10%;
@@ -52,9 +56,8 @@
 	font-size: 20px;
 }
 
-.option {
-	margin-left: 10%;
-	margin-right: 10%;
+.option, .follow-option {
+	margin: 0 10% 0 10%;
 	margin-bottom: 150px;
 }
 
@@ -90,14 +93,14 @@
 	display: none;
 }
 
-.modifAccount {
+.modifAccount, .DownloadInfo {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-top: 150px;
 }
 
-.modifAccount a {
+.modifAccount a, button {
 	font-size: 20px;
 	text-decoration: none;
     background-color: #273469;
@@ -105,6 +108,11 @@
     border: 1px solid #000000;
     border-radius: 30px;
     padding: 15px 15px 15px 15px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #1E2749;
 }
 
 .modifAccount a:hover {
@@ -155,3 +163,102 @@
     font-size: 18px;
 	cursor: pointer;
 }
+
+/*liste of followers*/
+.follow-option{
+	display: none;
+	margin-bottom: 0;
+}
+
+
+.follow-option-visible{
+	display:block;
+}
+
+
+.menu {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 30px;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: black;
+}
+
+
+.menu h4 {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 0;
+	text-decoration: none;
+}
+
+
+.subscribers , .subscriptions {
+	cursor: pointer;
+	position: relative;
+}
+
+
+.followersList{
+	width: 100%;
+	height: 200px;
+	overflow-y: auto;
+}
+
+
+.followersList::-webkit-scrollbar {
+	width: 0px;
+}
+
+
+.list{
+	display:none;
+}
+
+
+.active {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.indicatorAbonnes, .indicatorAbonnements {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 3px;
+	left: 0;
+	background-color: #273469;
+}
+
+
+.user-subscribed,.user-subscription{
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	height: 60px;
+	border-bottom: 2px solid #273469;
+	border-radius: 0 0 4% 4%;
+	cursor: pointer;
+}
+
+
+.profil-pic{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-left: 20px;
+}
+
+
+.message{
+	margin-top: 20px;
+    text-align: center;
+}
+

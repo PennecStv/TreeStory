@@ -17,7 +17,9 @@
     <div class="menu">
         <form id="form-search" method="POST">
             <div class = "menu-item filter">
-                <i class="fa-solid fa-filter fa-xl"></i>
+                <span class = "icon">
+                    <i class="fa-solid fa-filter fa-xl"></i>
+                </span>
                 <select name="filter" id="filter-select">
                     {% for element in filters %}
                         <option value={{ element[0] }}> {{ element[1] }} </option>
@@ -33,7 +35,9 @@
             </div>
 
             <div class = "menu-item sort">
-                <i class="icon fa-solid fa-sort fa-xl"></i>
+                <span class = "icon">
+                    <i class="icon fa-solid fa-sort fa-xl"></i>
+                </span>
                 <select name="sort" id="sort-select">
                     {% for element in sorts %}
                         <option value={{ element[0] }}> {{ element[1] }} </option>
@@ -54,7 +58,7 @@
                 <div class="box">
                     <h1 class="category-title"> Histoires </h1>
                     <hr>
-                    <div class="story">
+                    <div class="box-item story">
                         {% for story in stories %}
                             {% include '/base/infoStory.twig' %}
                         {% endfor %}
@@ -67,7 +71,7 @@
                 <div class="box">
                     <h1 class="category-title"> Chapitres </h1>
                     <hr>
-                    <div class="storyNode">
+                    <div class="box-item storyNode">
                         {% for chapter in chapters %}
                             {% include '/base/infoStoryNode.twig' %}
                         {% endfor %}

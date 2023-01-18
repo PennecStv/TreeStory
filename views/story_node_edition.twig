@@ -1,0 +1,52 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - Modifier un chapitre{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/assets/css/story_node_edition.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/assets/scripts/storyNodeEdition.js"></script>    
+{% endblock %}
+
+{% block body %}
+<div id="story_edition">
+    <div class="section">
+        <div class="section-header">
+            <div>
+                <h1>Modifier un chapitre</h1>
+            </div>
+            <div>
+                <a href="/"><i class="fas fa-times"></i></a>
+            </div>
+        </div>
+        <div class="section-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-table">
+                    <div>
+                        <label for="title">Titre du chapitre:</label>
+                        <input type="text" name="title" id="title" value="{{ title }}" />
+                    </div>
+                    <div>
+                        <label for="anonymous">Anonyme:</label>
+                        {% if anonymous %}
+                          <input type="checkbox" name="anonymous" id="anonymous" checked />
+                        {% else %}
+                          <input type="checkbox" name="anonymous" id="anonymous" />
+                        {% endif %}
+                    </div>
+                    <div class="full">
+                        <label for="text">Contenu du chapitre:</label>
+                        <textarea name="text" id="text" cols="30" rows="10">{{ content }}</textarea>
+                    </div>
+                    <div>
+                        <button type="submit">Modifier le chapitre</button>
+                    </div>
+                </div>
+            </form>
+            <button type="submit" class="delete-chapter">Supprimer le chapitre</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

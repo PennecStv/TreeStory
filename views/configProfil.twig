@@ -15,7 +15,7 @@
     <!-- Modal de confirmation de suppression de compte -->
     <div class="content">
         <div class="config-card-form">
-            <form method="post" action="/configProfil" id="form-config">
+            <form method="post" enctype="multipart/form-data" action="/configProfil" id="form-config">
 
                 <div>
                     <label>Identifiant :</label>
@@ -30,13 +30,13 @@
                     <button type="submit" class="pswd_button" name="pswd_button" id="pswd_button">Modifier mon mot de passe</button>
                 </div>
 
-
-                <label>Image de profil:</label><br>
-                <img src={{userAvatar}} width="100" height="100"><br>
-                <label id = "modif_avatar">Ajouter une image
-                    <input type="file" name="modif_avatar" id = "modif_avatar" accept ="image/png, image/jpeg, image/jpg">
-                </label>
-                
+                <div class="Modif-photo">
+                    <label>Image de profil:</label><br>
+                    <img src={{userAvatar}} width="200" height="200"><br>
+                    <label id = "modif_avatar">Ajouter une image
+                        <input type="file" name="modif_avatar" id = "modif_avatar" accept ="image/png, image/jpeg, image/jpg">
+                    </label>
+                </div>
 
                 <div>
                     <label>Biographie :</label>
@@ -48,14 +48,14 @@
                     <button type="submit" class="modif_button" name="modif_button" id="modif_button">Enregistrer les modifications</button>
                 </div>
             </form>
+        
+            <!-- Supprimer le compte -->
+            <div class="delete-button">
+                <button type="submit" class="supp_button" name="supp_button" id="supp_button">Supprimer le compte</button>
+            </div>
         </div>
 
-        <!-- Supprimer le compte -->
-        <div class="delete-button">
-            <button type="submit" class="supp_button" name="supp_button" id="supp_button">Supprimer le compte</button>
-        </div>
-
-
+        
         <!-- Modal de confirmation de suppression de compte -->
         <div id="delete-Modal" class="modal">
             <div class="modal-content">
