@@ -160,6 +160,7 @@ class StoryNodeDAO extends DAO {
     public function getComments(int $storyNodeId) {
         return $this->queryAll("SELECT CommentAuthor, UserAvatar, CommentMessage FROM Comment INNER JOIN User ON User.UserName = Comment.CommentAuthor WHERE CommentTarget = ?", [$storyNodeId]);
     }
+
 }
 
 ?>
