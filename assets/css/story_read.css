@@ -75,3 +75,24 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, .1);
     border-radius: 10px;
 }
+
+.statsChapitre{
+    margin-bottom: 2vh;
+}
+
+.statsChapitre button{
+    font-size: 12pt;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.statsChapitre button:hover{
+    background-color: #eee ; 
+}
+

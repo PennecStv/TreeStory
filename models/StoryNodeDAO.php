@@ -88,6 +88,59 @@ class StoryNodeDAO extends DAO {
         return true;
     }
 
+
+    /**
+     * Set the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function setStoryNodeLikes(int $storyNodeId, String $action) {
+        if($action == "like"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes + 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+        else if($action == "dislike"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes - 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+    }
+
+
+    /**
+     * Get the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getLikeChapter(String $username, int $storyNodeId) {
+        return $this->queryRow("SELECT * FROM UserLikeRelation WHERE UserName = ?", [$username]);
+    }
+
+
+    /**
+     * Add a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function addLikeChapter(String $username, int $storyNodeId) {
+        $this->insert("INSERT INTO UserLikeRelation (UserName, StoryNodeId) VALUES (?, ?);", [$username, $storyNodeId]);
+    }
+
+
+    /**
+     * Remove a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function removeLikeChapter(String $username, int $storyNodeId) {
+        $this->queryRow("DELETE FROM UserLikeRelation WHERE UserName = ? AND StoryNodeId = ?", [$username, $storyNodeId]);
+    }
+
 }
 
 ?>

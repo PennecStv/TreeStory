@@ -107,6 +107,8 @@ class StoryController {
     }
 
     public static function read($params) {
+
+        $boutonLike = "J'aime";
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         if (!preg_match("/^[0-9]+$/", $params['id'])) {
@@ -147,6 +149,11 @@ class StoryController {
             ];
         }
 
+        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,$storyNode['StoryNodeId']);
+        if($isLiked){
+            $boutonLike = "Je n'aime plus";
+        }
+
         $view = new \Templates\View("story_read.twig");
         $view->render([
             'title' => $storyNode['StoryNodeTitle'],
@@ -157,6 +164,7 @@ class StoryController {
             'is_author' => $isAuthor,
             'author' => $author,
             'previous' => $storyNode['StoryNodeRoot'],
+            'boutonLike' => $boutonLike,
         ]);
     }
 
@@ -334,6 +342,29 @@ class StoryController {
             'messageErreur' => $messageErreur,
             'classeMessage' => $classeMessage
         ]);
+    }
+
+
+    /**
+     * this function is used to like a chapter.
+     * @param $params
+     */
+    public static function like_chapter($params){
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeDao->setStoryNodeLikes(intval($params['id']), "like");
+        $storyNodeDao->addLikeChapter($_SESSION["UserName"],intval($params['id']));
+        
+    }
+
+
+    /**
+     * this function is used to dislike a chapter.
+     * @param $params
+     */
+    public static function dislike_chapter($params){
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeDao->setStoryNodeLikes(intval($params['id']), "dislike");
+        $storyNodeDao->removeLikeChapter($_SESSION['UserName'],intval($params['id']));
     }
 
 }
