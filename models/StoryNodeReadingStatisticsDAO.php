@@ -38,6 +38,16 @@ class StoryNodeReadingStatisticsDAO extends DAO {
         return $this->queryRow("SELECT * FROM StoryNodeReadingStatistics WHERE StoryNodeReadingStatisticsUser = ? AND StoryNodeReadingStatisticsSubject = ?", [$userName, $storyNodeId]);    
     }
 
+    /**
+     * get all favorites of a storyNode
+     * 
+     * @param   string  $userName   Username of the users
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getFavorites(String $userName) {
+        return $this->queryAll("SELECT StoryNodeTitle, StoryNodeId FROM StoryNode INNER JOIN StoryNodeReadingStatistics ON StoryNode.StoryNodeId = StoryNodeReadingStatistics.StoryNodeReadingStatisticsSubject WHERE StoryNodeReadingStatisticsUser = ?", [$userName]);
+    }
     //return $this->queryAll("SELECT StoryNodeTitle, StoryNodeId FROM StoryNode INNER JOIN StoryNodeReadingStatistics ON StoryNode.StoryNodeId = StoryNodeReadingStatistics.StoryNodeReadingStatisticsSubject WHERE StoryNodeReadingStatisticsUser = ? AND StoryNodeReadingStatisticsSubject = ?", [$userName, $storyNodeId]);    
 
     /**
