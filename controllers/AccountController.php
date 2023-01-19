@@ -69,6 +69,7 @@ class AccountController {
             $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
+
             $favoriteHistories = $snrsDAO->getFavorites($_SESSION['UserName']);  
             foreach ($favoriteHistories as $key => $favoriteHistory) {
                 if ($favoriteHistory['StoryCover'] == NULL) {
@@ -77,7 +78,6 @@ class AccountController {
                     $favoriteHistories[$key]['StoryCover'] = '/assets/uploads/covers/'.$favoriteHistories[$key]['StoryCover'];
                 }
             }     
-            
 
 
             $view->render([
