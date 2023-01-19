@@ -44,9 +44,9 @@ class ConfigProfilController {
                 if (isset($_POST['modif_button'])){
                     extract($_POST);
 
-                    $userName        = htmlspecialchars($modif_userName);
-                    $email           = htmlspecialchars($modif_mail);
-                    $biography       = htmlspecialchars($modif_bio);
+                $userName        = htmlspecialchars($modif_userName);
+                $email           = htmlspecialchars($modif_mail);
+                $biography       = htmlspecialchars($modif_bio);
 
                     //Setting all the modification on the database
                     if (!empty($userName)){
@@ -68,14 +68,17 @@ class ConfigProfilController {
                             $messageErreur = "Erreur lors de l'upload de l'image";
                         }
 
-                    }
-                    
+                }
 
-                    if (!empty($email)){
-                        if ($email !== $actualEmail){
-                            $userDAO->setUser('UserMail', $email, $userName);
-                        }
+                if (!empty($email)){
+                    if ($email !== $actualEmail){
+                        $userDAO->setUser('UserMail', $email, $userName);
                     }
+                }
+
+                if (!empty($avatar)){
+                    //$userDAO->setUser('UserAvatar', $avatar, $userName);
+                }
 
                         if (!empty($biography)){
                             if ($biography !== $actualBiography){

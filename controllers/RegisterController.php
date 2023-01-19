@@ -49,7 +49,7 @@ class RegisterController{
 
                     //Account created
                     $_SESSION['UserName'] = $userName;
-                    header('Location: /logout'); //Redirect to home page
+                    header('Location: /'); //Redirect to home page
                 }
             }
                 

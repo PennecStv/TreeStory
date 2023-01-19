@@ -23,6 +23,23 @@
 	margin-bottom: 100px;
 }
 
+.stats{
+	flex-direction: column;
+	align-items: center;
+}
+
+.favorite{
+	display: none;
+}
+
+.favoriteStories{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
 .statsFollows {
 	margin: 50px 0 50px 0;
 }
@@ -38,7 +55,7 @@
 	color: #273469;
 }
 
-#statFollowers, #statFollowings {
+#statFollowers, #statFollowings,#statFavori {
 	cursor: pointer;
 }
 
@@ -270,6 +287,8 @@ button:hover {
 
 .storyContent img {
 	margin-right: 10px;
+	width: 160px;
+    height: 100%;
 }
 
 .infoStory {
@@ -300,8 +319,6 @@ button:hover {
     height: 15vh;
     overflow: hidden;
     text-overflow: ellipsis;
-
-	/* Overflow fading out */
     -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); /* Property nonstandard, but it was the only way found */
 }
 

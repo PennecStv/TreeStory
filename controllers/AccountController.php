@@ -3,7 +3,6 @@
 require_once(PATH_MODELS.'UserDAO.php');
 require_once(PATH_MODELS.'StoryNodeDAO.php');
 require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
-
 use Models\UserDAO;
 use Models\StoryNodeDAO;
 use Models\StoryNodeReadingStatisticsDAO;
@@ -75,6 +74,17 @@ class AccountController {
             $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
+
+            $favoriteHistories = $snrsDAO->getFavorites($_SESSION['UserName']);  
+            foreach ($favoriteHistories as $key => $favoriteHistory) {
+                if ($favoriteHistory['StoryCover'] == NULL) {
+                    $favoriteHistories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }else{
+                    $favoriteHistories[$key]['StoryCover'] = '/assets/uploads/covers/'.$favoriteHistories[$key]['StoryCover'];
+                }
+            }     
+
+
             $view->render([
                 "userAccountAvatar" => $user['UserAvatar'],
                 "userAccountName" => htmlspecialchars($user['UserName']),
@@ -83,6 +93,7 @@ class AccountController {
                 "stories" => $stories,
                 "subscribers" => $subscribers,
                 "subscriptions" => $subscriptions,
+                "favoriteHistories" => $favoriteHistories,
 
                 "userNameConnected" => ($_SESSION['UserName']),
                 "follower" => $follower,
@@ -124,8 +135,8 @@ class AccountController {
                     $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
 
-                $storyTagResult = $storyTagDAO->getStoryTagByStoryId($stories[$key]['StoryNodeSource']);
-                $stories[$key]['StoryTag'] = $storyTagResult; 
+                $storyTagResult = $storyTagDAO->getStoryTagByStoryId($story['StoryNodeSource']);
+                $story['StoryTag'] = $storyTagResult; 
             }
             
             if(!empty($user['UserName'])){
@@ -163,6 +174,15 @@ class AccountController {
                 $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
+                $favoriteHistories = $snrsDAO->getFavorites($user['UserName']);  
+                foreach ($favoriteHistories as $key => $favoriteHistory) {
+                    if ($favoriteHistory['StoryCover'] == NULL) {
+                        $favoriteHistories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                    }else{
+                        $favoriteHistories[$key]['StoryCover'] = '/assets/uploads/covers/'.$favoriteHistories[$key]['StoryCover'];
+                    }
+                } 
+
                 $view->render([
                     "userAccountAvatar" => $user['UserAvatar'],
                     "userAccountName" => htmlspecialchars($user['UserName']),
@@ -171,6 +191,7 @@ class AccountController {
                     "stories" => $stories,
                     "subscribers" => $subscribers,
                     "subscriptions" => $subscriptions,
+                    "favoriteHistories" => $favoriteHistories,
 
                     "userNameConnected" => $_SESSION['UserName'],
                     "buttonName" => $buttonName,

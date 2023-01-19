@@ -70,6 +70,8 @@ $router->route(Method::POST, "/register", ["RegisterController", "register"]);
 
 $router->route(Method::GET, "/story/chapter/:id/read", ["StoryController", "read"]);
 
+$router->route(Method::GET, "/story/chapter/:id/download", ["StoryController", "generate_pdf"]);
+
 $router->route(Method::GET, "/story/chapter/:id/edit", ["StoryController", "get_node_edition_form"]);
 $router->route(Method::POST, "/story/chapter/:id/edit", ["StoryController", "edit"]);
 
@@ -78,6 +80,7 @@ $router->route(Method::POST, "/story/chapter/:id/contribute", ["StoryController"
 
 $router->route(Method::GET, "/user/account", ["AccountController", "account"]);
 $router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
+
 
 $router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
 $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
@@ -89,6 +92,9 @@ $router->route(Method::POST, "/story/chapter/:id/report", ["StoryController", "r
 
 $router->route(Method::POST, "/story/chapter/:id/like", ["StoryController", "like_chapter"]);
 $router->route(Method::POST, "/story/chapter/:id/dislike", ["StoryController", "dislike_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/favorite", ["StoryController", "favorite_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/unfavorite", ["StoryController", "unfavorite_chapter"]);
 
 $router->route(Method::POST, "/story/chapter/:id/comment", ["StoryController", "comment_chapter"]);
 

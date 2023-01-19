@@ -2,17 +2,21 @@
 
 require_once(PATH_MODELS.'StoryDAO.php');
 require_once(PATH_MODELS.'StoryNodeDAO.php');
+require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
 
 use Models\StoryDAO;
 use Models\StoryNodeDAO;
+use Models\StoryNodeReadingStatisticsDAO;
 use Routing\Router;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * StoryController class is the controller for the story pages.
  * 
  * @author  Jonathan Montmain   <jonathan.montmain@etu.univ-lyon1.fr>
- * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Rudy Boullier       <rudy.boullier@etu.univ-lyon1.fr>
  */
 class StoryController {
 
@@ -109,7 +113,9 @@ class StoryController {
     public static function read($params) {
 
         $boutonLike = "J'aime";
+        $label_aria = "unfavorite";
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
 
         if (!preg_match("/^[0-9]+$/", $params['id'])) {
             Router::getInstance()->throwError("500", "Bad story node id requested");
@@ -167,6 +173,11 @@ class StoryController {
             }
         }
 
+        $favorites = $storyNodeReadingStatisticsDao->estFavorite($_SESSION['UserName'], intval($params['id']));
+        if($favorites){
+            $label_aria = "favorite";
+        }
+
         $view = new \Templates\View("story_read.twig");
         $view->render([
             'title' => $storyNode['StoryNodeTitle'],
@@ -179,6 +190,7 @@ class StoryController {
             'previous' => $storyNode['StoryNodeRoot'],
             'boutonLike' => $boutonLike,
             'comments' => $comments,
+            'label_aria' => $label_aria,
         ]);
     }
 
@@ -390,6 +402,69 @@ class StoryController {
         $storyNodeDao->addComments($_SESSION['UserName'],intval($params['id']), $_REQUEST['comment']);   
     }
 
+
+    /**
+     * this function is used to generate a pdf.
+     * @param $params
+     */
+    public static function generate_pdf($params) {
+
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $author = "Anonymous";
+        if ($storyNode['StoryNodeAnonymous'] == 0) {
+            $author = $storyNode['StoryNodeAuthor'];
+        }
+
+        ob_start();
+        header("Content-Disposition: attachment; filename=\"" . $storyNode["StoryNodeTitle"] . ".pdf\"");
+        $view = new \Templates\View("/base/pdf.twig");
+        $view->render([
+            'storyTitle' => $storyNode['StoryNodeTitle'],
+            'storyAuthor' => $author,
+            'storyText' => $storyNode['StoryNodeText']
+        ]);
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        $options = new Options();
+        $options->set('defaultFont', 'sans-serif');
+
+        $fileName = $storyNode['StoryNodeTitle'].".pdf";
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($fileName);
+    }
+
+
+    /**
+     * this function is used to favorite a chapter.
+     * @param $params
+     */
+    public static function favorite_chapter($params) {
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao->addFavorite(intval($params['id']), $_SESSION['UserName']);
+    }
+
+
+    /**
+     * this function is used to unfavorite a chapter.
+     * @param $params
+     */
+    public static function unfavorite_chapter($params) {
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao->removeFavorite(intval($params['id']), $_SESSION['UserName']);
+    }
 
 }
 
