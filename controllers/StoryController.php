@@ -149,6 +149,22 @@ class StoryController {
             ];
         }
 
+        
+        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,intval($params['id']));
+        if($isLiked){
+            $boutonLike = "Je n'aime plus";
+        }
+
+        $comments = $storyNodeDao->getComments($storyNode['StoryNodeId']);
+
+        foreach($comments as $key => $comment){
+            if($comment['UserAvatar'] == null){
+                $comments[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+            }else{
+                $comments[$key]['UserAvatar'] = '/assets/uploads/'.$comments[$key]['UserAvatar'];
+            }
+        }
+
         $view = new \Templates\View("story_read.twig");
         $view->render([
             'title' => $storyNode['StoryNodeTitle'],
