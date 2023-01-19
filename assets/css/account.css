@@ -300,6 +300,8 @@ button:hover {
     height: 15vh;
     overflow: hidden;
     text-overflow: ellipsis;
+
+	/* Overflow fading out */
     -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); /* Property nonstandard, but it was the only way found */
 }
 

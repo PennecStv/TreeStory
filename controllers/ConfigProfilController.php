@@ -46,7 +46,6 @@ class ConfigProfilController {
 
                     $userName        = htmlspecialchars($modif_userName);
                     $email           = htmlspecialchars($modif_mail);
-                    //$avatar          = htmlspecialchars($modif_avatar);
                     $biography       = htmlspecialchars($modif_bio);
 
                     //Setting all the modification on the database
@@ -71,21 +70,11 @@ class ConfigProfilController {
 
                     }
                     
-                    /*
-                    if (!empty($password)){
-                            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                            $userDAO->setUser($userName, $hashedPassword);
-                    }
-                    */
 
                     if (!empty($email)){
                         if ($email !== $actualEmail){
                             $userDAO->setUser('UserMail', $email, $userName);
                         }
-                    }
-
-                    if (!empty($avatar)){
-                        //$userDAO->setUser('UserAvatar', $avatar, $userName);
                     }
 
                         if (!empty($biography)){
@@ -113,11 +102,13 @@ class ConfigProfilController {
                         $biography       = "";
 
                         $userDAO->deleteUser($actualUserName);
-                        $messageSucces = "Utilisateur supprimé !";
+
+                        header('Location: /logout'); //Redirect to home page
                     }
                     //Wrong password
                     else{
                         $messageErreur = "Mot de passe incorrect";
+                        $messageSucces = "";
                     }
                 }
             }

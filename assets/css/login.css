@@ -1,3 +1,23 @@
+/* Drop animation Class */
+
+/* Element to drop */
+.drop-in {
+    animation: drop-in 0.7s ease 100ms backwards;
+}
+
+
+/*Keyframes for drop animation */
+@keyframes drop-in {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0px);
+    }
+}
+
 form {
     width: 300px;
 }

@@ -34,6 +34,8 @@ class AccountController {
             $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
             $stories = $storyNodeDAO->getUserStory(htmlspecialchars($_SESSION['UserName']));
 
+            $storyTagDAO = new StoryTagDAO(strtolower($_ENV["APP_ENV"])  == "debug");
+
             if (htmlspecialchars($user['UserAvatar']) == NULL) {
                 $user['UserAvatar'] = '/assets/images/userDefaultIcon.png';
             }else{
@@ -46,6 +48,9 @@ class AccountController {
                 }else{
                     $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
+
+                $storyTagResult = $storyTagDAO->getStoryTagByStoryId($stories[$key]['StoryNodeSource']);
+                $stories[$key]['StoryTag'] = $storyTagResult; 
             }
 
             $subscribers = $userDAO->getUsersSubscribers('UserId',$user['UserName']);
@@ -119,8 +124,8 @@ class AccountController {
                     $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
 
-                $storyTagResult = $$storyTagDAO->getStoryTagByStoryId($story['StoryNodeSource']);
-                $story['StoryTag'] = $storyTagResult; 
+                $storyTagResult = $storyTagDAO->getStoryTagByStoryId($stories[$key]['StoryNodeSource']);
+                $stories[$key]['StoryTag'] = $storyTagResult; 
             }
             
             if(!empty($user['UserName'])){
