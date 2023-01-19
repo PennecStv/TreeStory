@@ -115,7 +115,7 @@ class StoryNodeDAO extends DAO {
      * @return  false|PDOStatement        query results
      */
     public function getLikeChapter(String $username, int $storyNodeId) {
-        return $this->queryRow("SELECT * FROM UserLikeRelation WHERE UserName = ?", [$username]);
+        return $this->queryRow("SELECT * FROM UserLikeRelation WHERE UserName = ? AND StoryNodeId = ?", [$username, $storyNodeId]);
     }
 
 

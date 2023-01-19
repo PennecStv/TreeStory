@@ -96,10 +96,6 @@
     background-color: #eee ; 
 }
 
-#disable{
-    display: none;
-}
-
 #section-commentaire{
     display: flex;
     flex-direction: column;
@@ -108,7 +104,8 @@
 }
 
 .commenter{
-    border: 2px solid red;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+    border-radius: 4%;
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -122,6 +119,7 @@
     flex-direction: column;
     overflow-y: auto;
     height: 75%;
+    margin: 10px;
 }
 
 .commentaires{
@@ -177,6 +175,10 @@ textarea{
     gap: 10px;
 }
 
+.commenter button:hover{
+    background-color: #eee;
+}
+
 #form-commenter{
     position: absolute;
     bottom: 0;
@@ -185,4 +187,24 @@ textarea{
 
 .commentaire-detail h4{
     cursor: pointer;
+}
+
+.statsChapitre{
+    margin-bottom: 2vh;
+}
+
+.statsChapitre button, .commenter button{
+    font-size: 12pt;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.statsChapitre button:hover{
+    background-color: #eee ; 
 }

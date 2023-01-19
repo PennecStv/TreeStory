@@ -42,6 +42,8 @@ class AccountController {
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }else{
+                    $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
             }
 
@@ -109,6 +111,8 @@ class AccountController {
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }else{
+                    $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
 
             }
