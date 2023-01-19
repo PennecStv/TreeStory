@@ -12,6 +12,9 @@ use Database\DAO;
  * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
  * @author  Steve Pennec    <steve.pennec@etu.univ-lyon1.fr>
  * @author  Rudy Boullier   <rudy.boullier@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Steve Pennec    <steve.pennec@etu.univ-lyon1.fr>
+ * @author  Rudy Boullier   <rudy.boullier@etu.univ-lyon1.fr>
  */
 class UserDAO extends DAO {
     
@@ -31,7 +34,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function deleteUser(String $userName) {
-        $requete = "DELETE FROM User WHERE UserName = '$userName'";
+        $requete = "DELETE FROM user WHERE UserName = '$userName'";
         $this->queryRow($requete);
     }
 
@@ -112,7 +115,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getPassword(String $userName) {
-        $requete = "SELECT UserPassword FROM User WHERE UserName = '$userName'";
+        $requete = "SELECT UserPassword FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -124,7 +127,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getMail(String $userName) {
-        $requete = "SELECT UserMail FROM User WHERE UserName = '$userName'";
+        $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -136,7 +139,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getAvatar(String $userName) {
-        $requete = "SELECT UserAvatar FROM User WHERE UserName = '$userName'";
+        $requete = "SELECT UserAvatar FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -148,7 +151,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getBiography(String $userName) {
-        $requete = "SELECT UserBiography FROM User WHERE UserName = '$userName'";
+        $requete = "SELECT UserBiography FROM user WHERE UserName = '$userName'";
         return $this->queryRow($requete);
     }
 
@@ -199,7 +202,6 @@ class UserDAO extends DAO {
         return $randomToken;
     }
 
-
     /**
      * Verify if the password contains all required characters and length.
      * 
@@ -224,7 +226,6 @@ class UserDAO extends DAO {
     /**
      * Gives the number of follow by knowing his user name.
      */
-  
     public function getFollowers($column, $UserId){
         $requete = "SELECT * FROM UserFollowerRelation WHERE $column = '$UserId'";
         return $this->queryAll($requete);

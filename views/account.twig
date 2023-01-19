@@ -86,7 +86,6 @@
                         {% endif %}
                     {% endif %}
                     {% for subscription in subscriptions %}
-                    <p>{{subscription.UserName|e}}</p>
                         <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
                             <img id-subscription = "{{subscription.UserName|e}}" class="profil-pic" src="{{subscription.UserAvatar|e}}" alt="Photo de profil">
                             <div>
@@ -115,6 +114,11 @@
             <div id="valueFavori">
                 {{ like }}
             </div>
+        </div>
+        <div id="favori" class="favorite">
+            {% for favoriteStory in favoriteHistories %}
+                {% include '/base/infoFavoriteStories.twig' %}
+            {% endfor %}
         </div>
     </div>
     
