@@ -43,6 +43,59 @@ class StoryDAO extends DAO {
         return $this->queryRow("SELECT * FROM Story WHERE StoryId = ?", [$storyId]);
     }
 
-}
 
+    /**
+     * Get main stories of the database where the title matches the input
+     * 
+     * @param String    $input            the input typed in the research bar
+     * @param any       $sort             the sort type wanted
+     * 
+     * @return false|PDOStatement        query results of the story table + the published date of its first chapter
+     */
+    public function getStoryByResearch(String $input, $sort) {
+        
+        if ($input == null){
+            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL";
+        } else {
+            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL AND StoryTitle LIKE '%$input%'";
+        }
+
+        switch($sort){
+            case "inorder":
+                $req .= " ORDER BY StoryTitle ASC";
+                break;
+
+            case "inverse":
+                $req .= " ORDER BY StoryTitle DESC";
+                break;
+
+            case "recent":
+                $req .= " ORDER BY StoryNodePublishedAt ASC";
+                break;
+
+            default:
+                break;
+        }
+        
+        $res = $this->queryAll($req);
+
+        return $res;
+    }
+
+
+    /**
+     * Get the number of story nodes that the story has.
+     * 
+     * @param String       $storyId      ID of the main story
+     * 
+     * @return false|PDOStatement        query results
+     */
+    public function getNbStoryNode(int $storyId) {
+        $req = "SELECT COUNT(storynode.StoryNodeId) as nbStoryNode FROM storynode WHERE storynode.StoryNodeSource = $storyId";
+
+        $res = $this->queryRow($req);
+
+        return $res["nbStoryNode"];
+    }
+}
 ?>

@@ -1,14 +1,21 @@
 <div class="storyContent">
-	<a href="/story/chapter/{{story.StoryNodeId|e}}/read">
+	<a href="/story/{{story.StoryId|e}}/show">
 		<img src="{{ story.StoryCover|e }}">
 	</a>
 	<div class="infoStory">
-		<h1>{{ story.StoryNodeTitle|e }}</h1>
-		{% if userNameConnected != userAccountName %}
-			<p>Par {{ story.StoryNodeAuthor|e }}</p>
-		{% endif %}
-		{% if userNameConnected == userAccountName %}
-			<a href="/story/chapter/{{story.StoryNodeId|e}}/edit">Modifier</a>
-		{% endif %}
+		<a href="/story/{{story.StoryId|e}}/show">
+			<h1>{{ story.StoryTitle|e }}</h1>
+		</a>
+
+		<div class="storyType">
+			{% for tag in story.StoryTag|e %}
+				<label class="type-label"> {{ tag[0] }} </label>
+			{% endfor %}
+		</div>
+
+		<div class="nbChapter">
+			<i class="fa-solid fa-book-open-reader fa-xl"></i>
+			<p> Nombre de chapitres : {{ story.NbStoryNode|e }}</p>
+		</div>
 	</div>
 </div>

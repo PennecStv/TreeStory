@@ -1,3 +1,9 @@
+/**
+ * This file represents the script of the register page
+ * 
+ * @author  Steve Pennec  <steve.pennec@etu.univ-lyon1.fr>
+ */
+
 /* === Constants and variables === */
 //UserName
 const inputUserName  = document.getElementById("userName");

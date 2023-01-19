@@ -30,6 +30,7 @@ require_once(PATH_CONTROLLERS . "RegisterController.php");
 require_once(PATH_CONTROLLERS . "ConfigProfilController.php");
 require_once(PATH_CONTROLLERS . "AccountController.php");
 require_once(PATH_CONTROLLERS . "StoryController.php");
+require_once(PATH_CONTROLLERS . "SearchController.php");
 
 use Symfony\Component\Dotenv\Dotenv;
 use Routing\Router;
@@ -90,6 +91,9 @@ $router->route(Method::POST, "/story/chapter/:id/like", ["StoryController", "lik
 $router->route(Method::POST, "/story/chapter/:id/dislike", ["StoryController", "dislike_chapter"]);
 
 $router->route(Method::POST, "/story/chapter/:id/comment", ["StoryController", "comment_chapter"]);
+
+$router->route(Method::GET, "/search", ["SearchController", "search"]);
+$router->route(Method::POST, "/search", ["SearchController", "search"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 $router->route(Method::ERROR, "500", ["ErrorController", "internal"]);
