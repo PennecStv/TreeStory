@@ -149,11 +149,13 @@ class StoryController {
             ];
         }
 
-        
-        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,intval($params['id']));
-        if($isLiked){
-            $boutonLike = "Je n'aime plus";
+        if (!(empty($_SESSION['UserName']))){
+            $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'], intval($params['id']));
+            if($isLiked){
+                $boutonLike = "Je n'aime plus";
+            }
         }
+        
 
         $comments = $storyNodeDao->getComments($storyNode['StoryNodeId']);
 
@@ -356,7 +358,6 @@ class StoryController {
         ]);
     }
 
-
     /**
      * this function is used to like a chapter.
      * @param $params
@@ -379,7 +380,7 @@ class StoryController {
         $storyNodeDao->removeLikeChapter($_SESSION['UserName'],intval($params['id']));
     }
 
-
+    
     /**
      * this function is used to comment a chapter.
      * @param $params
@@ -388,6 +389,7 @@ class StoryController {
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
         $storyNodeDao->addComments($_SESSION['UserName'],intval($params['id']), $_REQUEST['comment']);   
     }
+
 
 }
 

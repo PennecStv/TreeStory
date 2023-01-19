@@ -2,13 +2,11 @@
     <nav>
         <div class="left">
             <a href="/" class="logo">
-                <img src="/assets/images/logoTreeStory.png" alt="logo de TreeStory">
+                <img src="/assets/images/logoTreestoryHeader.png" alt="logo de TreeStory">
             </a>
-            <a href="#" class="iconLoupe">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <form>
-                <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Rechercher...">
+            <a href="/search" class="iconLoupe"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <form id="form-header" method="POST" action="/search">
+                <input id="searchbar" type="text" name="search" placeholder="Rechercher..." value = {{ searchText }}>
             </form>
         </div>
         <div id="navLinks">
