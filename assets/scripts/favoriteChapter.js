@@ -6,7 +6,8 @@ const buttonFav = document.getElementsByClassName('favorite-chapter')[0];
 
 if (buttonFav) buttonFav.addEventListener('click', function(e) {
 
-    let baseURL = '/story/chapter/'+e.target.attributes['story-node-id'].value;
+    let idChapter = location.href.split("/chapter/")[1].split("/")[0];
+    let baseURL = '/story/chapter/'+idChapter;
 
     let attribute = buttonFav.getAttribute("aria-label");
 

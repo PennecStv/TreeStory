@@ -113,7 +113,9 @@ class StoryController {
     public static function read($params) {
 
         $boutonLike = "J'aime";
+        $label_aria = "unfavorite";
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
 
         if (!preg_match("/^[0-9]+$/", $params['id'])) {
             Router::getInstance()->throwError("500", "Bad story node id requested");
@@ -169,6 +171,11 @@ class StoryController {
             }
         }
 
+        $favorites = $storyNodeReadingStatisticsDao->getFavorites($_SESSION['UserName'], intval($params['id']));
+        if($favorites){
+            $label_aria = "favorite";
+        }
+
         $view = new \Templates\View("story_read.twig");
         $view->render([
             'title' => $storyNode['StoryNodeTitle'],
@@ -181,6 +188,7 @@ class StoryController {
             'previous' => $storyNode['StoryNodeRoot'],
             'boutonLike' => $boutonLike,
             'comments' => $comments,
+            'label_aria' => $label_aria,
         ]);
     }
 

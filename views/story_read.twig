@@ -40,7 +40,7 @@
             {{ text }}
             <div>
                 <div class="statsChapitre">
-                    <button class="favorite-chapter" story-node-id="{{ story_node_id }}" aria-label="unfavorite"><i class="fas fa-star"></i></button>
+                    <button id="{{label_aria}}" class="favorite-chapter" story-node-id="{{ story_node_id }}" aria-label="{{label_aria}}"><i class="fas fa-star"></i></button>
                     <button class="like-chapter" story-id="{{ story_id }}"><i class="fas fa-thumbs-up"></i>&nbsp{{ boutonLike }}</button>
                     <button class="comment-chapter" ><i class="fa-solid fa-comment"></i>&nbspCommenter</button>
                 </div>
