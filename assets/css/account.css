@@ -270,6 +270,8 @@ button:hover {
 
 .storyContent img {
 	margin-right: 10px;
+	width: 160px;
+    height: 100%;
 }
 
 .infoStory {

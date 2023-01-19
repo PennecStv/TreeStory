@@ -86,7 +86,6 @@
                         {% endif %}
                     {% endif %}
                     {% for subscription in subscriptions %}
-                    <p>{{subscription.UserName|e}}</p>
                         <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
                             <img id-subscription = "{{subscription.UserName|e}}" class="profil-pic" src="{{subscription.UserAvatar|e}}" alt="Photo de profil">
                             <div>
