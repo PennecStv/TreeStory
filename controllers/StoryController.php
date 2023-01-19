@@ -149,7 +149,8 @@ class StoryController {
             ];
         }
 
-        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,$storyNode['StoryNodeId']);
+        
+        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,intval($params['id']));
         if($isLiked){
             $boutonLike = "Je n'aime plus";
         }

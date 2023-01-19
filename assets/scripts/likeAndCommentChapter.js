@@ -6,7 +6,8 @@ const boutonLike = document.getElementsByClassName('like-chapter')[0];
 const author = document.getElementById('comments');
 
 boutonLike.addEventListener('click', function(e) {
-    let baseURL = '/story/chapter/'+e.target.attributes['story-id'].value;
+    idChapter = location.href.split("/chapter/")[1].split("/")[0];
+    let baseURL = '/story/chapter/'+idChapter;
     
     if(boutonLike.innerHTML.split("&nbsp;")[1] == "J'aime"){
         url = baseURL+'/like';
@@ -77,7 +78,6 @@ if(author){
  * Listen to the click event on the comment button
  */
 document.getElementsByClassName("comment-chapter")[0].addEventListener('click', function(e) {
-    console.log(document.getElementById('section-commentaire').style.display)
     if(document.getElementById('section-commentaire').style.display == "none"){
         document.getElementById('section-commentaire').style.display = "flex";
     }else{
