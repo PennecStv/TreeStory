@@ -173,9 +173,11 @@ class StoryController {
             }
         }
 
-        $favorites = $storyNodeReadingStatisticsDao->estFavorite($_SESSION['UserName'], intval($params['id']));
-        if($favorites){
-            $label_aria = "favorite";
+        if (!(empty($_SESSION['UserName']))){
+            $favorites = $storyNodeReadingStatisticsDao->estFavorite($_SESSION['UserName'], intval($params['id']));
+            if($favorites){
+                $label_aria = "favorite";
+            }
         }
 
         $view = new \Templates\View("story_read.twig");
