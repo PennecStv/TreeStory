@@ -3,7 +3,6 @@
 namespace Models;
 
 require_once(PATH_UTILS_DATABASE.'DAO.php');
-
 use Database\DAO;
 
 /**

@@ -208,3 +208,11 @@ textarea{
 .statsChapitre button:hover{
     background-color: #eee ; 
 }
+
+#unfavorite{
+    color: #000;
+}
+
+#favorite{
+    color: #1C86EE;
+}

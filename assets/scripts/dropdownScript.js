@@ -23,6 +23,9 @@ const subscriptionList = document.getElementById("subscription-list");
 const statSubscribed = document.getElementById("statFollowers");
 const statSubscriptions = document.getElementById("statFollowings");
 
+//listener for the favorite button
+const favorite = document.getElementById("statFavori");
+
 if (modif) modif.addEventListener('click', () => {
   icon.classList.toggle('fa-chevron-down');
   icon.classList.toggle('fa-chevron-up');
@@ -86,3 +89,10 @@ if (userSubscription) userSubscription.addEventListener('click', function(e) {
   window.location.href = '/user/'+e.target.attributes['id-subscription'].value;
 });
 
+/**
+ * listener for the favorite button
+ */
+favorite.addEventListener('click', function() {
+  document.getElementsByClassName('favorite')[0].classList.toggle('favoriteStories');
+
+});
