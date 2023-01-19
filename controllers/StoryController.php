@@ -6,13 +6,15 @@ require_once(PATH_MODELS.'StoryNodeDAO.php');
 use Models\StoryDAO;
 use Models\StoryNodeDAO;
 use Routing\Router;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * StoryController class is the controller for the story pages.
  * 
  * @author  Jonathan Montmain   <jonathan.montmain@etu.univ-lyon1.fr>
- * @author  Idrissa Sall    <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
+ * @author  Rudy Boullier       <rudy.boullier@etu.univ-lyon1.fr>
  */
 class StoryController {
 
@@ -386,6 +388,43 @@ class StoryController {
     public static function comment_chapter($params){
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
         $storyNodeDao->addComments($_SESSION['UserName'],intval($params['id']), $_REQUEST['comment']);   
+    }
+
+
+    /**
+     * this function is used to generate a pdf.
+     * @param $params
+     */
+    public static function generate_pdf($params) {
+
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $author = "Anonymous";
+        if ($storyNode['StoryNodeAnonymous'] == 0) {
+            $author = $storyNode['StoryNodeAuthor'];
+        }
+
+        ob_start();
+        $view = new \Templates\View("/base/pdf.twig");
+        $view->render([
+            'storyTitle' => $storyNode['StoryNodeTitle'],
+            'storyAuthor' => $author,
+            'storyText' => $storyNode['StoryNodeText']
+        ]);
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        $options = new Options();
+        $options->set('defaultFont', 'sans-serif');
+
+        $fileName = $storyNode['StoryNodeTitle'].".pdf";
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($fileName);
     }
 
 }

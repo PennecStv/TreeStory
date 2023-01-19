@@ -69,6 +69,8 @@ $router->route(Method::POST, "/register", ["RegisterController", "register"]);
 
 $router->route(Method::GET, "/story/chapter/:id/read", ["StoryController", "read"]);
 
+$router->route(Method::GET, "/story/chapter/:id/download", ["StoryController", "generate_pdf"]);
+
 $router->route(Method::GET, "/story/chapter/:id/edit", ["StoryController", "get_node_edition_form"]);
 $router->route(Method::POST, "/story/chapter/:id/edit", ["StoryController", "edit"]);
 
