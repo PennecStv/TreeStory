@@ -48,7 +48,7 @@ class RegisterController{
                     $result = $userDAO->insertUser($userName, $hashedPassword, $email);
 
                     //Account created
-                    //$messageSucces = "Compte créé avec succès !";
+                    $_SESSION['UserName'] = $userName;
                     header('Location: /'); //Redirect to home page
                 }
             }

@@ -27,7 +27,7 @@
 
                 <!-- Modification de mot de passe -->
                 <div>
-                    <button type="submit" class="pswd_button" name="pswd_button" id="pswd_button">Modifier mon mot de passe</button>
+                    <button class="pswd_button" name="pswd_button" id="pswd_button">Modifier mon mot de passe</button>
                 </div>
 
                 <div class="Modif-photo">
@@ -38,7 +38,7 @@
                     </label>
                 </div>
 
-                <div>
+                <div class="bio">
                     <label>Biographie :</label>
                     <textarea type="text" name="modif_bio" id = "modif_bio" placeholder="Écrire ici votre biographie..." autocomplete="off">{{userBio}}</textarea>
                 </div>
@@ -66,21 +66,19 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" action="/configProfil">
+                    <form class="form-delete" method="post" action="/configProfil">
+                        <label>Mot de passe pour confirmer la suppression :</label>
+                        <div class="modal-password">
+                            <input type="password" name="confirm_password" id="confirm_password" placeholder="Veuillez entrer votre mot de passe" autocomplete="off">
+                        </div>
 
-                    <label>Mot de passe pour confirmer la suppression :</label>
-                    <div class="modal-password">
-                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Veuillez entrer votre mot de passe" autocomplete="off">
-                    </div>
+                        <div class="modal-button">
+                            <button type="submit" class="confirm_button" name="confirm_button" id="confirm_button">Oui</button>
 
-                    <div class="modal-confirm">
-                        <button type="submit" class="confirm_button" name="confirm_button" id="confirm_button">Oui</button>
-                    </div>
+                            <button class="cancel_button" id="cancel_button">Non</button>
+                        </div>
+                        
                     </form>
-
-                    <div class="modal-cancel">
-                        <button class="cancel_button" id="cancel_button">Non</button>
-                    </div>
                 </div>
             </div>
         </div>
