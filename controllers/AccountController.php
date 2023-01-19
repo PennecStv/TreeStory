@@ -77,7 +77,6 @@ class AccountController {
                     $favoriteHistories[$key]['StoryCover'] = '/assets/uploads/covers/'.$favoriteHistories[$key]['StoryCover'];
                 }
             }     
-            
 
 
             $view->render([
