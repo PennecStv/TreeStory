@@ -149,11 +149,13 @@ class StoryController {
             ];
         }
 
-        
-        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,intval($params['id']));
-        if($isLiked){
-            $boutonLike = "Je n'aime plus";
+        if (!(empty($_SESSION['UserName']))){
+            $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'], intval($params['id']));
+            if($isLiked){
+                $boutonLike = "Je n'aime plus";
+            }
         }
+        
 
         $comments = $storyNodeDao->getComments($storyNode['StoryNodeId']);
 
