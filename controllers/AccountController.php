@@ -154,8 +154,7 @@ class AccountController {
                 $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
                 $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
-                $favorites = $snrsDAO->getFavorites($user['UserName']);       
-                var_dump($favorites);  
+                $favorites = $snrsDAO->getFavorites($user['UserName']); 
 
                 $view->render([
                     "userAccountAvatar" => $user['UserAvatar'],
