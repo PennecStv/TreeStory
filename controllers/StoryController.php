@@ -171,7 +171,7 @@ class StoryController {
             }
         }
 
-        $favorites = $storyNodeReadingStatisticsDao->getFavorites($_SESSION['UserName'], intval($params['id']));
+        $favorites = $storyNodeReadingStatisticsDao->estFavorite($_SESSION['UserName'], intval($params['id']));
         if($favorites){
             $label_aria = "favorite";
         }
@@ -448,7 +448,7 @@ class StoryController {
         $storyNode = $storyNodeDao->get(intval($params['id']));
 
         $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
-        $storyNodeReadingStatisticsDao->addFavorite(intval($params['id']), $storyNode['StoryNodeAuthor']);
+        $storyNodeReadingStatisticsDao->addFavorite(intval($params['id']), $_SESSION['UserName']);
     }
 
 
@@ -461,7 +461,7 @@ class StoryController {
         $storyNode = $storyNodeDao->get(intval($params['id']));
 
         $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
-        $storyNodeReadingStatisticsDao->removeFavorite(intval($params['id']), $storyNode['StoryNodeAuthor']);
+        $storyNodeReadingStatisticsDao->removeFavorite(intval($params['id']), $_SESSION['UserName']);
     }
 
 }

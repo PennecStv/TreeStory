@@ -68,6 +68,8 @@ class AccountController {
             $follower = count($userDAO->getFollowers('FollowingUserId',$user['UserName']));
             $following = count($userDAO->getFollowers('UserId',$user['UserName']));
 
+            //$favorites = $snrsDAO->$storyNodeReadingStatisticsDao->getFavorites($_SESSION['UserName'], intval($params['id']));           
+
             $view->render([
                 "userAccountAvatar" => $user['UserAvatar'],
                 "userAccountName" => htmlspecialchars($user['UserName']),
