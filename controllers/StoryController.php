@@ -2,9 +2,11 @@
 
 require_once(PATH_MODELS.'StoryDAO.php');
 require_once(PATH_MODELS.'StoryNodeDAO.php');
+require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
 
 use Models\StoryDAO;
 use Models\StoryNodeDAO;
+use Models\StoryNodeReadingStatisticsDAO;
 use Routing\Router;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -425,6 +427,32 @@ class StoryController {
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream($fileName);
+    }
+
+
+    /**
+     * this function is used to favorite a chapter.
+     * @param $params
+     */
+    public static function favorite_chapter($params) {
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao->addFavorite(intval($params['id']), $storyNode['StoryNodeAuthor']);
+    }
+
+
+    /**
+     * this function is used to unfavorite a chapter.
+     * @param $params
+     */
+    public static function unfavorite_chapter($params) {
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNode = $storyNodeDao->get(intval($params['id']));
+
+        $storyNodeReadingStatisticsDao = new storyNodeReadingStatisticsDao(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeReadingStatisticsDao->removeFavorite(intval($params['id']), $storyNode['StoryNodeAuthor']);
     }
 
 }

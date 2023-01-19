@@ -60,6 +60,41 @@ $router->route(Method::POST, "/register", ["RegisterController", "register"]);
 $router->route(Method::GET, "/configProfil", ["ConfigProfilController", "configProfil"]);
 $router->route(Method::POST, "/configProfil", ["ConfigProfilController", "configProfil"]);
 
+$router->route(Method::GET, "/account", ["AccountController", "account"]);
+$router->route(Method::GET, "/story/create", ["StoryController", "get_creation_form"]);
+$router->route(Method::POST, "/story/create", ["StoryController", "create"]);
+
+$router->route(Method::GET, "/register", ["RegisterController", "register"]);
+$router->route(Method::POST, "/register", ["RegisterController", "register"]);
+
+$router->route(Method::GET, "/story/chapter/:id/read", ["StoryController", "read"]);
+
+$router->route(Method::GET, "/story/chapter/:id/download", ["StoryController", "generate_pdf"]);
+
+$router->route(Method::GET, "/story/chapter/:id/edit", ["StoryController", "get_node_edition_form"]);
+$router->route(Method::POST, "/story/chapter/:id/edit", ["StoryController", "edit"]);
+
+$router->route(Method::GET, "/story/chapter/:id/contribute", ["StoryController", "get_node_creation_form"]);
+$router->route(Method::POST, "/story/chapter/:id/contribute", ["StoryController", "create_node"]);
+
+$router->route(Method::GET, "/user/account", ["AccountController", "account"]);
+$router->route(Method::GET, "/user/:userId", ["AccountController", "displayAccount"]);
+
+$router->route(Method::POST, "/user/:id/follow", ["AccountController", "follow"]);
+$router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfollow"]);
+
+$router->route(Method::POST, "/story/chapter/:id/delete", ["StoryController", "delete_chapter"]);
+
+$router->route(Method::GET, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/like", ["StoryController", "like_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/dislike", ["StoryController", "dislike_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/favorite", ["StoryController", "favorite_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/unfavorite", ["StoryController", "unfavorite_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/comment", ["StoryController", "comment_chapter"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
 $router->route(Method::ERROR, "500", ["ErrorController", "internal"]);
