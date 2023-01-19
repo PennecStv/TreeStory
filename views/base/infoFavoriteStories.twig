@@ -8,7 +8,7 @@
 			<h1>{{ favoriteStory.StoryNodeTitle|e }}</h1>
 		</a>
 		
-		{% if userNameConnected == userAccountName %}
+		{% if userNameConnected is defined and userAccountName is defined and userNameConnected == userAccountName %}
 			<div class="modifChapter">
 				<a href="/story/chapter/{{favoriteStory.StoryNodeId|e}}/edit">
 					<button class="modif-button">Modifier</button>
