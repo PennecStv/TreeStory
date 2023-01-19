@@ -115,6 +115,11 @@
                 {{ like }}
             </div>
         </div>
+        <div id="favori" class="favorite">
+            {% for favoriteStory in favoriteHistories %}
+                {% include '/base/infoFavoriteStories.twig' %}
+            {% endfor %}
+        </div>
     </div>
     
     <div class="option">

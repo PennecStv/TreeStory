@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/assets/scripts/likeAndCommentChapter.js"></script>
+<script src="/assets/scripts/likeAndCommentChapter.js"></script>
+<script src="/assets/scripts/favoriteChapter.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -27,6 +28,7 @@
                     <a href="/story/chapter/{{ story_node_id }}/edit"><i class="fas fa-pen"></i></a>
                 {% endif %}
                 <a href="/story/{{ story_id }}/show"><i class="fas fa-book"></i></a>
+                <a href="/story/chapter/{{ story_node_id }}/download" download><i class="fas fa-download"></i></a>
             </div>
         </div>
         {% if author %}
@@ -38,7 +40,8 @@
             {{ text }}
             <div>
                 <div class="statsChapitre">
-                    <button class="like-chapter" story-id="{{story_id}}"><i class="fas fa-thumbs-up"></i>&nbsp{{boutonLike}}</button>
+                    <button id="{{label_aria}}" class="favorite-chapter" story-node-id="{{ story_node_id }}" aria-label="{{label_aria}}"><i class="fas fa-star"></i></button>
+                    <button class="like-chapter" story-id="{{ story_id }}"><i class="fas fa-thumbs-up"></i>&nbsp{{ boutonLike }}</button>
                     <button class="comment-chapter" ><i class="fa-solid fa-comment"></i>&nbspCommenter</button>
                 </div>
 

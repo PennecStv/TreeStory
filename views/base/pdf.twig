@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ storyTitle }} PDF</title>
+
+    <style type="text/css">
+        * {
+            font-family: arial;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+        }
+        #author {
+            color: gray;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>{{ storyTitle }}</h1>
+    <p id="author">Par {{ storyAuthor }}</p>
+    <p>{{ storyText }}</p>
+</body>
+</html>
