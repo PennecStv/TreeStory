@@ -25,6 +25,35 @@ class StoryNodeReadingStatisticsDAO extends DAO {
         $res = $this->queryRow($req);
         return $res['nbFavorite'];
     }
+
+
+    /**
+     * get all favorites of a storyNode
+     * 
+     * @param   string  $userName   Username of the users
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getFavorites(int $userName) {
+        return $this->queryAll("SELECT StotyNodeTitle, StoryNodeId FROM StoryNodeReadingStatistics INNER JOIN StoryNode ON StoryNode.StoryNodeId = StoryNodeReadingStatistics.StoryNodeReadingStatisticsSubject WHERE StoryNodeReadingStatisticsUser = ?", [$userName]);    
+    }
+
+
+    /**
+     * add a favorite to a storyNode
+     */
+    public function addFavorite(int $storyNodeId , String $username) {
+        $this->insert("INSERT INTO StoryNodeReadingStatistics (StoryNodeReadingStatisticsSubject, StoryNodeReadingStatisticsUser) VALUES (?, ?);", [$storyNodeId,$username]);
+    }
+
+
+    /**
+     * remove a favorite to a storyNode
+     */
+    public function removeFavorite(int $storyNodeId , String $username) {
+        $this->queryRow("DELETE FROM StoryNodeReadingStatistics WHERE StoryNodeReadingStatisticsSubject = ? AND StoryNodeReadingStatisticsUser = ?", [$storyNodeId,$username]); 
+    }
+
 }
 
 ?>
