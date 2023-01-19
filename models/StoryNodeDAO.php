@@ -76,6 +76,7 @@ class StoryNodeDAO extends DAO {
     /**
      * Check if the text contains banned words
      * @param  string $text Text to check
+     * 
      * @return bool   True if the text is valid, false otherwise
      */
     public function getCheckBannedWords(string $text) {
@@ -86,6 +87,78 @@ class StoryNodeDAO extends DAO {
             }
         }
         return true;
+    }
+
+
+    /**
+     * Set the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function setStoryNodeLikes(int $storyNodeId, String $action) {
+        if($action == "like"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes + 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+        else if($action == "dislike"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes - 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+    }
+
+
+    /**
+     * Get the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getLikeChapter(String $username, int $storyNodeId) {
+        return $this->queryRow("SELECT * FROM UserLikeRelation WHERE UserName = ?", [$username]);
+    }
+
+
+    /**
+     * Add a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     */
+    public function addLikeChapter(String $username, int $storyNodeId) {
+        $this->insert("INSERT INTO UserLikeRelation (UserName, StoryNodeId) VALUES (?, ?);", [$username, $storyNodeId]);
+    }
+
+
+    /**
+     * Remove a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     */
+    public function removeLikeChapter(String $username, int $storyNodeId) {
+        $this->queryRow("DELETE FROM UserLikeRelation WHERE UserName = ? AND StoryNodeId = ?", [$username, $storyNodeId]);
+    }
+
+    /**
+     * add a comment to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * @param   int     $storyNodeId    Id of the storyNode
+     * @param   String  $textComment   Text of the comment
+     */
+    public function addComments(String $username, int $storyNodeId, String $textComment) {
+        $this->insert("INSERT INTO Comment (CommentAuthor, CommentTarget, CommentMessage) VALUES (?, ?, ?);", [$username, $storyNodeId, $textComment]);
+    }
+
+
+    /**
+     * get all comments of a storyNode
+     * 
+     * @param   int     $storyNodeId    Id of the storyNode
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getComments(int $storyNodeId) {
+        return $this->queryAll("SELECT CommentAuthor, UserAvatar, CommentMessage FROM Comment INNER JOIN User ON User.UserName = Comment.CommentAuthor WHERE CommentTarget = ?", [$storyNodeId]);
     }
 
 }
