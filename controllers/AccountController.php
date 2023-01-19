@@ -163,8 +163,9 @@ class AccountController {
                     "following" =>$following,
 
                 ]);
+                
             }else{
-                header('Location: /404');
+                Router::getInstance()->throwError("404", "Page not found");
             }
             
         } else {
