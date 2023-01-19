@@ -418,6 +418,7 @@ class StoryController {
         }
 
         ob_start();
+        header("Content-Disposition: attachment; filename=\"" . $storyNode["StoryNodeTitle"] . ".pdf\"");
         $view = new \Templates\View("/base/pdf.twig");
         $view->render([
             'storyTitle' => $storyNode['StoryNodeTitle'],
