@@ -8,7 +8,8 @@
 
 {% block body %}
 <div class="form-connection">
-    <div class="login-card-form">
+    
+    <div class="login-card-form drop-in">
         <form method="post">
             <input type="text" name="login_identifiant" id="login_identifiant" placeholder="Entrez votre nom d'utilisateur" autocomplete="off">
             <input type="password" name="login_password" id="login_password" placeholder="Entrez votre mot de passe" autocomplete="off">
@@ -20,12 +21,14 @@
         <p class="{{classMessage}}"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
     {% endif %}
 
-    <div class="forgot-password">
-        <a href="/forgot-password" title="Réinitialiser mon mot de passe">Mot de passe oublié ?</a>
-    </div>
+    <div class="drop-in">
+        <div class="forgot-password">
+            <a href="/forgot-password" title="Réinitialiser mon mot de passe">Mot de passe oublié ?</a>
+        </div>
 
-    <div class="login-card-footer">
-        <p>Vous n'avez pas de compte ? <a href="/register" title="Je m'inscris">Inscrivez-vous</a><p>
+        <div class="login-card-footer">
+            <p>Vous n'avez pas de compte ? <a href="/register" title="Je m'inscris">Inscrivez-vous</a><p>
+        </div>
     </div>
 </div>
 
