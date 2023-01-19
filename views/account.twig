@@ -9,17 +9,97 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="/assets/scripts/dropdownScript.js"></script>
+    <script type="text/javascript" src="/assets/scripts/follow.js"></script>
 {% endblock %}
 
 
 {% block body %}
     <div class="user">
         <div id="avatar">
-            <img src="{{ userAvatar }}" alt="Photo de profil">
+            <img src="{{ userAccountAvatar }}" alt="Photo de profil">
         </div>
         <div id="userName">
-            {{ userName }}
+            {{ userAccountName }}
         </div>
+    </div>
+    {% if userNameConnected != userAccountName %}
+        <div class="follow">
+            <button user-id ="{{userAccountName}}" class="follow-button">{{buttonName}}</button>
+        </div>
+    {% endif %}
+
+    <div class="statsFollows">
+        <div id="statFollowers">
+            <div id="valueFollowers">
+                {{ follower }}
+            </div>
+            <h2 id="ok">Abonnés</h2>
+        </div>
+        <div id="statFollowings">
+            <div id="valueFollowings">
+                {{ following }}
+            </div>
+            <h2>Abonnements</h2>
+        </div>
+    </div>
+    
+    <div class="follow-option">
+        <div class="followersBox">
+            <div class="menu">
+                <div id="subscribed-menu" class="subscribers">
+                    <h4>Abonnés</h4>
+                    <div class="indicatorAbonnes"></div>
+                </div>
+
+                <div id="subscription-menu" class="subscriptions">
+                    <h4>Abonnements</h4>
+                    <div class="indicatorAbonnements"></div>
+                </div>
+            </div>
+
+            <div class="followersList">
+                <div class="list" id="subscribed-list">
+                    {% if subscribers|length == 0 %}
+                        {% if userNameConnected == userAccountName %}
+                            <p class="message">Vous n'avez pas encore d'abonnés !</p>
+                        {% else %}
+                            <p class="message">Aucun utilisateur n'est abonné à ce compte !</p>
+                        {% endif %}
+                    {% endif %}
+                    {% for subscriber in subscribers %}
+                        <div id-subscribed = "{{subscriber.UserName|e}}" class="user-subscribed">
+                            <img id-subscribed = "{{subscriber.UserName|e}}" class="profil-pic" src="{{subscriber.UserAvatar|e}}" alt="Photo de profil">
+                            <div>
+                                <h4 id-subscribed = "{{subscriber.UserName|e}}">{{subscriber.UserName|e}}</h4>
+                                <p id-subscribed = "{{subscriber.UserName|e}}" >{{subscriber.UserBiography|e}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="list" id="subscription-list">
+                    {% if subscriptions|length == 0 %}
+                        {% if userNameConnected == userAccountName %}
+                            <p class="message">Vous n'avez pas encore d'abonnements !</p>
+                        {% else %}
+                            <p class="message">Cet utilisateur n'est abonné à aucun compte !</p>
+                        {% endif %}
+                    {% endif %}
+                    {% for subscription in subscriptions %}
+                    <p>{{subscription.UserName|e}}</p>
+                        <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
+                            <img id-subscription = "{{subscription.UserName|e}}" class="profil-pic" src="{{subscription.UserAvatar|e}}" alt="Photo de profil">
+                            <div>
+                                <h4 id-subscription = "{{subscription.UserName|e}}">{{subscription.UserName|e}}</h4>
+                                <p id-subscription = "{{subscription.UserName|e}}">{{subscription.UserBiography|e}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>    
+        </div> 
+
     </div>
 
     <div id="biographie">
@@ -39,6 +119,7 @@
     </div>
     
     <div class="option">
+    {% if userNameConnected == userAccountName %}
         <div class="modifStory">
             <div class="modifStoryTitle">
                 <h1>Modifier vos histoires</h1>
@@ -53,5 +134,7 @@
         <div class="modifAccount">
             <a href="/configProfil">Modification du profil</a>
         </div>
+        
+    {% endif %}
     </div>
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace Routing;
 
+use Error;
+
 /**
  * Route represents a single Route witch a fixed method, path and callable.
  * 
@@ -68,7 +70,11 @@ class Route {
      * @param   array   $params     Specific params specified by the Route string matcher.
      */
     public function run(array $params) {
-	    call_user_func($this->callable, $params);
+	    try {
+            call_user_func($this->callable, $params);
+        } catch (Error $e) {
+            Router::getInstance()->throwError("500", "Unhandled sudden error on '" . $_GET['path'] . "': " . $e->getMessage());
+        }
     }
 
     /**

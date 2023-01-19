@@ -1,0 +1,48 @@
+{% extends "/base/base.twig" %}
+
+
+{% block title %}TreeStory - Compte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/report.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="report-body">
+        <form method="post">
+            <div class="text-signalement">
+                <p>Pour quelle raison souhaitez-vous signaler ce chapitre ? Votre signalement est indispensable pour 
+                préserver la sécurité de TreeStory et de notre communauté. L'auteur de ce chapitre ne sera pas informé de 
+                l'envoi de ce signalement.</p>
+            </div>
+            
+            <div>
+                <textarea name="text_signalement" id="text" cols="50" rows="20"></textarea>
+            </div>
+
+            <div>
+                <select name="report_type" id="report-type">
+                    <option value="Autres">--Séléctionner le type de votre signalement--</option>
+                    <option value="haineux">Discours haineux</option>
+                    <option value="terrorisme">Apologie du terrorisme ou de l'éxtrémisme violent</option>
+                    <option value="pornographie">Pornographie</option>
+                    <option value="violence">Violence</option>
+                    <option value="PI">C'est une violation de ma propriété intellectuelle</option>
+                    <option value="Autres">Autres</option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit" name="signaler">Signaler le chapitre</button>
+            </div>
+        </form>
+        {% if messageErreur is defined and messageErreur is not empty %}
+            <p class="{{classeMessage}}"><i class="fas fa-info-circle"></i> <span>{{ messageErreur }}</span></p>
+    {% endif %}
+    </div>
+
+{% endblock %}

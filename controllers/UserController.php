@@ -20,6 +20,7 @@ class UserController{
         $userDao = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         $messageErreur = "";
+        $classMessage = "";
 
         /*
         We check the sending of the connection form and we recover 
@@ -68,16 +69,19 @@ class UserController{
                     //Wrong password
                     else{
                         $messageErreur = "Identifiant ou mot de passe incorrect";
+                        $classMessage = "erreur";
                     }
                 }
                 //account does not exist
                 else{ 
                     $messageErreur = "Le compte n'existe pas";
+                    $classMessage = "erreur";
                 }
             }
             //empty fields
             else{
                 $messageErreur = "Veuillez remplir tous les champs";
+                $classMessage = "erreur";
             }
  
         }
@@ -85,6 +89,7 @@ class UserController{
         $view = new \Templates\View("login.twig");   
         $view->render([
             "messageErreur" => $messageErreur,
+            "classMessage" => $classMessage
         ]);
 
     }

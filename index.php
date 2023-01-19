@@ -13,6 +13,7 @@
  * @author  Idrissa Sall        <idrissa.sall@etu.univ-lyon1.fr>
  */
 
+//session_save_path("/tmp");
 session_start();
 
 require_once("./vendor/autoload.php");
@@ -27,7 +28,8 @@ require_once(PATH_CONTROLLERS . "UserController.php");
 require_once(PATH_CONTROLLERS . "PasswordController.php");
 require_once(PATH_CONTROLLERS . "RegisterController.php");
 require_once(PATH_CONTROLLERS . "ConfigProfilController.php");
-require_once(PATH_CONTROLLERS . "accountController.php");
+require_once(PATH_CONTROLLERS . "AccountController.php");
+require_once(PATH_CONTROLLERS . "StoryController.php");
 
 use Symfony\Component\Dotenv\Dotenv;
 use Routing\Router;
@@ -45,11 +47,12 @@ $router->route(Method::GET, "/login", ["UserController", "login"]);
 $router->route(Method::POST, "/login", ["UserController", "login"]);
 $router->route(Method::GET, "/logout", ["UserController", "logout"]);
 
-$router->route(Method::GET, "/forgotPassword", ["PasswordController", "forgotPassword"]);
-$router->route(Method::POST, "/forgotPassword", ["PasswordController", "forgotPassword"]);
+$router->route(Method::GET, "/forgot-password", ["PasswordController", "forgotPassword"]);
+$router->route(Method::POST, "/forgot-password", ["PasswordController", "forgotPassword"]);
+$router->route(Method::GET, "/reset-password", ["PasswordController", "resetPassword"]);
+$router->route(Method::POST, "/reset-password", ["PasswordController", "resetPassword"]);
 
-$router->route(Method::GET, "/resetPassword", ["PasswordController", "resetPassword"]);
-$router->route(Method::POST, "/resetPassword", ["PasswordController", "resetPassword"]);
+$router->route(Method::GET, "/story/:id/show", ["StoryController", "get"]);
 
 $router->route(Method::GET, "/register", ["RegisterController", "register"]);
 $router->route(Method::POST, "/register", ["RegisterController", "register"]);
@@ -57,9 +60,9 @@ $router->route(Method::POST, "/register", ["RegisterController", "register"]);
 $router->route(Method::GET, "/configProfil", ["ConfigProfilController", "configProfil"]);
 $router->route(Method::POST, "/configProfil", ["ConfigProfilController", "configProfil"]);
 
-$router->route(Method::GET, "/account", ["AccountController", "account"]);
 
 $router->route(Method::ERROR, "404", ["ErrorController", "notFound"]);
+$router->route(Method::ERROR, "500", ["ErrorController", "internal"]);
 
 $router->run();
 

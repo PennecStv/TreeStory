@@ -1,0 +1,95 @@
+{% extends "./base/base.twig" %}
+
+{% block title %}TreeStory - {{ title }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/assets/css/story_read.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/scripts/likeAndCommentChapter.js"></script>
+{% endblock %}
+
+{% block body %}
+<div id="story_read">
+    <div class="section">
+        <div class="section-header">
+            <div>
+                {% if previous|default %}
+                    <a href="/story/chapter/{{ previous }}/read"><i class="fas fa-arrow-left"></i></a>
+                {% else %}
+                    <a href="/story/{{ story_id }}/show"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+                <h1>{{ title }}</h1>
+            </div>
+            <div>
+                {% if is_author %}
+                    <a href="/story/chapter/{{ story_node_id }}/edit"><i class="fas fa-pen"></i></a>
+                {% endif %}
+                <a href="/story/{{ story_id }}/show"><i class="fas fa-book"></i></a>
+                <a href="/story/chapter/{{ story_node_id }}/download" download><i class="fas fa-download"></i></a>
+            </div>
+        </div>
+        {% if author %}
+            <div class="author">
+                <p>Par <a href="/user/{{ author }}">{{ author }}</a></p>
+            </div>
+        {% endif %}
+        <div class="section-body">
+            {{ text }}
+            <div>
+                <div class="statsChapitre">
+                    <button class="like-chapter" story-id="{{story_id}}"><i class="fas fa-thumbs-up"></i>&nbsp{{boutonLike}}</button>
+                    <button class="comment-chapter" ><i class="fa-solid fa-comment"></i>&nbspCommenter</button>
+                </div>
+
+                <div id="section-commentaire" style="display : none;">
+
+                    <div class="commenter">
+                        <div class="top-commenter" id="comments">
+                            {% if comments|length == 0%}
+                                <h3>Il n'y a pas encore de commentaire</h3>
+                            {% endif %}
+
+                            {% for comment in comments %}
+                                <div author="{{comment.CommentAuthor|e}}" class="commentaires">
+                                    <img author="{{comment.CommentAuthor|e}}" class="profil" src="{{comment.UserAvatar|e}}" alt="profil">
+                                    <div class="commentaire-detail">
+                                        <h4 author="{{comment.CommentAuthor|e}}">{{ comment.CommentAuthor|e }}</h4>
+                                        <p>{{ comment.CommentMessage|e}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                        </div>
+
+                        <div class="commenter-body">
+                            <form id="form-commenter">
+                                <textarea name="text_comments" cols="45" rows="3" placeholder="Votre commentaire"></textarea>
+                                <div class="commenter-footer">
+                                    <button type="submit" name="commenter"><i class="fas fa-paper-plane"></i>Commenter</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <h2>Prochains chapitres:</h2>
+                <div>
+                    {% if next_story_nodes is not empty %}
+                        {% for story_node in next_story_nodes %}
+                            <a href="/story/chapter/{{ story_node.id }}/read">{{ story_node.title }}</a>
+                        {% endfor %}
+                    {% endif %}
+                    <a href="/story/chapter/{{ story_node_id }}/contribute"><i class="fas fa-pen"></i>Contribuer</a>
+                </div>
+                {% if not is_author %}
+                    <div>
+                        <a href="/story/chapter/{{ story_id }}/report"><i class="fas fa-flag"></i> Signaler ce chapitre</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -5,6 +5,8 @@ namespace Routing;
 require_once(PATH_UTILS_ROUTING . "Method.php");
 require_once(PATH_UTILS_ROUTING . "Route.php");
 
+use \Monolog;
+
 /**
  * Router represents a routing entity that stores Route instances and calls the ones that matches the current request path.
  * 
@@ -13,7 +15,7 @@ require_once(PATH_UTILS_ROUTING . "Route.php");
  * Example usage:
  * ```php
  * $router = \Routing\Router::getInstance();
- * $router->route(Method::GET, "/greet/:name", ["HomeController", "greet"])
+ * $router->route(\Routing\Method::GET, "/greet/:name", ["HomeController", "greet"]);
  * $router->run();
  * ```
  * 
@@ -29,6 +31,11 @@ class Router {
     private array $routes = [];
 
     /**
+     * Represents the logger instance for the routing module.
+     */
+    private Monolog\Logger $logger;
+
+    /**
      * Current instance of Router being used.
      */
     private static ?Router $instance = null;
@@ -38,6 +45,10 @@ class Router {
      */
     private function __construct() {
         self::$instance = $this;
+        $logger = new Monolog\Logger("routing", [
+            new Monolog\Handler\StreamHandler(PATH_LOGS, Monolog\Logger::WARNING),
+        ]);
+        $this->logger = $logger;
     }
 
     /**
@@ -100,7 +111,12 @@ class Router {
      * @param   string  $error      HTTP Error Code.
      * @param   array   $context    Specific context that can be used by the error handler.
      */
-    public function throwError(string $error, array $context = []) {
+    public function throwError(string $error, string $message, array $context = []) {
+        if (preg_match("/^5/", $error)) {
+            $this->logger->error("Can't handle '" . $_GET['path'] . "': $message");
+        } else {
+            $this->logger->warning("Can't handle '" . $_GET['path'] . "': $message");
+        }
         foreach ($this->routes as $route) {
             if ($route->matchError($error)) {
                 $route->run($context);
