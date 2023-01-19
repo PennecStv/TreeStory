@@ -96,10 +96,6 @@
     background-color: #eee ; 
 }
 
-#disable{
-    display: none;
-}
-
 #section-commentaire{
     display: flex;
     flex-direction: column;
@@ -179,6 +175,10 @@ textarea{
     gap: 10px;
 }
 
+.commenter button:hover{
+    background-color: #eee;
+}
+
 #form-commenter{
     position: absolute;
     bottom: 0;
@@ -207,95 +207,4 @@ textarea{
 
 .statsChapitre button:hover{
     background-color: #eee ; 
-}
-
-#disable{
-    display: none;
-}
-
-#section-commentaire{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 3vh;
-}
-
-.commenter{
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding: 2px;
-    height: 400px;
-    position: relative;
-}
-
-.top-commenter{
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    height: 75%;
-}
-
-.commentaires{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom: 2px solid #273469;
-	border-radius: 0 0 4% 4%;
-    
-}
-
-.profil{
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-    cursor: pointer;
-}
-
-.commentaire-detail{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.commenter-body{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-
-form{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 20%;
-}
-
-textarea{
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 10px;
-    width: 100%;
-    resize: none;
-}
-
-.commenter button{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#form-commenter{
-    position: absolute;
-    bottom: 0;
-    background-color: white;
-}
-
-.commentaire-detail h4{
-    cursor: pointer;
 }
