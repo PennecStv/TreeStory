@@ -1,12 +1,26 @@
 <div class="storyContent">
-	<img src="{{ chapter.StoryCover|e }}">
+	<a href="/story/{{chapter.StoryNodeSource|e}}/show">
+		<img src="{{ chapter.StoryCover|e }}">
+	</a>
 	<div class="infoStory">
-		<a href="#">
+		<a href="/story/chapter/{{ chapter.StoryNodeId|e }}/read">
 			<h1>{{ chapter.StoryNodeTitle|e }}</h1>
 		</a>
 		
 		<p class="author">Par <a href="#">{{ chapter.StoryNodeAuthor|e }} </a> </p>
 
-		<p class="text"> {{ chapter.StoryNodeText|e }} </p>
+		<div class="text"> 
+			<p> {{ chapter.StoryNodeText|e }} </p>
+		</div>
+
+		<div class="storyType">
+			{% for tag in chapter.StoryTag|e %}
+					<label class="type-label"> {{ tag[0] }} </label>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div>
+		<i class="icon fa-solid fa-sort fa-xl"></i>
 	</div>
 </div>

@@ -72,10 +72,6 @@ class StoryDAO extends DAO {
                 $req .= "";
                 break;
 
-            case "view":
-                $req .= "";
-                break;
-
             case "recent":
                 $req .= "";
                 break;
@@ -89,18 +85,5 @@ class StoryDAO extends DAO {
         return $res;
     }
 
-
-    public function getStoryByFilter(String $option) {
-
-        if ($input == "Tout"){
-            $req = "SELECT * FROM story";
-        } else {
-            $req = "SELECT * FROM story WHERE StoryTitle LIKE '%$input%'";
-        }
-        
-        $res = $this->queryAll($req);
-
-        return $res;
-    }
 }
 ?>

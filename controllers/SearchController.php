@@ -2,9 +2,11 @@
 
 require_once(PATH_MODELS.'UserDAO.php');
 require_once(PATH_MODELS.'StoryDAO.php');
+require_once(PATH_MODELS.'StoryTagDAO.php');
 use Models\UserDAO;
 use Models\StoryDAO;
 Use Models\StoryNodeDAO;
+USE Models\StoryTagDAO;
 
 /**
  * SearchController is the controller of the research page.
@@ -18,13 +20,20 @@ class SearchController {
      */
     public static function search(){
 
-        $userDAO      = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
-        $storyDAO     = new StoryDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $userDAO      = new UserDAO(strtolower($_ENV["APP_ENV"])      == "debug");
+        $storyDAO     = new StoryDAO(strtolower($_ENV["APP_ENV"])     == "debug");
         $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyTagDAO  = new StoryTagDAO(strtolower($_ENV["APP_ENV"])  == "debug");
 
-        $storyResult   = [];
-        $chapterResult = [];
-        $userResult    = [];
+        $storyResult    = [];
+        $chapterResult  = [];
+        $userResult     = [];
+        $storyTagResult = [];
+
+        $search = null;
+        $filter = null;
+        $sort   = null;
+
 
         if (isset($_POST["search"])) {
             $search = $_POST["search"];
@@ -40,6 +49,7 @@ class SearchController {
             $sort   = null;
             
         }
+
 
         if (isset($_SESSION['UserName'])) {
             $user = $userDAO->getUser(htmlspecialchars($_SESSION['UserName']), null);
@@ -61,8 +71,8 @@ class SearchController {
             ["inorder",  "A - Z"],
             ["inverse", "Z - A"],
             ["like", "Les plus aimées"],
-            ["view", "Les plus vues"],
-            ["recent", "Les plus récentes"]
+            ["recent", "Les plus récentes"],
+            //["view", "Les plus vues"]
         );
 
         switch($sort){
@@ -78,12 +88,8 @@ class SearchController {
                 $indexSort = 3;
                 break;
 
-            case "view":
-                $indexSort = 4;
-                break;
-
             case "recent":
-                $indexSort = 5;
+                $indexSort = 4;
                 break;
 
             default:
@@ -132,16 +138,22 @@ class SearchController {
             if ($story['StoryCover'] === NULL) {
                 $storyResult[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
             } else {
-                $storyResult[$key]['UserAvatar'] = '/assets/uploads/covers/'.$storyResult[$key]['UserAvatar'];
+                $storyResult[$key]['StoryCover'] = '/assets/uploads/covers/'.$storyResult[$key]['StoryCover'];
             }
+
+            $storyTagResult = $storyTagDAO->getStoryTagByStoryId($storyResult[$key]['StoryId']);
+            $storyResult[$key]['StoryTag'] = $storyTagResult; 
         }
     
         foreach ($chapterResult as $key => $chapter) {
             if ($chapter['StoryCover'] === NULL) {
                 $chapterResult[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
             } else {
-                $chapterResult[$key]['UserAvatar'] = '/assets/uploads/covers/'.$chapterResult[$key]['UserAvatar'];
+                $chapterResult[$key]['StoryCover'] = '/assets/uploads/covers/'.$chapterResult[$key]['StoryCover'];
             }
+
+            $storyTagResult = $storyTagDAO->getStoryTagByStoryId($chapterResult[$key]['StoryNodeSource']);
+            $chapterResult[$key]['StoryTag'] = $storyTagResult;   
         }
     
         foreach ($userResult as $key => $user) {
@@ -151,7 +163,8 @@ class SearchController {
                 $userResult[$key]['UserAvatar'] = '/assets/uploads/'.$userResult[$key]['UserAvatar'];
             }
         }
-        
+
+
 
         if (!$notFound){
             $results = $storyResult;
@@ -181,8 +194,6 @@ class SearchController {
                 "notFound" => $notFound
             ]);
         }
-
-        
     }
 }
 

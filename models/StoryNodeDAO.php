@@ -56,7 +56,9 @@ class StoryNodeDAO extends DAO {
 
     /**
      * Delete a storyNode
+     * 
      * @param  int     $storyId    Id of the storyNode
+     * 
      */
     public function deleteStory(int $storyId) {
         $this->queryRow("DELETE FROM StoryNode WHERE StoryNodeId = ?", [$storyId]);
@@ -88,15 +90,11 @@ class StoryNodeDAO extends DAO {
                 break;
 
             case "like":
-                $req .= "";
-                break;
-
-            case "view":
-                $req .= "";
+                $req .= " ";
                 break;
 
             case "recent":
-                $req .= "";
+                $req .= " ORDER BY StoryNodePublishedAt ASC";
                 break;
 
             default:

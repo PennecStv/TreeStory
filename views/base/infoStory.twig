@@ -1,10 +1,17 @@
 <div class="storyContent">
-	<a href="/story/chapter/{{story.StoryNodeId|e}}/edit">
+	<a href="/story/{{story.StoryId|e}}/show">
 		<img src="{{ story.StoryCover|e }}">
 	</a>
 	<div class="infoStory">
-		<a href="#">
+		<a href="/story/{{story.StoryId|e}}/show">
 			<h1>{{ story.StoryTitle|e }}</h1>
 		</a>
+
+		<div class="storyType">
+			{% for tag in story.StoryTag|e %}
+				<label class="type-label"> {{ tag[0] }} </label>
+			{% endfor %}
+		</div>
+		
 	</div>
 </div>

@@ -15,7 +15,7 @@
 {% block body %}
 
     <div class="menu">
-        <form id="form-search" method="POST">
+        <form id="form-search" method="POST" autocomplete="off">
             <div class = "menu-item filter">
                 <span class = "icon">
                     <i class="fa-solid fa-filter fa-xl"></i>
@@ -27,11 +27,14 @@
                 </select>
             </div>
 
-            <div class = "menu-item type">
-                <button class="button aventure">+ Action</button>
-                <button class="button horreur">+ Horreur</button>
-                <button class="button aventure">+ Aventure</button>
-                <button class="button more">...</button>
+            <div class = "menu-item type" id = "menu-type">
+                <input type="submit" name="action_type"    class = "btn" id="btn-action"    value="Action">
+                <input type="submit" name="horror_type"    class = "btn" id="btn-horror"    value="Horreur">
+                <input type="submit" name="adventure_type" class = "btn" id="btn-adventure" value="Aventure">
+            </div>
+
+            <div class = "other-item type">
+                <button id="btn-other">. . .</button>
             </div>
 
             <div class = "menu-item sort">
@@ -94,9 +97,5 @@
 
         {% endif %}
     </div>
-
-    <input type="hidden" name="hidden1" id="hidden1" />
-    <input type="hidden" name="hidden2" id="hidden2" />
-    <input type="hidden" name="hidden3" id="hidden3" />
 
 {% endblock %}
