@@ -22,6 +22,7 @@ class PasswordController{
         $userDao = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         $messageErreur = "";
+        $classMessage = "";
 
         /*
         We check the sending of the reset form and we recover 
@@ -61,18 +62,21 @@ class PasswordController{
                 //account does not exist
                 else{ 
                     $messageErreur = "Il n'existe pas de compte associé à ce nom d'utilisateur.";
+                    $classMessage = "succes";
                 }
             }
             //empty field
             else{
                 $messageErreur = "Veuillez saisir votre nom d'utilisateur.";
+                $classMessage = "erreur";
             }
 
         }
 
         $view = new \Templates\View("forgotPassword.twig");   
         $view->render([
-            "messageErreur" => $messageErreur
+            "messageErreur" => $messageErreur,
+            "classMessage" => $classMessage
         ]);
 
     }
@@ -87,6 +91,7 @@ class PasswordController{
         $userDao = new UserDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         $messageErreur = "";
+        $classMessage = "";
 
         /*
         We retrive the token from the URL and the user with
@@ -144,11 +149,13 @@ class PasswordController{
                     $userDao->setUser("UserTokenExpirationAt",date("Y-m-d H:i:s",0),$results['UserName']);
 
                     $messageErreur ="Votre nouveau mot de passe a bien été enregistré.";
+                    $classMessage = "succes";
                 }
 
                 $view = new \Templates\View("resetPassword.twig");   
                 $view->render([
-                    "messageErreur" => $messageErreur
+                    "messageErreur" => $messageErreur,
+                    "classMessage" => $classMessage
                 ]);
             }
         }

@@ -84,6 +84,14 @@ $router->route(Method::POST, "/user/:id/unfollow", ["AccountController", "unfoll
 
 $router->route(Method::POST, "/story/chapter/:id/delete", ["StoryController", "delete_chapter"]);
 
+$router->route(Method::GET, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/report", ["StoryController", "report_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/like", ["StoryController", "like_chapter"]);
+$router->route(Method::POST, "/story/chapter/:id/dislike", ["StoryController", "dislike_chapter"]);
+
+$router->route(Method::POST, "/story/chapter/:id/comment", ["StoryController", "comment_chapter"]);
+
 $router->route(Method::GET, "/search", ["SearchController", "search"]);
 $router->route(Method::POST, "/search", ["SearchController", "search"]);
 

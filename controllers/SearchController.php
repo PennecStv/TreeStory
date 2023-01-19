@@ -16,7 +16,8 @@ USE Models\StoryTagDAO;
 class SearchController {
 
     /**
-     * 
+     * Get the search result of the search page
+     * and get the data according to it
      */
     public static function search(){
 
@@ -121,15 +122,17 @@ class SearchController {
                 break;
         }
 
+        //Swap the first sort method to the one that has been selected
         $temp = $sortList[$indexSort];
         unset($sortList[$indexSort]);
         array_unshift($sortList, $temp);
 
+        //Swap the first filter to the one that has been selected
         $temp = $filterList[$indexFilter];
         unset($filterList[$indexFilter]);
         array_unshift($filterList, $temp);
         
-
+        //If no result was found
         $notFound = empty($storyResult) && empty($chapterResult) && empty($userResult);
 
         $results = null;
@@ -141,8 +144,11 @@ class SearchController {
                 $storyResult[$key]['StoryCover'] = '/assets/uploads/covers/'.$storyResult[$key]['StoryCover'];
             }
 
+            //Add the tag of the current story to the result
             $storyTagResult = $storyTagDAO->getStoryTagByStoryId($storyResult[$key]['StoryId']);
-            $storyResult[$key]['StoryTag'] = $storyTagResult; 
+            $storyResult[$key]['StoryTag'] = $storyTagResult;
+
+            $storyResult[$key]['NbStoryNode'] = $storyDAO->getNbStoryNode(htmlspecialchars($story['StoryId']));; 
         }
     
         foreach ($chapterResult as $key => $chapter) {
@@ -152,8 +158,9 @@ class SearchController {
                 $chapterResult[$key]['StoryCover'] = '/assets/uploads/covers/'.$chapterResult[$key]['StoryCover'];
             }
 
+            //Add the tag of the current chapter to the result
             $storyTagResult = $storyTagDAO->getStoryTagByStoryId($chapterResult[$key]['StoryNodeSource']);
-            $chapterResult[$key]['StoryTag'] = $storyTagResult;   
+            $chapterResult[$key]['StoryTag'] = $storyTagResult; 
         }
     
         foreach ($userResult as $key => $user) {
@@ -164,16 +171,10 @@ class SearchController {
             }
         }
 
-
-
-        if (!$notFound){
-            $results = $storyResult;
-        }
-
         $view = new \Templates\View("search.twig"); 
         if (empty($user)){
             $view->render([
-                "stories"  => $results,
+                "stories"  => $storyResult,
                 "chapters" => $chapterResult,
                 "users"    => $userResult,
                 "filters"   => $filterList,
@@ -181,11 +182,11 @@ class SearchController {
                 "searchText" => $search,
                 "notFound" => $notFound
             ]);
-        } else {
+        } else { //When the user is connected
             $view->render([
                 "userName" => htmlspecialchars($user['UserName']),
                 "userAvatar" => htmlspecialchars($user['UserAvatar']),
-                "stories"  => $results,
+                "stories"  => $storyResult,
                 "chapters" => $chapterResult,
                 "users"    => $userResult,
                 "filters"  => $filterList,

@@ -47,16 +47,17 @@ class StoryDAO extends DAO {
     /**
      * Get main stories of the database where the title matches the input
      * 
-     * @param String                     the input typed in the research bar
+     * @param String    $input            the input typed in the research bar
+     * @param any       $sort             the sort type wanted
      * 
-     * @return false|PDOStatement        query results
+     * @return false|PDOStatement        query results of the story table + the published date of its first chapter
      */
     public function getStoryByResearch(String $input, $sort) {
         
         if ($input == null){
-            $req = "SELECT * FROM story";
+            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL";
         } else {
-            $req = "SELECT * FROM story WHERE StoryTitle LIKE '%$input%'";
+            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL AND StoryTitle LIKE '%$input%'";
         }
 
         switch($sort){
@@ -68,12 +69,8 @@ class StoryDAO extends DAO {
                 $req .= " ORDER BY StoryTitle DESC";
                 break;
 
-            case "like":
-                $req .= "";
-                break;
-
             case "recent":
-                $req .= "";
+                $req .= " ORDER BY StoryNodePublishedAt ASC";
                 break;
 
             default:
@@ -85,5 +82,20 @@ class StoryDAO extends DAO {
         return $res;
     }
 
+
+    /**
+     * Get the number of story nodes that the story has.
+     * 
+     * @param String       $storyId      ID of the main story
+     * 
+     * @return false|PDOStatement        query results
+     */
+    public function getNbStoryNode(int $storyId) {
+        $req = "SELECT COUNT(storynode.StoryNodeId) as nbStoryNode FROM storynode WHERE storynode.StoryNodeSource = $storyId";
+
+        $res = $this->queryRow($req);
+
+        return $res["nbStoryNode"];
+    }
 }
 ?>

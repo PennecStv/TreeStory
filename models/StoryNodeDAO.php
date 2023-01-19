@@ -56,9 +56,7 @@ class StoryNodeDAO extends DAO {
 
     /**
      * Delete a storyNode
-     * 
      * @param  int     $storyId    Id of the storyNode
-     * 
      */
     public function deleteStory(int $storyId) {
         $this->queryRow("DELETE FROM StoryNode WHERE StoryNodeId = ?", [$storyId]);
@@ -66,9 +64,110 @@ class StoryNodeDAO extends DAO {
 
 
     /**
+     * Insert a report in the database
+     * @param  int     $reportId              Id of the report
+     * @param  string  $reportType            Type of the report
+     * @param  string  $reportUserSource      Username of the user who reported
+     * @param  string  $reportDescription     Description of the report
+     */
+    public function reportStoryNode(string $reportType, int $storyIdTarget ,string $reportUserSource, string $reportDescription) {
+        return $this->insert("INSERT INTO Report (ReportType, ReportStoryTarget, ReportUserSource, ReportDescription, ReportCreatedAt) VALUES (?, ?, ?, ?, ?);", [$reportType,$storyIdTarget, $reportUserSource, $reportDescription ,date("Y-m-d H:i:s", time())]);
+    }
+
+    /**
+     * Check if the text contains banned words
+     * @param  string $text Text to check
+     * 
+     * @return bool   True if the text is valid, false otherwise
+     */
+    public function getCheckBannedWords(string $text) {
+        $banned_words = array("insulte", "femmelette", "sexiste", "invective", "ordurier");
+        foreach ($banned_words as $word) {
+            if (stripos($text, $word) !== false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Set the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function setStoryNodeLikes(int $storyNodeId, String $action) {
+        if($action == "like"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes + 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+        else if($action == "dislike"){
+           return $this->queryRow("UPDATE StoryNode SET StoryNodeLikes = StoryNodeLikes - 1 WHERE StoryNodeId = ?", [$storyNodeId]);
+        }
+    }
+
+
+    /**
+     * Get the likes of a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getLikeChapter(String $username, int $storyNodeId) {
+        return $this->queryRow("SELECT * FROM UserLikeRelation WHERE UserName = ? AND StoryNodeId = ?", [$username, $storyNodeId]);
+    }
+
+
+    /**
+     * Add a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     */
+    public function addLikeChapter(String $username, int $storyNodeId) {
+        $this->insert("INSERT INTO UserLikeRelation (UserName, StoryNodeId) VALUES (?, ?);", [$username, $storyNodeId]);
+    }
+
+
+    /**
+     * Remove a like to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     */
+    public function removeLikeChapter(String $username, int $storyNodeId) {
+        $this->queryRow("DELETE FROM UserLikeRelation WHERE UserName = ? AND StoryNodeId = ?", [$username, $storyNodeId]);
+    }
+
+    /**
+     * add a comment to a storyNode
+     * 
+     * @param   String  $userName   Username of the user
+     * @param   int     $storyNodeId    Id of the storyNode
+     * @param   String  $textComment   Text of the comment
+     */
+    public function addComments(String $username, int $storyNodeId, String $textComment) {
+        $this->insert("INSERT INTO Comment (CommentAuthor, CommentTarget, CommentMessage) VALUES (?, ?, ?);", [$username, $storyNodeId, $textComment]);
+    }
+
+
+    /**
+     * get all comments of a storyNode
+     * 
+     * @param   int     $storyNodeId    Id of the storyNode
+     * 
+     * @return  false|PDOStatement        query results
+     */
+    public function getComments(int $storyNodeId) {
+        return $this->queryAll("SELECT CommentAuthor, UserAvatar, CommentMessage FROM Comment INNER JOIN User ON User.UserName = Comment.CommentAuthor WHERE CommentTarget = ?", [$storyNodeId]);
+    }
+
+
+    /**
      * Get chapters (Story node) from the database where the title matches the input
      * 
-     * @param String                     the input typed in the research bar
+     * @param String    $input            the input typed in the research bar
+     * @param any       $sort             the sort type wanted
      * 
      * @return false|PDOStatement        query results
      */
@@ -90,7 +189,7 @@ class StoryNodeDAO extends DAO {
                 break;
 
             case "like":
-                $req .= " ";
+                $req .= " ORDER BY StoryNodeLikes DESC";
                 break;
 
             case "recent":

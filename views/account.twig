@@ -86,6 +86,7 @@
                         {% endif %}
                     {% endif %}
                     {% for subscription in subscriptions %}
+                    <p>{{subscription.UserName|e}}</p>
                         <div id-subscription = "{{subscription.UserName|e}}" class="user-subscribed">
                             <img id-subscription = "{{subscription.UserName|e}}" class="profil-pic" src="{{subscription.UserAvatar|e}}" alt="Photo de profil">
                             <div>
@@ -118,10 +119,13 @@
     </div>
     
     <div class="option">
-    {% if userNameConnected == userAccountName %}
         <div class="modifStory">
             <div class="modifStoryTitle">
-                <h1>Modifier vos histoires</h1>
+                {% if userNameConnected == userAccountName %}
+                    <h1>Vos histoires</h1>
+                {% else %}
+                    <h1>Histoires de {{userAccountName}}</h1>
+                {% endif %}
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div class="modifStoryContent close">
@@ -130,10 +134,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="modifAccount">
-            <a href="/configProfil">Modification du profil</a>
-        </div>
-        
-    {% endif %}
+        {% if userNameConnected == userAccountName %}
+            <div class="modifAccount">
+                <a href="/configProfil">Mes données personnelles</a>
+            </div>    
+        {% endif %}
     </div>
 {% endblock %}

@@ -3,18 +3,25 @@ html, body {
     margin: 0;
 }
 
-i {
-    padding: 16px;
+a:link {
+    color: #273469;
 }
 
+i {
+    padding: 16px;
+    padding-right: 5px;
+}
+
+
+/* The form at the top of the page */
 #form-search {
     margin-top: 5vh;
     margin-bottom: 5vh;
-    margin-inline: 5%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     text-align: center;
+    gap: 50px;
 }
 
 
@@ -81,7 +88,6 @@ select {
     
 }
 
-
 .type .btn, .type button {
     background-color: #FAFAFF;
     color: #273469;
@@ -104,6 +110,8 @@ select {
     cursor: pointer;
 }
 
+
+/* Page results */
 .empty{
     height: 19.5vh;
 
@@ -136,8 +144,8 @@ hr {
     margin-bottom: 2vh;
 }
 
-/* Résultat Histoires et Chapitres */
 
+/* Stories and chapters result */
 .storyContent, .storyNodeContent {
     margin: 5px;
     border-width: 10px;
@@ -162,7 +170,7 @@ hr {
 .storyContent {
     display: flex;
 	width: 350px;
-	max-height: 200px;
+	max-height: 250px;
 	margin-top: 30px;
     overflow: hidden;
 }
@@ -191,16 +199,17 @@ hr {
 .infoStory .text {
     margin-top: 5px;
 	color: #6F6F6F;
-    height: 50%;
+    height: 20vh;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent);
+    
+    /* Overflow fading out */
+    -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); /* Property nonstandard, but it was the only way found */
 }
 
 
 .storyType {
     display: flex;
-    
     justify-content: space-between;
 }
 
@@ -217,8 +226,31 @@ hr {
 }
 
 
-/* Résultat Utilisateurs */
+.likes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: #273469;
+    margin-top: 1vh;
+}
 
+.nbChapter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #273469;
+    margin-top: 1vh;
+}
+
+.likes p, .nbChapter p {
+    color: #273469;
+    font-weight: bold;
+}
+
+
+/* Users result */
 .user {
 	display:flex;
   	flex-wrap:wrap;

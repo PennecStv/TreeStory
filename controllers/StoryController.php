@@ -107,6 +107,8 @@ class StoryController {
     }
 
     public static function read($params) {
+
+        $boutonLike = "J'aime";
         $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
 
         if (!preg_match("/^[0-9]+$/", $params['id'])) {
@@ -147,6 +149,22 @@ class StoryController {
             ];
         }
 
+        
+        $isLiked = $storyNodeDao->getLikeChapter($_SESSION['UserName'] ,intval($params['id']));
+        if($isLiked){
+            $boutonLike = "Je n'aime plus";
+        }
+
+        $comments = $storyNodeDao->getComments($storyNode['StoryNodeId']);
+
+        foreach($comments as $key => $comment){
+            if($comment['UserAvatar'] == null){
+                $comments[$key]['UserAvatar'] = '/assets/images/userDefaultIcon.png';
+            }else{
+                $comments[$key]['UserAvatar'] = '/assets/uploads/'.$comments[$key]['UserAvatar'];
+            }
+        }
+
         $view = new \Templates\View("story_read.twig");
         $view->render([
             'title' => $storyNode['StoryNodeTitle'],
@@ -157,6 +175,8 @@ class StoryController {
             'is_author' => $isAuthor,
             'author' => $author,
             'previous' => $storyNode['StoryNodeRoot'],
+            'boutonLike' => $boutonLike,
+            'comments' => $comments,
         ]);
     }
 
@@ -300,6 +320,74 @@ class StoryController {
         }
 
     }
+
+
+    /**
+     * this function is used to report a chapter.
+     * @param $params
+     */
+    public static function report_chapter($params){
+        
+        $messageErreur = "";
+        $classeMessage = "";
+
+        if(isset($_POST['signaler'])){
+            
+            extract($_POST);
+
+            $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+            $isConform = $storyNodeDao->getCheckBannedWords($text_signalement);
+            if($isConform){
+                $storyNodeDao->reportStoryNode($report_type, intval($params['id']), $_SESSION['UserName'], $text_signalement);
+                $messageErreur = "Merci, votre signalement a bien été pris en compte.";
+                $classeMessage = "succes";
+            }
+            else{
+                $messageErreur = "Le texte contient des mots interdits. Votre signalement n'a pas été pris en compte.";
+                $classeMessage = "erreur";
+            }
+        }
+
+        $view = new \Templates\View("report.twig");
+        $view->render([
+            'id' => intval($params['id']),
+            'messageErreur' => $messageErreur,
+            'classeMessage' => $classeMessage
+        ]);
+    }
+
+    /**
+     * this function is used to like a chapter.
+     * @param $params
+     */
+    public static function like_chapter($params){
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeDao->setStoryNodeLikes(intval($params['id']), "like");
+        $storyNodeDao->addLikeChapter($_SESSION["UserName"],intval($params['id']));
+        
+    }
+
+
+    /**
+     * this function is used to dislike a chapter.
+     * @param $params
+     */
+    public static function dislike_chapter($params){
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeDao->setStoryNodeLikes(intval($params['id']), "dislike");
+        $storyNodeDao->removeLikeChapter($_SESSION['UserName'],intval($params['id']));
+    }
+
+    
+    /**
+     * this function is used to comment a chapter.
+     * @param $params
+     */
+    public static function comment_chapter($params){
+        $storyNodeDao = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
+        $storyNodeDao->addComments($_SESSION['UserName'],intval($params['id']), $_REQUEST['comment']);   
+    }
+
 
 }
 

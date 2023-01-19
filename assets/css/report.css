@@ -1,0 +1,56 @@
+.report-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10vh 0;
+}
+
+
+.text-signalement{
+    width: 400px;
+}
+
+.text-signalement p{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+textarea{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    width: 100%;
+    resize: none;
+}
+
+#report-type{
+    color: #fff;
+    background-color: #273469;
+    border-radius: 20px;
+    margin-top: 1vh;
+    height: 30px;
+}
+
+
+div button{
+    border: 1px solid #aaa;
+    padding: 5px 10px;
+    border-radius: 99999px;
+    color: #fff;
+    background-color: #273469;
+    margin-top: 1vh;
+    cursor: pointer;
+}
+
+.erreur{
+    color: red;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+.succes{
+    color: green;
+    font-size: 15px;
+    margin-top: 5px;
+}

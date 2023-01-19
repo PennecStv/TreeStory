@@ -7,6 +7,7 @@ require_once(PATH_MODELS.'StoryNodeReadingStatisticsDAO.php');
 use Models\UserDAO;
 use Models\StoryNodeDAO;
 use Models\StoryNodeReadingStatisticsDAO;
+USE Models\StoryTagDAO;
 
 /**
  * AccountController is the controller of the account page.
@@ -42,6 +43,8 @@ class AccountController {
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }else{
+                    $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
             }
 
@@ -106,11 +109,18 @@ class AccountController {
             $storyNodeDAO = new StoryNodeDAO(strtolower($_ENV["APP_ENV"]) == "debug");
             $stories = $storyNodeDAO->getUserStory(htmlspecialchars($params['userId']));
 
+            $storyTagDAO = new StoryTagDAO(strtolower($_ENV["APP_ENV"])  == "debug");
+            
+
             foreach ($stories as $key => $story) {
                 if ($story['StoryCover'] == NULL) {
                     $stories[$key]['StoryCover'] = '/assets/images/baseStoryCover.webp';
+                }else{
+                    $stories[$key]['StoryCover'] = '/assets/uploads/covers/'.$stories[$key]['StoryCover'];
                 }
 
+                $storyTagResult = $$storyTagDAO->getStoryTagByStoryId($story['StoryNodeSource']);
+                $story['StoryTag'] = $storyTagResult; 
             }
             
             if(!empty($user['UserName'])){
@@ -163,6 +173,9 @@ class AccountController {
                     "following" =>$following,
 
                 ]);
+                
+            }else{
+                Router::getInstance()->throwError("404", "Page not found");
             }
             
         } else {

@@ -3,11 +3,20 @@
 		<img src="{{ chapter.StoryCover|e }}">
 	</a>
 	<div class="infoStory">
+
 		<a href="/story/chapter/{{ chapter.StoryNodeId|e }}/read">
 			<h1>{{ chapter.StoryNodeTitle|e }}</h1>
 		</a>
 		
-		<p class="author">Par <a href="#">{{ chapter.StoryNodeAuthor|e }} </a> </p>
+		{% if userNameConnected is defined and  userAccountName is defined %}
+			<div class="modifChapter">
+				<a href="/story/chapter/{{chapter.StoryNodeId|e}}/edit">
+					<button class="modif-button">Modifier</button>
+				</a>
+			</div>
+		{% else %}
+			<p class="author">Par <a href="/user/{{ chapter.StoryNodeAuthor|e }}">{{ chapter.StoryNodeAuthor|e }} </a> </p>
+		{% endif %}
 
 		<div class="text"> 
 			<p> {{ chapter.StoryNodeText|e }} </p>
@@ -18,9 +27,12 @@
 					<label class="type-label"> {{ tag[0] }} </label>
 			{% endfor %}
 		</div>
-	</div>
 
-	<div>
-		<i class="icon fa-solid fa-sort fa-xl"></i>
+		<div class="likes">
+			<i class="fa-solid fa-thumbs-up fa-xl"></i>
+			<p>| {{ chapter.StoryNodeLikes|e }}</p>
+		</div>
+		
 	</div>
 </div>
+
