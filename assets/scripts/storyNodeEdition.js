@@ -10,7 +10,7 @@ deleteChapter.addEventListener("click", function() {
             method: 'POST'
         }).then(function(response) {
             alert("Le chapitre a bien été supprimé !");
-            window.history.back();
+            window.location.href = "/account";
         });
     }
 });
