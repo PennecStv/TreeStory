@@ -174,8 +174,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function setUser($column, $value, $condition) {
-        $requete = "UPDATE User SET ? = ? WHERE UserName = ?";
-        $this->queryRow($requete, [$column, $value, $condition]);
+        $requete = "UPDATE User SET $column = ? WHERE UserName = ?";
+        $this->queryRow($requete, [$value, $condition]);
     }
 
 
@@ -222,8 +222,8 @@ class UserDAO extends DAO {
      * Gives the number of follow by knowing his user name.
      */
     public function getFollowers($column, $userId){
-        $requete = "SELECT * FROM UserFollowerRelation WHERE ? = ?";
-        return $this->queryAll($requete, [$column, $userId]);
+        $requete = "SELECT * FROM UserFollowerRelation WHERE $column = ?";
+        return $this->queryAll($requete, [$userId]);
     }
 
     /**
