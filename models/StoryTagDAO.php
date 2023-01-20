@@ -17,12 +17,12 @@ class StoryTagDAO extends DAO {
 
     public function getStoryTag(String $condition, $column) {
         if($column == NULL) {
-            $req = "SELECT * FROM storytag";
+            $req = "SELECT * FROM StoryTag";
+            $res = $this->queryAll($req);
         } else {
-            $req = "SELECT * FROM storytag WHERE StoryTagId = '$condition'";
+            $req = "SELECT * FROM StoryTag WHERE StoryTagId = ?";
+            $res = $this->queryAll($req, [$condition]);
         }
-        
-        $res = $this->queryAll($req);
 
         return $res;
     }
@@ -30,10 +30,9 @@ class StoryTagDAO extends DAO {
 
 
     public function getStoryTagByStoryId($storyId) {
-
-        $req = "SELECT StoryTagTitle FROM storytag NATURAL JOIN storytagrelation WHERE StoryId = '$storyId'";
+        $req = "SELECT StoryTagTitle FROM StoryTag NATURAL JOIN StoryTagRelation WHERE StoryId = ?";
         
-        $res = $this->queryAll($req);
+        $res = $this->queryAll($req, [$storyId]);
 
         return $res;
     }

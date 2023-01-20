@@ -24,8 +24,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function insertUser(String $userName, String $userPassword, String $userMail) {
-        $requete = "INSERT INTO User (UserName, UserMail, UserPassword, UserCreatedAt) VALUES ('$userName', '$userMail', '$userPassword', CURDATE() )";
-        $this->queryRow($requete);
+        $requete = "INSERT INTO User (UserName, UserMail, UserPassword, UserCreatedAt) VALUES (?, ?, ?, CURDATE() )";
+        $this->queryRow($requete, [$userName, $userMail, $userPassword]);
     }
 
     /**
@@ -34,8 +34,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function deleteUser(String $userName) {
-        $requete = "DELETE FROM user WHERE UserName = '$userName'";
-        $this->queryRow($requete);
+        $requete = "DELETE FROM User WHERE UserName = ?";
+        $this->queryRow($requete, [$userName]);
     }
 
     
@@ -53,11 +53,11 @@ class UserDAO extends DAO {
      */
     public function getUser(String $condition, $column) {
         if($column == "token") {
-            $requete = "SELECT * FROM User WHERE UserToken = '$condition'";
+            $requete = "SELECT * FROM User WHERE UserToken = ?";
         } else {
-            $requete = "SELECT * FROM User WHERE UserName = '$condition'";
+            $requete = "SELECT * FROM User WHERE UserName = ?";
         }
-        return $this->queryRow($requete);
+        return $this->queryRow($requete, [$condition]);
     }
 
 
@@ -69,12 +69,7 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getUsersByResearch(String $input, $sort) {
-        
-        if ($input == null){
-            $req = "SELECT * FROM User";
-        } else {
-            $req = "SELECT * FROM User WHERE UserName LIKE '%$input%'";
-        }
+        $req = "SELECT * FROM User WHERE UserName LIKE ?";
 
         switch($sort){
             case "inorder":
@@ -101,7 +96,7 @@ class UserDAO extends DAO {
                 break;
         }
         
-        $res = $this->queryAll($req);
+        $res = $this->queryAll($req, ['%' . ($input == null ? '' : $input) . '%']);
 
         return $res;
     }
@@ -115,8 +110,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getPassword(String $userName) {
-        $requete = "SELECT UserPassword FROM user WHERE UserName = '$userName'";
-        return $this->queryRow($requete);
+        $requete = "SELECT UserPassword FROM User WHERE UserName = ?";
+        return $this->queryRow($requete, [$userName]);
     }
 
     /**
@@ -127,8 +122,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getMail(String $userName) {
-        $requete = "SELECT UserMail FROM user WHERE UserName = '$userName'";
-        return $this->queryRow($requete);
+        $requete = "SELECT UserMail FROM User WHERE UserName = ?";
+        return $this->queryRow($requete, [$userName]);
     }
 
     /**
@@ -139,8 +134,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getAvatar(String $userName) {
-        $requete = "SELECT UserAvatar FROM user WHERE UserName = '$userName'";
-        return $this->queryRow($requete);
+        $requete = "SELECT UserAvatar FROM User WHERE UserName = ?";
+        return $this->queryRow($requete, [$userName]);
     }
 
     /**
@@ -151,8 +146,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getBiography(String $userName) {
-        $requete = "SELECT UserBiography FROM user WHERE UserName = '$userName'";
-        return $this->queryRow($requete);
+        $requete = "SELECT UserBiography FROM User WHERE UserName = ?";
+        return $this->queryRow($requete, [$userName]);
     }
 
     /**
@@ -179,8 +174,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function setUser($column, $value, $condition) {
-        $requete = "UPDATE User SET $column = '$value' WHERE UserName = '$condition'";
-        $this->queryRow($requete);
+        $requete = "UPDATE User SET ? = ? WHERE UserName = ?";
+        $this->queryRow($requete, [$column, $value, $condition]);
     }
 
 
@@ -226,35 +221,35 @@ class UserDAO extends DAO {
     /**
      * Gives the number of follow by knowing his user name.
      */
-    public function getFollowers($column, $UserId){
-        $requete = "SELECT * FROM UserFollowerRelation WHERE $column = '$UserId'";
-        return $this->queryAll($requete);
+    public function getFollowers($column, $userId){
+        $requete = "SELECT * FROM UserFollowerRelation WHERE ? = ?";
+        return $this->queryAll($requete, [$column, $userId]);
     }
 
     /**
      * Gives the number of follow between two users.
      */
-    public function getFollows($UserId,$FollowingUserId){
-        $requete = "SELECT * FROM UserFollowerRelation WHERE UserId = '$UserId' AND FollowingUserId = '$FollowingUserId'";
-        return $this->queryRow($requete);
+    public function getFollows($userId, $followingUserId){
+        $requete = "SELECT * FROM UserFollowerRelation WHERE UserId = ? AND FollowingUserId = ?";
+        return $this->queryRow($requete, [$userId, $followingUserId]);
     }
 
 
     /**
      * Insert a follow relation between two users.
      */
-    public function insertFollowRelation($UserId,$FollowingUserId){
-        $requete = "INSERT INTO UserFollowerRelation (UserId, FollowingUserId) VALUES ('$UserId', '$FollowingUserId')";
-        $this->queryRow($requete);
+    public function insertFollowRelation($userId,$followingUserId){
+        $requete = "INSERT INTO UserFollowerRelation (UserId, FollowingUserId) VALUES (?, ?)";
+        $this->queryRow($requete, [$userId, $followingUserId]);
     }
 
     
     /**
      * Delete a follow relation between two users.
      */
-    public function deleteFollowRelation($UserId,$FollowingUserId){
-        $requete = "DELETE FROM UserFollowerRelation WHERE UserId = '$UserId' AND FollowingUserId = '$FollowingUserId'";
-        $this->queryRow($requete);
+    public function deleteFollowRelation($userId, $followingUserId){
+        $requete = "DELETE FROM UserFollowerRelation WHERE UserId = ? AND FollowingUserId = ?";
+        $this->queryRow($requete, [$userId, $followingUserId]);
     }
 
 
@@ -266,8 +261,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getUsersSubscribers($column,$userId){
-        $requete =" SELECT UserName,UserAvatar,UserBiography FROM userFollowerRelation INNER JOIN User ON User.UserName = userFollowerRelation.$column WHERE FollowingUserId='$userId'"; 
-        return $this->queryAll($requete);
+        $requete = "SELECT UserName,UserAvatar,UserBiography FROM UserFollowerRelation INNER JOIN User ON User.UserName = UserFollowerRelation.$column WHERE FollowingUserId=?"; 
+        return $this->queryAll($requete, [$userId]);
     }
 
     
@@ -279,8 +274,8 @@ class UserDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getUsersSubscriptions($column,$userId){
-        $requete =" SELECT UserName,UserAvatar,UserBiography FROM userFollowerRelation INNER JOIN User ON User.UserName = userFollowerRelation.$column WHERE UserId='$userId'"; 
-        return $this->queryAll($requete);
+        $requete = "SELECT UserName,UserAvatar,UserBiography FROM UserFollowerRelation INNER JOIN User ON User.UserName = UserFollowerRelation.$column WHERE UserId=?"; 
+        return $this->queryAll($requete, [$userId]);
     }
 }
 

@@ -22,8 +22,8 @@ class StoryNodeDAO extends DAO {
      * @return  false|PDOStatement        query results
      */
     public function getUserStory(String $userName) { 
-        $req = "SELECT * FROM StoryNode sn, Story s WHERE sn.StoryNodeSource = s.StoryId AND sn.StoryNodeAuthor = '$userName'";
-        return $this->queryAll($req);
+        $req = "SELECT * FROM StoryNode sn, Story s WHERE sn.StoryNodeSource = s.StoryId AND sn.StoryNodeAuthor = ?";
+        return $this->queryAll($req, [$userName]);
     }
     
     public function create(int $storyId, string $title, string $username, string $text, bool $anonymous, int $antecedent = null) {
@@ -146,7 +146,7 @@ class StoryNodeDAO extends DAO {
      * @param   String  $textComment   Text of the comment
      */
     public function addComments(String $username, int $storyNodeId, String $textComment) {
-        $this->insert("INSERT INTO Comment (CommentAuthor, CommentTarget, CommentMessage) VALUES (?, ?, ?);", [$username, $storyNodeId, $textComment]);
+        $this->insert("INSERT INTO Comment (CommentAuthor, CommentTarget, CommentMessage) VALUES (?, ?, ?)", [$username, $storyNodeId, $textComment]);
     }
 
 
@@ -171,12 +171,7 @@ class StoryNodeDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getStoryNodeByResearch(String $input, $sort) {
-        
-        if ($input == null){
-            $req = "SELECT * FROM storynode sn, story s WHERE sn.StoryNodeSource = s.StoryId";
-        } else {
-            $req = "SELECT * FROM storynode sn, story s WHERE sn.StoryNodeSource = s.StoryId AND sn.StoryNodeTitle LIKE '%$input%'";
-        }
+        $req = "SELECT * FROM StoryNode sn, Story s WHERE sn.StoryNodeSource = s.StoryId AND sn.StoryNodeTitle LIKE ?";
 
         switch($sort){
             case "inorder":
@@ -199,7 +194,7 @@ class StoryNodeDAO extends DAO {
                 break;
         }
         
-        $res = $this->queryAll($req);
+        $res = $this->queryAll($req, ['%' . ($input == null ? '' : $input) . '%']);
 
         return $res;
     }

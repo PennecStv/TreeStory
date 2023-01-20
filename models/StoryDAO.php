@@ -53,12 +53,7 @@ class StoryDAO extends DAO {
      * @return false|PDOStatement        query results of the story table + the published date of its first chapter
      */
     public function getStoryByResearch(String $input, $sort) {
-        
-        if ($input == null){
-            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL";
-        } else {
-            $req = "SELECT s.*, st.StoryNodePublishedAt FROM story s NATURAL JOIN storynode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL AND StoryTitle LIKE '%$input%'";
-        }
+        $req = "SELECT s.*, st.StoryNodePublishedAt FROM Story s NATURAL JOIN StoryNode st WHERE st.StoryNodeSource = s.StoryId AND StoryNodeRoot IS NULL AND StoryTitle LIKE ?";
 
         switch($sort){
             case "inorder":
@@ -77,7 +72,7 @@ class StoryDAO extends DAO {
                 break;
         }
         
-        $res = $this->queryAll($req);
+        $res = $this->queryAll($req, ['%' . ($input == null ? '' : $input) . '%']);
 
         return $res;
     }
@@ -91,9 +86,9 @@ class StoryDAO extends DAO {
      * @return false|PDOStatement        query results
      */
     public function getNbStoryNode(int $storyId) {
-        $req = "SELECT COUNT(storynode.StoryNodeId) as nbStoryNode FROM storynode WHERE storynode.StoryNodeSource = $storyId";
+        $req = "SELECT COUNT(StoryNode.StoryNodeId) as nbStoryNode FROM StoryNode WHERE StoryNode.StoryNodeSource = ?";
 
-        $res = $this->queryRow($req);
+        $res = $this->queryRow($req, [$storyId]);
 
         return $res["nbStoryNode"];
     }
